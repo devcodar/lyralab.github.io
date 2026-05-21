@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lyra Lab — Plataforma de IA</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://js.puter.com/v2/"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'Arial']
+          },
+          boxShadow: {
+            glow: '0 0 40px rgba(59, 130, 246, .25)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * { scroll-behavior: smooth; }
+    body { background: radial-gradient(circle at top left, #1e3a8a 0, transparent 28%), radial-gradient(circle at bottom right, #7c3aed 0, transparent 25%), #020617; }
+    .glass { background: rgba(15, 23, 42, .74); border: 1px solid rgba(148, 163, 184, .18); backdrop-filter: blur(18px); }
+    .soft-card { background: rgba(15, 23, 42, .62); border: 1px solid rgba(148, 163, 184, .16); }
+    .skill-chip { border: 1px solid rgba(148, 163, 184, .18); background: rgba(15, 23, 42, .72); color: #cbd5e1; }
+    .skill-chip-active { border-color: rgba(96, 165, 250, .75); background: linear-gradient(135deg, rgba(37, 99, 235, .92), rgba(124, 58, 237, .92)); color: white; }
+    .tab-active { background: linear-gradient(135deg, #2563eb, #7c3aed); color: white; }
+    .tab-inactive { background: rgba(30, 41, 59, .72); color: #cbd5e1; }
+    .typing-dot { animation: pulse 1s infinite ease-in-out; }
+    .typing-dot:nth-child(2) { animation-delay: .15s; }
+    .typing-dot:nth-child(3) { animation-delay: .3s; }
+    @keyframes pulse { 0%, 100% { opacity: .25; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-2px); } }
+    ::-webkit-scrollbar { width: 9px; height: 9px; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 999px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+
+    /* =========================================================
+       LYRA LAB — COSMIC PARALLAX BACKGROUND
+    ========================================================= */
+    body {
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(59,130,246,.10), transparent 20%),
+        radial-gradient(circle at 80% 30%, rgba(168,85,247,.10), transparent 22%),
+        radial-gradient(circle at 50% 80%, rgba(14,165,233,.07), transparent 20%),
+        #020617;
+    }
+
+    #cosmicBg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .parallax-layer {
+      position: absolute;
+      inset: -5%;
+      will-change: transform;
+      transition: transform 0.18s ease-out;
+    }
+
+    .cosmic-nebula {
+      background:
+        radial-gradient(circle at 20% 25%, rgba(59,130,246,.20), transparent 18%),
+        radial-gradient(circle at 70% 35%, rgba(139,92,246,.18), transparent 20%),
+        radial-gradient(circle at 45% 70%, rgba(6,182,212,.14), transparent 22%),
+        radial-gradient(circle at 80% 75%, rgba(99,102,241,.10), transparent 18%);
+      filter: blur(38px) saturate(130%);
+      opacity: .95;
+      animation: nebulaShift 18s ease-in-out infinite alternate;
+    }
+
+    .cosmic-glow {
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,.05), transparent 20%),
+        radial-gradient(circle at 52% 49%, rgba(96,165,250,.12), transparent 30%);
+      filter: blur(90px);
+      opacity: .8;
+      animation: pulseUniverse 12s ease-in-out infinite;
+    }
+
+    .cosmic-noise {
+      position: absolute;
+      inset: 0;
+      opacity: .035;
+      background-image: radial-gradient(rgba(255,255,255,.9) 0.5px, transparent 0.7px);
+      background-size: 8px 8px;
+      mix-blend-mode: screen;
+    }
+
+    #starfield {
+      width: 100%;
+      height: 100%;
+      opacity: .95;
+    }
+
+    #lyraConstellation {
+      width: 100%;
+      height: 100%;
+      opacity: .55;
+      filter: drop-shadow(0 0 12px rgba(96,165,250,.25));
+    }
+
+    #lyraConstellation .lyra-lines line {
+      stroke: rgba(148, 197, 255, .45);
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-dasharray: 8 8;
+      animation: constellationFlow 8s linear infinite;
+    }
+
+    #lyraConstellation .star { fill: rgba(255,255,255,.95); }
+    #lyraConstellation .star.major {
+      fill: #ffffff;
+      filter: drop-shadow(0 0 12px rgba(255,255,255,.9));
+      animation: twinkle 2.8s ease-in-out infinite;
+    }
+    #lyraConstellation .star.halo {
+      fill: rgba(96,165,250,.15);
+      animation: haloPulse 3.2s ease-in-out infinite;
+    }
+    #lyraConstellation .star:not(.major):not(.halo) { animation: twinkle 4s ease-in-out infinite; }
+
+    @keyframes nebulaShift {
+      0% { transform: scale(1) translate3d(0, 0, 0) rotate(0deg); }
+      100% { transform: scale(1.08) translate3d(1.5%, -1.2%, 0) rotate(2deg); }
+    }
+
+    @keyframes pulseUniverse {
+      0%, 100% { opacity: .55; transform: scale(1); }
+      50% { opacity: .9; transform: scale(1.06); }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: .55; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.18); }
+    }
+
+    @keyframes haloPulse {
+      0%, 100% { opacity: .2; transform: scale(1); }
+      50% { opacity: .6; transform: scale(1.12); }
+    }
+
+    @keyframes constellationFlow {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: -32; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cosmic-nebula,
+      .cosmic-glow,
+      #lyraConstellation .lyra-lines line,
+      #lyraConstellation .star.major,
+      #lyraConstellation .star.halo,
+      #lyraConstellation .star:not(.major):not(.halo) {
+        animation: none !important;
+      }
+      .parallax-layer { transition: none !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-100 font-sans" data-lang="pt">
+  <!-- Background cósmico Lyra Lab -->
+  <div id="cosmicBg" aria-hidden="true">
+    <div class="cosmic-nebula parallax-layer" data-depth="0.03"></div>
+    <canvas id="starfield" class="parallax-layer" data-depth="0.10"></canvas>
+
+    <svg
+      id="lyraConstellation"
+      class="parallax-layer"
+      data-depth="0.18"
+      viewBox="0 0 1000 1000"
+      preserveAspectRatio="xMidYMid slice"
+    >
+      <g class="lyra-lines">
+        <line x1="530" y1="250" x2="420" y2="420"></line>
+        <line x1="530" y1="250" x2="650" y2="380"></line>
+        <line x1="420" y1="420" x2="390" y2="620"></line>
+        <line x1="650" y1="380" x2="630" y2="610"></line>
+        <line x1="390" y1="620" x2="630" y2="610"></line>
+        <line x1="420" y1="420" x2="630" y2="610"></line>
+      </g>
+
+      <g class="lyra-stars">
+        <circle class="star major" cx="530" cy="250" r="7"></circle>
+        <circle class="star halo" cx="530" cy="250" r="18"></circle>
+        <circle class="star" cx="420" cy="420" r="4.5"></circle>
+        <circle class="star" cx="650" cy="380" r="4.5"></circle>
+        <circle class="star" cx="390" cy="620" r="4"></circle>
+        <circle class="star" cx="630" cy="610" r="4"></circle>
+      </g>
+    </svg>
+
+    <div class="cosmic-glow parallax-layer" data-depth="0.06"></div>
+    <div class="cosmic-noise"></div>
+  </div>
+
+  <!-- LOGIN -->
+  <main id="loginView" class="min-h-screen flex items-center justify-center p-5">
+    <section class="glass max-w-5xl w-full rounded-3xl shadow-glow overflow-hidden">
+      <div class="grid lg:grid-cols-[1.05fr_.95fr]">
+        <div class="p-8 sm:p-10 lg:p-12">
+          <div class="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-500/10 px-4 py-2 text-xs font-bold text-blue-200 mb-7">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span data-i18n="login.badge">Acesso exclusivo à plataforma</span>
+          </div>
+
+          <div class="mb-8">
+            <div class="w-16 h-16 rounded-3xl bg-gradient-to-br from-blue-500 to-violet-600 grid place-items-center shadow-lg mb-6">
+              <span class="text-3xl font-black">LY</span>
+            </div>
+            <h1 class="text-4xl sm:text-5xl font-black tracking-tight leading-tight"><span data-i18n="login.title">Lyra Lab, sua central de inteligência artificial.</span></h1>
+            <p class="text-slate-300 mt-5 leading-relaxed text-lg"><span data-i18n="login.subtitle">Crie textos, imagens, vídeos, áudios, transcrições e análises multimodais com uma experiência simples, moderna e integrada diretamente no navegador.</span></p>
+          </div>
+
+          <div class="grid sm:grid-cols-3 gap-3 mb-8">
+            <div class="rounded-2xl bg-slate-950/50 border border-slate-800 p-4">
+              <p class="text-xl font-black">Lyra</p>
+              <p class="text-xs text-slate-400 mt-1"><span data-i18n="stats.models">Modelos avançados</span></p>
+            </div>
+            <div class="rounded-2xl bg-slate-950/50 border border-slate-800 p-4">
+              <p class="text-xl font-black">100%</p>
+              <p class="text-xs text-slate-400 mt-1"><span data-i18n="stats.web">Interface web</span></p>
+            </div>
+            <div class="rounded-2xl bg-slate-950/50 border border-slate-800 p-4">
+              <p class="text-xl font-black">Tudo</p>
+              <p class="text-xs text-slate-400 mt-1"><span data-i18n="stats.file">Em um arquivo</span></p>
+            </div>
+          </div>
+
+          <p class="text-sm text-slate-500"><span data-i18n="author">Desenvolvido por Daniela Rodrigues • Salvador, Bahia, Brasil</span></p>
+        </div>
+
+        <div class="bg-slate-950/55 border-t lg:border-t-0 lg:border-l border-slate-800 p-8 sm:p-10 lg:p-12 flex items-center">
+          <div class="w-full">
+            <div class="mb-7">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <h2 class="text-2xl font-black" data-i18n="login.formTitle">Entrar na plataforma</h2>
+                  <p class="text-slate-400 mt-2" data-i18n="login.formSubtitle">Informe seu código de acesso para liberar o painel de ferramentas de IA.</p>
+                </div>
+                <select id="languageSelect" onchange="setLanguage(this.value)" class="rounded-xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-xs text-slate-200">
+                  <option value="pt">PT</option>
+                  <option value="en">EN</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <label class="block">
+                <span class="text-sm text-slate-300"><span data-i18n="login.codeLabel">Código de acesso</span></span>
+                <input id="accessCode" type="password" placeholder="Digite seu código exclusivo" data-i18n-placeholder="login.codePlaceholder" class="mt-2 w-full rounded-2xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500" />
+              </label>
+
+              <button onclick="login()" class="w-full rounded-2xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-3 font-bold hover:opacity-95 active:scale-[.99] transition"><span data-i18n="login.button">Acessar agora</span></button>
+
+              <p id="loginMsg" class="hidden rounded-2xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200"></p>
+            </div>
+
+            <div class="mt-6 rounded-2xl bg-slate-900/60 border border-slate-800 p-4 text-xs text-slate-400 leading-relaxed">
+              <span data-i18n="login.note">Lyra Lab é uma plataforma experimental para produtividade, criação de conteúdo e automação com IA. O acesso é restrito a usuários autorizados.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- APP -->
+  <main id="appView" class="hidden min-h-screen">
+    <header class="sticky top-0 z-40 border-b border-slate-800 bg-slate-950/80 backdrop-blur-xl">
+      <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div id="brandBadge" class="w-11 h-11 rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 grid place-items-center font-black">GPT</div>
+          <div>
+            <h1 class="font-black leading-tight">Lyra Lab</h1>
+            <p class="text-xs text-slate-400" data-i18n="author">Desenvolvido por Daniela Rodrigues • Salvador, Bahia, Brasil</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <select id="appLanguageSelect" onchange="setLanguage(this.value)" class="rounded-xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm text-slate-200">
+            <option value="pt">PT</option>
+            <option value="en">EN</option>
+          </select>
+          <button onclick="clearAll()" class="hidden sm:inline-flex rounded-xl border border-slate-700 px-3 py-2 text-sm text-slate-300 hover:bg-slate-800" data-i18n="actions.clear">Limpar</button>
+          <button onclick="logout()" class="rounded-xl bg-slate-800 px-3 py-2 text-sm text-slate-200 hover:bg-slate-700" data-i18n="actions.logout">Sair</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="max-w-7xl mx-auto px-4 py-6 grid lg:grid-cols-[280px_1fr] gap-5">
+      <!-- SIDEBAR -->
+      <aside class="glass rounded-3xl p-4 h-fit lg:sticky lg:top-24">
+        <nav class="grid gap-2" id="tabs">
+          <button onclick="showTab('chat')" data-tab="chat" class="tab-active text-left rounded-2xl px-4 py-3 font-semibold">💬 <span data-i18n="nav.chat">Chat IA</span></button>
+          <button onclick="showTab('image')" data-tab="image" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">🖼️ <span data-i18n="nav.image">Gerar imagem</span></button>
+          <button onclick="showTab('vision')" data-tab="vision" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">👁️ <span data-i18n="nav.vision">Analisar imagem/OCR</span></button>
+          <button onclick="showTab('video')" data-tab="video" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">🎬 <span data-i18n="nav.video">Gerar vídeo</span></button>
+          <button onclick="showTab('audio')" data-tab="audio" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">🔊 <span data-i18n="nav.audio">Texto para áudio</span></button>
+          <button onclick="showTab('transcription')" data-tab="transcription" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">🎙️ <span data-i18n="nav.transcription">Transcrição</span></button>
+          </nav>
+
+        <div class="mt-5 soft-card rounded-2xl p-4 text-xs text-slate-400 leading-relaxed">
+          <p class="font-bold text-slate-200 mb-1" data-i18n="author.short">Desenvolvido por Daniela Rodrigues</p>
+          <p data-i18n="location">Salvador, Bahia, Brasil</p>
+          <p class="mt-2" data-i18n="sidebar.note">Lyra Lab centraliza criação, análise, automação e produtividade em ambiente web.</p>
+        </div>
+      </aside>
+
+      <!-- CONTENT -->
+      <section class="space-y-5">
+
+        <!-- CHAT -->
+        <div id="tab-chat" class="tab-panel glass rounded-3xl p-5">
+          <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5">
+            <div>
+              <h2 class="text-2xl font-black"><span data-i18n="chat.title">Chat com IA</span></h2>
+              <p class="text-slate-400 mt-1"><span data-i18n="chat.subtitle">Escolha com quem deseja conversar e envie sua solicitação.</span></p>
+              <p id="activeAssistantInfo" class="mt-2 text-xs text-blue-200 bg-blue-500/10 border border-blue-400/20 rounded-xl px-3 py-2 inline-flex">Você está conversando com GPT — OpenAI.</p>
+            </div>
+            <div class="grid sm:grid-cols-3 gap-2 w-full md:w-auto">
+              <select id="chatMode" onchange="updateAssistantIdentity()" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm">
+                <option value="fast" data-i18n="mode.fast">GPT Mini — OpenAI</option>
+                <option value="advanced" data-i18n="mode.advanced">GPT Avançado — OpenAI</option>
+                <option value="creative" data-i18n="mode.creative">Claude Criativo — Anthropic</option>
+                <option value="technical" data-i18n="mode.technical">DeepSeek Técnico</option>
+                <option value="research" data-i18n="mode.research">Gemini Pesquisa — Google</option>
+                <option value="auto" data-i18n="mode.auto">Assistente Automático</option>
+              </select>
+              <input id="temperature" type="number" min="0" max="2" step="0.1" value="0.7" title="Temperatura" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm" />
+              <label class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm flex items-center gap-2"><input id="streamMode" type="checkbox" checked> stream</label>
+            </div>
+          </div>
+
+          <div class="mb-5 rounded-3xl bg-slate-950/40 border border-slate-800 p-4">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-4">
+              <div>
+                <h3 class="font-black" data-i18n="skills.title">Skills do assistente</h3>
+                <p class="text-sm text-slate-400" data-i18n="skills.subtitle">Escolha uma habilidade para orientar o modelo antes da resposta.</p>
+              </div>
+              <button onclick="toggleAdvancedContext()" class="rounded-xl border border-slate-700 px-3 py-2 text-sm text-slate-300 hover:bg-slate-800" data-i18n="skills.advanced">Contexto avançado</button>
+            </div>
+
+            <div id="skillChips" class="grid sm:grid-cols-2 xl:grid-cols-4 gap-2 mb-4"></div>
+
+            <div class="grid md:grid-cols-3 gap-3">
+              <label class="block">
+                <span class="text-xs text-slate-400" data-i18n="skills.goalLabel">Objetivo da resposta</span>
+                <select id="taskGoal" class="mt-1 w-full rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm">
+                  <option value="explain" data-i18n="goal.explain">Explicar</option>
+                  <option value="create" data-i18n="goal.create">Criar</option>
+                  <option value="improve" data-i18n="goal.improve">Melhorar</option>
+                  <option value="analyze" data-i18n="goal.analyze">Analisar</option>
+                  <option value="plan" data-i18n="goal.plan">Planejar</option>
+                  <option value="code" data-i18n="goal.code">Programar</option>
+                </select>
+              </label>
+              <label class="block">
+                <span class="text-xs text-slate-400" data-i18n="skills.toneLabel">Tom</span>
+                <select id="responseTone" class="mt-1 w-full rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm">
+                  <option value="professional" data-i18n="tone.professional">Profissional</option>
+                  <option value="didactic" data-i18n="tone.didactic">Didático</option>
+                  <option value="commercial" data-i18n="tone.commercial">Comercial</option>
+                  <option value="technical" data-i18n="tone.technical">Técnico</option>
+                  <option value="creative" data-i18n="tone.creative">Criativo</option>
+                </select>
+              </label>
+              <label class="block">
+                <span class="text-xs text-slate-400" data-i18n="skills.depthLabel">Profundidade</span>
+                <select id="responseDepth" class="mt-1 w-full rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm">
+                  <option value="short" data-i18n="depth.short">Curta</option>
+                  <option value="balanced" selected data-i18n="depth.balanced">Equilibrada</option>
+                  <option value="deep" data-i18n="depth.deep">Detalhada</option>
+                </select>
+              </label>
+            </div>
+
+            <div id="advancedContextBox" class="hidden mt-4 grid lg:grid-cols-[1fr_280px] gap-3">
+              <textarea id="projectContext" rows="4" placeholder="Contexto do projeto, público-alvo, regras, restrições, formato esperado..." data-i18n-placeholder="skills.contextPlaceholder" class="w-full rounded-3xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+              <div class="rounded-3xl bg-slate-900/70 border border-slate-800 p-4 text-sm text-slate-400">
+                <p class="font-bold text-slate-200 mb-2" data-i18n="skills.flowTitle">Fluxo inteligente</p>
+                <p data-i18n="skills.flowText">O sistema combina skill, objetivo, tom, profundidade e contexto antes de consultar o modelo.</p>
+              </div>
+            </div>
+
+            <div class="mt-4 flex flex-wrap gap-2">
+              <button onclick="usePromptTemplate('brief')" class="rounded-xl bg-slate-800 px-3 py-2 text-xs hover:bg-slate-700" data-i18n="template.brief">Criar briefing</button>
+              <button onclick="usePromptTemplate('requirements')" class="rounded-xl bg-slate-800 px-3 py-2 text-xs hover:bg-slate-700" data-i18n="template.requirements">Levantar requisitos</button>
+              <button onclick="usePromptTemplate('stepByStep')" class="rounded-xl bg-slate-800 px-3 py-2 text-xs hover:bg-slate-700" data-i18n="template.stepByStep">Passo a passo</button>
+              <button onclick="usePromptTemplate('critique')" class="rounded-xl bg-slate-800 px-3 py-2 text-xs hover:bg-slate-700" data-i18n="template.critique">Análise crítica</button>
+            </div>
+          </div>
+
+          <div id="chatBox" class="h-[420px] overflow-auto rounded-3xl bg-slate-950/50 border border-slate-800 p-4 space-y-4"></div>
+
+          <div class="mt-4 grid md:grid-cols-[1fr_auto] gap-3">
+            <textarea id="chatInput" rows="3" placeholder="Digite sua pergunta..." data-i18n-placeholder="chat.placeholder" class="rounded-3xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+            <button onclick="sendChat()" class="rounded-3xl bg-gradient-to-r from-blue-600 to-violet-600 px-7 py-3 font-bold hover:opacity-95"><span data-i18n="actions.send">Enviar</span></button>
+          </div>
+        </div>
+
+        <!-- IMAGE -->
+        <div id="tab-image" class="tab-panel hidden glass rounded-3xl p-5">
+          <h2 class="text-2xl font-black"><span data-i18n="image.title">Gerador de imagens</span></h2>
+          <p class="text-slate-400 mt-1 mb-5"><span data-i18n="image.subtitle">Gere imagens com modos criativos otimizados.</span></p>
+
+          <div class="grid lg:grid-cols-[1fr_420px] gap-5">
+            <div class="space-y-3">
+              <textarea id="imagePrompt" rows="7" placeholder="Ex.: interface futurista da Lyra Lab, glassmorphism, neon azul e roxo, alta qualidade..." class="w-full rounded-3xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+              <div class="grid sm:grid-cols-3 gap-3">
+                <select id="imageMode" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm">
+                  <option value="auto" data-i18n="image.mode.auto">Imagem Automática</option>
+                  <option value="creative" data-i18n="image.mode.creative">Gemini Imagem — Google</option>
+                  <option value="advanced" data-i18n="image.mode.advanced">GPT Image — OpenAI</option>
+                </select>
+                <label class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm flex items-center gap-2"><input id="imgTestMode" type="checkbox"> testMode</label>
+                <button onclick="generateImage()" class="rounded-2xl bg-blue-600 px-4 py-2 font-bold hover:bg-blue-500"><span data-i18n="actions.generate">Gerar</span></button>
+              </div>
+            </div>
+            <div id="imageOutput" class="min-h-[320px] rounded-3xl bg-slate-950/50 border border-slate-800 p-4 grid place-items-center text-slate-500"><span data-i18n="image.output">A imagem aparecerá aqui.</span></div>
+          </div>
+        </div>
+
+        <!-- VISION -->
+        <div id="tab-vision" class="tab-panel hidden glass rounded-3xl p-5">
+          <h2 class="text-2xl font-black"><span data-i18n="vision.title">Análise de imagem e OCR</span></h2>
+          <p class="text-slate-400 mt-1 mb-5"><span data-i18n="vision.subtitle">Envie uma imagem para extrair texto ou pedir uma análise multimodal.</span></p>
+
+          <div class="grid lg:grid-cols-2 gap-5">
+            <div class="space-y-3">
+              <input id="visionFile" type="file" accept="image/*" class="block w-full text-sm text-slate-300 file:mr-4 file:rounded-xl file:border-0 file:bg-blue-600 file:px-4 file:py-2 file:text-white hover:file:bg-blue-500" />
+              <textarea id="visionPrompt" rows="5" class="w-full rounded-3xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none">Descreva a imagem em detalhes e extraia qualquer texto visível.</textarea>
+              <div class="grid sm:grid-cols-2 gap-3">
+                <button onclick="analyzeImage()" class="rounded-2xl bg-blue-600 px-4 py-2 font-bold hover:bg-blue-500"><span data-i18n="vision.analyze">Analisar com chat</span></button>
+                <button onclick="ocrImage()" class="rounded-2xl bg-slate-800 px-4 py-2 font-bold hover:bg-slate-700"><span data-i18n="vision.ocr">Extrair texto/OCR</span></button>
+              </div>
+            </div>
+            <div id="visionOutput" class="min-h-[320px] rounded-3xl bg-slate-950/50 border border-slate-800 p-4 overflow-auto text-slate-300 whitespace-pre-wrap"><span data-i18n="vision.output">Resultado aparecerá aqui.</span></div>
+          </div>
+        </div>
+
+        <!-- VIDEO -->
+        <div id="tab-video" class="tab-panel hidden glass rounded-3xl p-5">
+          <h2 class="text-2xl font-black"><span data-i18n="video.title">Texto para vídeo</span></h2>
+          <p class="text-slate-400 mt-1 mb-5"><span data-i18n="video.subtitle">Gere clipes curtos a partir de descrições criativas.</span></p>
+
+          <div class="grid lg:grid-cols-[1fr_420px] gap-5">
+            <div class="space-y-3">
+              <textarea id="videoPrompt" rows="7" placeholder="Ex.: câmera sobrevoando uma cidade futurista à noite, luzes neon, chuva, estilo cinematográfico..." class="w-full rounded-3xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+              <label class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm flex items-center gap-2 w-fit"><input id="vidTestMode" type="checkbox" checked> testMode</label>
+              <button onclick="generateVideo()" class="rounded-2xl bg-blue-600 px-5 py-3 font-bold hover:bg-blue-500">Gerar vídeo</button>
+            </div>
+            <div id="videoOutput" class="min-h-[320px] rounded-3xl bg-slate-950/50 border border-slate-800 p-4 grid place-items-center text-slate-500"><span data-i18n="video.output">O vídeo aparecerá aqui.</span></div>
+          </div>
+        </div>
+
+        <!-- AUDIO -->
+        <div id="tab-audio" class="tab-panel hidden glass rounded-3xl p-5">
+          <h2 class="text-2xl font-black"><span data-i18n="audio.title">Texto para áudio</span></h2>
+          <p class="text-slate-400 mt-1 mb-5"><span data-i18n="audio.subtitle">Transforme texto em fala natural.</span></p>
+
+          <textarea id="ttsText" rows="7" placeholder="Digite o texto para narrar..." data-i18n-placeholder="audio.placeholder" class="w-full rounded-3xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+          <div class="mt-3 grid sm:grid-cols-3 gap-3">
+            <input id="ttsLang" value="pt-BR" placeholder="Idioma: pt-BR" data-i18n-placeholder="audio.langPlaceholder" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm" />
+            <input id="ttsVoice" placeholder="Voz opcional" data-i18n-placeholder="audio.voicePlaceholder" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm" />
+            <button onclick="generateSpeech()" class="rounded-2xl bg-blue-600 px-4 py-2 font-bold hover:bg-blue-500"><span data-i18n="audio.button">Gerar áudio</span></button>
+          </div>
+          <div id="audioOutput" class="mt-4 rounded-3xl bg-slate-950/50 border border-slate-800 p-4 text-slate-400"><span data-i18n="audio.output">O player aparecerá aqui.</span></div>
+        </div>
+
+        <!-- TRANSCRIPTION -->
+        <div id="tab-transcription" class="tab-panel hidden glass rounded-3xl p-5">
+          <h2 class="text-2xl font-black"><span data-i18n="transcription.title">Transcrição de áudio</span></h2>
+          <p class="text-slate-400 mt-1 mb-5"><span data-i18n="transcription.subtitle">Use um arquivo local de áudio para gerar transcrição.</span></p>
+
+          <div class="space-y-3">
+            <input id="audioFile" type="file" accept="audio/*,video/*" class="block w-full text-sm text-slate-300 file:mr-4 file:rounded-xl file:border-0 file:bg-blue-600 file:px-4 file:py-2 file:text-white hover:file:bg-blue-500" />
+            <button onclick="transcribeAudio()" class="rounded-2xl bg-blue-600 px-5 py-3 font-bold hover:bg-blue-500"><span data-i18n="transcription.button">Transcrever</span></button>
+            <div id="transcriptionOutput" class="min-h-[220px] rounded-3xl bg-slate-950/50 border border-slate-800 p-4 overflow-auto text-slate-300 whitespace-pre-wrap"><span data-i18n="transcription.output">A transcrição aparecerá aqui.</span></div>
+          </div>
+        </div>
+
+        </section>
+    </section>
+  </main>
+
+  <script>
+    // =========================================================
+    // CONFIGURAÇÃO DO LOGIN
+    // =========================================================
+    // Hash SHA-256 do código de acesso autorizado.
+    // Para gerar outro hash no navegador:
+    // crypto.subtle.digest('SHA-256', new TextEncoder().encode('SEU-CODIGO'))
+    const ACCESS_CODE_HASHES = [
+      '4b857052aac2d4c8b0928988cd40d7ecf3af5d8b814d95b3b61868df11426bd4'
+    ];
+
+    const STORAGE_KEY = 'ai_studio_access_ok_v1';
+    const LANG_KEY = 'ai_studio_lang_v1';
+    let conversation = [];
+    let currentLang = localStorage.getItem(LANG_KEY) || 'pt';
+    let selectedSkill = 'general';
+    let advancedContextOpen = false;
+
+    const AI_MODES = {
+      fast: { model: 'gpt-4o-mini', brand: 'GPT', provider: 'OpenAI', badge: 'GPT', pt: 'GPT Mini — OpenAI', en: 'GPT Mini — OpenAI', instruction: 'Prioritize speed, clarity and concise answers.' },
+      advanced: { model: 'gpt-4o', brand: 'GPT', provider: 'OpenAI', badge: 'GPT', pt: 'GPT Avançado — OpenAI', en: 'Advanced GPT — OpenAI', instruction: 'Prioritize deeper reasoning, completeness and high-quality structure.' },
+      creative: { model: 'claude-sonnet-4', brand: 'Claude', provider: 'Anthropic', badge: 'CL', pt: 'Claude Criativo — Anthropic', en: 'Creative Claude — Anthropic', instruction: 'Prioritize creative direction, originality, storytelling and polished outputs.' },
+      technical: { model: 'deepseek-chat', brand: 'DeepSeek', provider: 'DeepSeek', badge: 'DS', pt: 'DeepSeek Técnico', en: 'Technical DeepSeek', instruction: 'Prioritize technical precision, implementation detail, architecture and code-level reasoning.' },
+      research: { model: 'gemini-2.0-flash', brand: 'Gemini', provider: 'Google', badge: 'GM', pt: 'Gemini Pesquisa — Google', en: 'Research Gemini — Google', instruction: 'Prioritize structured analysis, synthesis, research framing and evidence-oriented reasoning.' },
+      auto: { model: '', brand: 'Assistente Automático', provider: 'Lyra Lab', badge: 'LY', pt: 'Assistente Automático', en: 'Auto Assistant', instruction: 'Select the most appropriate response strategy automatically.' }
+    };
+
+    const SKILLS = {
+      general: { icon: '✨', pt: 'Assistente geral', en: 'General assistant', prompt: 'Act as a precise, practical AI assistant. Understand the user intent and deliver a useful answer with clear next steps.' },
+      product: { icon: '🧭', pt: 'Product Manager', en: 'Product Manager', prompt: 'Act as a senior product manager. Convert ideas into value proposition, target audience, user journey, requirements, priorities, MVP scope, risks, metrics, roadmap and execution plan.' },
+      ux: { icon: '🎨', pt: 'UX/UI Design', en: 'UX/UI Design', prompt: 'Act as a senior UX/UI designer. Focus on usability, accessibility, information architecture, user flow, microcopy, visual hierarchy, design system, friction reduction and conversion.' },
+      dev: { icon: '💻', pt: 'Software Engineer', en: 'Software Engineer', prompt: 'Act as a senior software engineer. Prioritize architecture, clean code, security, scalability, maintainability, error handling, documentation and implementation steps.' },
+      marketing: { icon: '📣', pt: 'Marketing e vendas', en: 'Marketing and sales', prompt: 'Act as a growth and marketing strategist. Improve positioning, offer, copywriting, acquisition channels, conversion, objections, pricing logic and go-to-market execution.' },
+      research: { icon: '🔬', pt: 'Pesquisa acadêmica', en: 'Academic research', prompt: 'Act as an academic research advisor. Structure arguments with rigor, methodology, literature framing, research gaps, hypotheses, limitations, technical vocabulary and formal writing.' },
+      data: { icon: '📊', pt: 'Dados e análise', en: 'Data analysis', prompt: 'Act as a data analyst. Transform raw information into insights, assumptions, metrics, data model, analysis logic, visualizations, validation criteria and decision recommendations.' },
+      creative: { icon: '🎬', pt: 'Criativo multimodal', en: 'Multimodal creative', prompt: 'Act as a creative director for text, image, audio and video. Produce strong concepts, prompts, scenes, scripts, mood, style direction and production-ready creative instructions.' }
+    };
+
+    const I18N = {
+      pt: {
+        'login.badge': 'Acesso exclusivo à plataforma',
+        'login.title': 'Lyra Lab, sua central de inteligência artificial.',
+        'login.subtitle': 'Crie textos, imagens, vídeos, áudios, transcrições e análises multimodais com uma experiência simples, moderna e integrada diretamente no navegador.',
+        'stats.models': 'Modos inteligentes',
+        'stats.web': 'Interface web',
+        'stats.file': 'Em um arquivo',
+        'author': 'Desenvolvido por Daniela Rodrigues • Salvador, Bahia, Brasil',
+        'author.short': 'Desenvolvido por Daniela Rodrigues',
+        'location': 'Salvador, Bahia, Brasil',
+        'login.formTitle': 'Entrar na plataforma',
+        'login.formSubtitle': 'Informe seu código de acesso para liberar o painel de ferramentas de IA.',
+        'login.codeLabel': 'Código de acesso',
+        'login.codePlaceholder': 'Digite seu código exclusivo',
+        'login.button': 'Acessar agora',
+        'login.note': 'Lyra Lab é uma plataforma experimental para produtividade, criação de conteúdo e automação com IA. O acesso é restrito a usuários autorizados.',
+        'actions.clear': 'Limpar',
+        'actions.logout': 'Sair',
+        'actions.send': 'Enviar',
+        'actions.generate': 'Gerar',
+        'nav.chat': 'Chat IA',
+        'nav.image': 'Gerar imagem',
+        'nav.vision': 'Analisar imagem/OCR',
+        'nav.video': 'Gerar vídeo',
+        'nav.audio': 'Texto para áudio',
+        'nav.transcription': 'Transcrição',
+        'sidebar.note': 'Lyra Lab centraliza criação, análise, automação e produtividade em ambiente web.',
+        'chat.title': 'Chat com IA',
+        'chat.subtitle': 'Escolha com quem deseja conversar e envie sua solicitação.',
+        'chat.activePrefix': 'Você está conversando com',
+        'chat.placeholder': 'Digite sua pergunta...',
+        'image.title': 'Gerador de imagens',
+        'image.subtitle': 'Gere imagens com modos criativos otimizados.',
+        'image.defaultModel': 'Modelo padrão',
+        'image.output': 'A imagem aparecerá aqui.',
+        'image.mode.auto': 'Imagem Automática',
+        'image.mode.creative': 'Gemini Imagem — Google',
+        'image.mode.advanced': 'GPT Image — OpenAI',
+        'vision.title': 'Análise de imagem e OCR',
+        'vision.subtitle': 'Envie uma imagem para extrair texto ou pedir uma análise multimodal.',
+        'vision.analyze': 'Analisar com chat',
+        'vision.ocr': 'Extrair texto/OCR',
+        'vision.output': 'Resultado aparecerá aqui.',
+        'video.title': 'Texto para vídeo',
+        'video.subtitle': 'Gere clipes curtos a partir de descrições criativas.',
+        'video.button': 'Gerar vídeo',
+        'video.output': 'O vídeo aparecerá aqui.',
+        'audio.title': 'Texto para áudio',
+        'audio.subtitle': 'Transforme texto em fala natural.',
+        'audio.placeholder': 'Digite o texto para narrar...',
+        'audio.langPlaceholder': 'Idioma: pt-BR',
+        'audio.voicePlaceholder': 'Voz opcional',
+        'audio.button': 'Gerar áudio',
+        'audio.output': 'O player aparecerá aqui.',
+        'transcription.title': 'Transcrição de áudio',
+        'transcription.subtitle': 'Use um arquivo local de áudio para gerar transcrição.',
+        'transcription.button': 'Transcrever',
+        'transcription.output': 'A transcrição aparecerá aqui.',
+        
+        'skills.title': 'Skills do assistente',
+        'skills.subtitle': 'Escolha uma habilidade para orientar o modelo antes da resposta.',
+        'skills.advanced': 'Contexto avançado',
+        'skills.goalLabel': 'Objetivo da resposta',
+        'skills.toneLabel': 'Tom',
+        'skills.depthLabel': 'Profundidade',
+        'skills.contextPlaceholder': 'Contexto do projeto, público-alvo, regras, restrições, formato esperado...',
+        'skills.flowTitle': 'Fluxo inteligente',
+        'skills.flowText': 'O sistema combina skill, objetivo, tom, profundidade e contexto antes de consultar o modelo.',
+        'goal.explain': 'Explicar',
+        'goal.create': 'Criar',
+        'goal.improve': 'Melhorar',
+        'goal.analyze': 'Analisar',
+        'goal.plan': 'Planejar',
+        'goal.code': 'Programar',
+        'tone.professional': 'Profissional',
+        'tone.didactic': 'Didático',
+        'tone.commercial': 'Comercial',
+        'tone.technical': 'Técnico',
+        'tone.creative': 'Criativo',
+        'depth.short': 'Curta',
+        'depth.balanced': 'Equilibrada',
+        'depth.deep': 'Detalhada',
+        'template.brief': 'Criar briefing',
+        'template.requirements': 'Levantar requisitos',
+        'template.stepByStep': 'Passo a passo',
+        'template.critique': 'Análise crítica',
+        'mode.fast': 'GPT Mini — OpenAI',
+        'mode.advanced': 'GPT Avançado — OpenAI',
+        'mode.creative': 'Claude Criativo — Anthropic',
+        'mode.technical': 'DeepSeek Técnico',
+        'mode.research': 'Gemini Pesquisa — Google',
+        'mode.auto': 'Assistente Automático'
+      },
+      en: {
+        'login.badge': 'Exclusive Platform Access',
+        'login.title': 'Lyra Lab, your AI command center.',
+        'login.subtitle': 'Create texts, images, videos, audio, transcriptions and multimodal analysis in a simple, modern and browser-based experience.',
+        'stats.models': 'Smart modes',
+        'stats.web': 'Web interface',
+        'stats.file': 'Single file',
+        'author': 'Developed by Daniela Rodrigues • Salvador, Bahia, Brazil',
+        'author.short': 'Developed by Daniela Rodrigues',
+        'location': 'Salvador, Bahia, Brazil',
+        'login.formTitle': 'Access the platform',
+        'login.formSubtitle': 'Enter your access code to unlock the AI tools dashboard.',
+        'login.codeLabel': 'Access code',
+        'login.codePlaceholder': 'Enter your exclusive code',
+        'login.button': 'Access now',
+        'login.note': 'Lyra Lab is an experimental platform for productivity, content creation and AI automation. Access is restricted to authorized users.',
+        'actions.clear': 'Clear',
+        'actions.logout': 'Logout',
+        'actions.send': 'Send',
+        'actions.generate': 'Generate',
+        'nav.chat': 'AI Chat',
+        'nav.image': 'Generate image',
+        'nav.vision': 'Analyze image/OCR',
+        'nav.video': 'Generate video',
+        'nav.audio': 'Text to audio',
+        'nav.transcription': 'Transcription',
+        'sidebar.note': 'Lyra Lab centralizes creation, analysis, automation and productivity in a web environment.',
+        'chat.title': 'AI Chat',
+        'chat.subtitle': 'Choose who you want to talk to and send your request.',
+        'chat.activePrefix': 'You are talking to',
+        'chat.placeholder': 'Type your question...',
+        'image.title': 'Image Generator',
+        'image.subtitle': 'Generate images with optimized creative modes.',
+        'image.defaultModel': 'Default model',
+        'image.output': 'The image will appear here.',
+        'image.mode.auto': 'Auto Image',
+        'image.mode.creative': 'Gemini Image — Google',
+        'image.mode.advanced': 'GPT Image — OpenAI',
+        'vision.title': 'Image Analysis and OCR',
+        'vision.subtitle': 'Upload an image to extract text or request a multimodal analysis.',
+        'vision.analyze': 'Analyze with chat',
+        'vision.ocr': 'Extract text/OCR',
+        'vision.output': 'The result will appear here.',
+        'video.title': 'Text to Video',
+        'video.subtitle': 'Generate short clips from creative descriptions.',
+        'video.button': 'Generate video',
+        'video.output': 'The video will appear here.',
+        'audio.title': 'Text to Audio',
+        'audio.subtitle': 'Convert text into natural speech.',
+        'audio.placeholder': 'Type the text to narrate...',
+        'audio.langPlaceholder': 'Language: en-US',
+        'audio.voicePlaceholder': 'Optional voice',
+        'audio.button': 'Generate audio',
+        'audio.output': 'The player will appear here.',
+        'transcription.title': 'Audio Transcription',
+        'transcription.subtitle': 'Use a local audio file to generate a transcription.',
+        'transcription.button': 'Transcribe',
+        'transcription.output': 'The transcription will appear here.',
+        
+        'skills.title': 'Assistant skills',
+        'skills.subtitle': 'Choose a skill to guide the model before the answer.',
+        'skills.advanced': 'Advanced context',
+        'skills.goalLabel': 'Response goal',
+        'skills.toneLabel': 'Tone',
+        'skills.depthLabel': 'Depth',
+        'skills.contextPlaceholder': 'Project context, target audience, rules, constraints, expected format...',
+        'skills.flowTitle': 'Smart flow',
+        'skills.flowText': 'The system combines skill, goal, tone, depth and context before calling the model.',
+        'goal.explain': 'Explain',
+        'goal.create': 'Create',
+        'goal.improve': 'Improve',
+        'goal.analyze': 'Analyze',
+        'goal.plan': 'Plan',
+        'goal.code': 'Code',
+        'tone.professional': 'Professional',
+        'tone.didactic': 'Didactic',
+        'tone.commercial': 'Commercial',
+        'tone.technical': 'Technical',
+        'tone.creative': 'Creative',
+        'depth.short': 'Short',
+        'depth.balanced': 'Balanced',
+        'depth.deep': 'Detailed',
+        'template.brief': 'Create brief',
+        'template.requirements': 'Gather requirements',
+        'template.stepByStep': 'Step by step',
+        'template.critique': 'Critical analysis',
+        'mode.fast': 'GPT Mini — OpenAI',
+        'mode.advanced': 'Advanced GPT — OpenAI',
+        'mode.creative': 'Creative Claude — Anthropic',
+        'mode.technical': 'Technical DeepSeek',
+        'mode.research': 'Research Gemini — Google',
+        'mode.auto': 'Auto Assistant'
+      }
+    };
+
+    function t(key) {
+      return I18N[currentLang]?.[key] || I18N.pt[key] || key;
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang === 'en' ? 'en' : 'pt';
+      localStorage.setItem(LANG_KEY, currentLang);
+      document.documentElement.lang = currentLang === 'en' ? 'en' : 'pt-BR';
+      document.body.dataset.lang = currentLang;
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        el.textContent = t(el.dataset.i18n);
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        el.setAttribute('placeholder', t(el.dataset.i18nPlaceholder));
+      });
+      document.querySelectorAll('select#languageSelect, select#appLanguageSelect').forEach(select => {
+        select.value = currentLang;
+      });
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (I18N[currentLang]?.[key]) el.textContent = t(key);
+      });
+      renderSkillChips();
+      updateAssistantIdentity();
+
+      const ttsLang = document.getElementById('ttsLang');
+      if (ttsLang && (!ttsLang.value || ['pt-BR', 'en-US'].includes(ttsLang.value))) {
+        ttsLang.value = currentLang === 'en' ? 'en-US' : 'pt-BR';
+      }
+    }
+
+    window.addEventListener('load', () => {
+      initCosmicBackground();
+      setLanguage(currentLang);
+      if (localStorage.getItem(STORAGE_KEY) === 'true') openApp();
+      document.getElementById('accessCode').addEventListener('keydown', e => {
+        if (e.key === 'Enter') login();
+      });
+      document.getElementById('chatInput').addEventListener('keydown', e => {
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) sendChat();
+      });
+      renderSkillChips();
+      addChatMessage('assistant', currentLang === 'en' ? 'Hello! Platform developed by Daniela Rodrigues — Salvador, Bahia, Brazil. Choose a skill, define the response goal and send your request.' : 'Olá! Plataforma desenvolvida por Daniela Rodrigues — Salvador, Bahia, Brasil. Escolha uma skill, defina o objetivo da resposta e envie sua solicitação.');
+    });
+
+    async function sha256(text) {
+      const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+      return [...new Uint8Array(buffer)].map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function login() {
+      const code = document.getElementById('accessCode').value.trim();
+      const msg = document.getElementById('loginMsg');
+      msg.classList.add('hidden');
+      if (!code) return showLoginError(currentLang === 'en' ? 'Enter the access code.' : 'Digite o código de acesso.');
+      const hash = await sha256(code);
+      if (ACCESS_CODE_HASHES.includes(hash)) {
+        localStorage.setItem(STORAGE_KEY, 'true');
+        openApp();
+      } else {
+        showLoginError(currentLang === 'en' ? 'Invalid code. Please check and try again.' : 'Código inválido. Verifique e tente novamente.');
+      }
+    }
+
+    function showLoginError(text) {
+      const msg = document.getElementById('loginMsg');
+      msg.textContent = text;
+      msg.classList.remove('hidden');
+    }
+
+    function openApp() {
+      document.getElementById('loginView').classList.add('hidden');
+      document.getElementById('appView').classList.remove('hidden');
+      setLanguage(currentLang);
+    }
+
+    function logout() {
+      localStorage.removeItem(STORAGE_KEY);
+      location.reload();
+    }
+
+    function getCurrentAssistant() {
+      const modeKey = document.getElementById('chatMode')?.value || 'fast';
+      return AI_MODES[modeKey] || AI_MODES.fast;
+    }
+
+    function updateAssistantIdentity() {
+      const assistant = getCurrentAssistant();
+      const info = document.getElementById('activeAssistantInfo');
+      const badge = document.getElementById('brandBadge');
+      if (info) {
+        info.textContent = `${t('chat.activePrefix')} ${assistant.brand} — ${assistant.provider}.`;
+      }
+      if (badge) {
+        badge.textContent = assistant.badge;
+      }
+    }
+
+    function renderSkillChips() {
+      const box = document.getElementById('skillChips');
+      if (!box) return;
+      box.innerHTML = Object.entries(SKILLS).map(([key, skill]) => {
+        const active = key === selectedSkill;
+        const label = currentLang === 'en' ? skill.en : skill.pt;
+        return `<button onclick="selectSkill('${key}')" class="${active ? 'skill-chip-active' : 'skill-chip'} rounded-2xl px-4 py-3 text-left text-sm font-semibold transition hover:opacity-95"><span class="mr-2">${skill.icon}</span>${escapeHtml(label)}</button>`;
+      }).join('');
+    }
+
+    function selectSkill(key) {
+      selectedSkill = SKILLS[key] ? key : 'general';
+      renderSkillChips();
+    }
+
+    function toggleAdvancedContext() {
+      advancedContextOpen = !advancedContextOpen;
+      const box = document.getElementById('advancedContextBox');
+      if (box) box.classList.toggle('hidden', !advancedContextOpen);
+    }
+
+    function usePromptTemplate(type) {
+      const input = document.getElementById('chatInput');
+      const templates = {
+        pt: {
+          brief: 'Crie um briefing estruturado para este projeto considerando objetivo, público-alvo, funcionalidades, diferenciais, riscos e próximos passos: ',
+          requirements: 'Levante os requisitos funcionais, não funcionais, regras de negócio, prioridades e critérios de aceite para: ',
+          stepByStep: 'Explique em um passo a passo claro, prático e executável como fazer: ',
+          critique: 'Faça uma análise crítica apontando pontos fortes, fragilidades, riscos, melhorias e recomendações sobre: '
+        },
+        en: {
+          brief: 'Create a structured brief for this project considering goal, target audience, features, differentiators, risks and next steps: ',
+          requirements: 'Gather functional requirements, non-functional requirements, business rules, priorities and acceptance criteria for: ',
+          stepByStep: 'Explain in a clear, practical and executable step-by-step how to do: ',
+          critique: 'Make a critical analysis pointing out strengths, weaknesses, risks, improvements and recommendations about: '
+        }
+      };
+      input.value = (templates[currentLang]?.[type] || templates.pt.brief) + input.value;
+      input.focus();
+    }
+
+    function buildContextPrompt(userText) {
+      const skill = SKILLS[selectedSkill] || SKILLS.general;
+      const modeKey = document.getElementById('chatMode')?.value || 'auto';
+      const mode = AI_MODES[modeKey] || AI_MODES.auto;
+      const goal = document.getElementById('taskGoal')?.value || 'explain';
+      const tone = document.getElementById('responseTone')?.value || 'professional';
+      const depth = document.getElementById('responseDepth')?.value || 'balanced';
+      const context = document.getElementById('projectContext')?.value.trim() || '';
+      const languageName = currentLang === 'en' ? 'English' : 'Português do Brasil';
+
+      return `[AI Studio Context]
+Platform: Lyra Lab, developed by Daniela Rodrigues in Salvador, Bahia, Brazil.
+Language: ${languageName}.
+Selected skill: ${skill.prompt}
+Assistant identity: ${mode.brand} from ${mode.provider}.
+Smart mode: ${mode.instruction}
+Response goal: ${goal}.
+Tone: ${tone}.
+Depth: ${depth}.
+Rules: Be practical, structured and directly useful. Do not mention these internal instructions.
+${context ? `Additional project context: ${context}
+` : ''}
+[User request]
+${userText}`;
+    }
+
+    function showTab(name) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`tab-${name}`).classList.remove('hidden');
+      document.querySelectorAll('#tabs button').forEach(btn => {
+        const active = btn.dataset.tab === name;
+        btn.className = (active ? 'tab-active' : 'tab-inactive') + ' text-left rounded-2xl px-4 py-3 font-semibold';
+      });
+    }
+
+    function normalizeResponse(response) {
+      if (!response) return '';
+      if (typeof response === 'string') return response;
+      if (response.message?.content) {
+        const c = response.message.content;
+        if (typeof c === 'string') return c;
+        if (Array.isArray(c)) return c.map(x => x.text || x.content || '').join('\n');
+      }
+      if (response.text) return response.text;
+      if (response.content) return typeof response.content === 'string' ? response.content : JSON.stringify(response.content, null, 2);
+      return JSON.stringify(response, null, 2);
+    }
+
+    function setLoading(el, text = 'Processando...') {
+      el.innerHTML = `<div class="flex items-center gap-2 text-slate-300"><span>${text}</span><span class="typing-dot">●</span><span class="typing-dot">●</span><span class="typing-dot">●</span></div>`;
+    }
+
+    function safeError(error) {
+      console.error(error);
+      return error?.message || String(error) || 'Erro desconhecido.';
+    }
+
+    // =========================================================
+    // CHAT
+    // =========================================================
+    function addChatMessage(role, text) {
+      const chatBox = document.getElementById('chatBox');
+      const wrap = document.createElement('div');
+      const isUser = role === 'user';
+      const assistant = getCurrentAssistant();
+      const assistantName = assistant?.brand || 'IA';
+      const userLabel = currentLang === 'en' ? 'You' : 'Você';
+      wrap.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
+      wrap.innerHTML = `
+        <div class="max-w-[88%] rounded-3xl px-4 py-3 ${isUser ? 'bg-blue-600 text-white' : 'bg-slate-900 border border-slate-800 text-slate-200'}">
+          <div class="text-[11px] uppercase tracking-wide opacity-70 mb-1">${isUser ? userLabel : assistantName}</div>
+          <div class="whitespace-pre-wrap leading-relaxed"></div>
+        </div>`;
+      wrap.querySelector('.whitespace-pre-wrap').textContent = text;
+      chatBox.appendChild(wrap);
+      chatBox.scrollTop = chatBox.scrollHeight;
+      return wrap.querySelector('.whitespace-pre-wrap');
+    }
+
+    async function sendChat() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      if (!window.puter || !puter.ai || !puter.ai.chat) {
+        addChatMessage('assistant', currentLang === 'en' ? 'The AI service did not load. Check your internet connection and reload the page.' : 'O serviço de IA não carregou. Verifique a internet e recarregue a página.');
+        return;
+      }
+
+      updateAssistantIdentity();
+      const modeKey = document.getElementById('chatMode')?.value || 'auto';
+      const selectedModel = AI_MODES[modeKey]?.model || '';
+      const temperature = Number(document.getElementById('temperature').value || 0.7);
+      const stream = document.getElementById('streamMode').checked;
+
+      input.value = '';
+      addChatMessage('user', text);
+      const outputEl = addChatMessage('assistant', currentLang === 'en' ? 'Thinking...' : 'Pensando...');
+
+      const contextualUserText = buildContextPrompt(text);
+      const messages = [
+        ...conversation,
+        { role: 'user', content: contextualUserText }
+      ];
+
+      conversation.push({ role: 'user', content: text });
+
+      const callOptions = selectedModel ? { model: selectedModel, temperature } : { temperature };
+
+      try {
+        if (stream) {
+          let full = '';
+          const response = await puter.ai.chat(messages, { ...callOptions, stream: true });
+
+          for await (const part of response) {
+            const chunk = part?.text || part?.message?.content || part?.content || '';
+            if (chunk) {
+              full += chunk;
+              outputEl.textContent = full;
+              document.getElementById('chatBox').scrollTop = document.getElementById('chatBox').scrollHeight;
+            }
+          }
+
+          if (!full.trim()) {
+            const fallback = await puter.ai.chat(contextualUserText, callOptions);
+            full = normalizeResponse(fallback);
+            outputEl.textContent = full || (currentLang === 'en' ? 'The model returned an empty response.' : 'O modelo retornou uma resposta vazia.');
+          }
+
+          conversation.push({ role: 'assistant', content: full });
+        } else {
+          const response = await puter.ai.chat(messages, callOptions);
+          const finalText = normalizeResponse(response);
+          outputEl.textContent = finalText || (currentLang === 'en' ? 'The model returned an empty response.' : 'O modelo retornou uma resposta vazia.');
+          conversation.push({ role: 'assistant', content: finalText });
+        }
+      } catch (error) {
+        console.warn('Primary Lyra Lab mode failed. Trying automatic mode...', error);
+        try {
+          const fallback = await puter.ai.chat(contextualUserText);
+          const fallbackText = normalizeResponse(fallback);
+          outputEl.textContent = fallbackText || (currentLang === 'en' ? 'The fallback model returned an empty response.' : 'O modelo de fallback retornou uma resposta vazia.');
+          conversation.push({ role: 'assistant', content: fallbackText });
+        } catch (fallbackError) {
+          outputEl.textContent = (currentLang === 'en' ? 'AI request failed: ' : 'Erro ao consultar IA: ') + safeError(fallbackError);
+        }
+      }
+    }
+
+    // =========================================================
+    // IMAGEM
+    // =========================================================
+    async function generateImage() {
+      const prompt = document.getElementById('imagePrompt').value.trim();
+      const imageMode = document.getElementById('imageMode').value;
+      const model = imageMode === 'advanced' ? 'gpt-image-1.5' : imageMode === 'creative' ? 'gemini-2.5-flash-image' : '';
+      const testMode = document.getElementById('imgTestMode').checked;
+      const output = document.getElementById('imageOutput');
+      if (!prompt) return output.textContent = 'Digite um prompt para gerar a imagem.';
+      setLoading(output, 'Gerando imagem');
+      try {
+        const options = model ? { model } : undefined;
+        const img = options ? await puter.ai.txt2img(prompt, testMode, options) : await puter.ai.txt2img(prompt, testMode);
+        output.innerHTML = '';
+        img.className = 'max-w-full rounded-2xl shadow-2xl';
+        output.appendChild(img);
+      } catch (error) {
+        output.textContent = 'Erro ao gerar imagem: ' + safeError(error);
+      }
+    }
+
+    // =========================================================
+    // VISÃO / OCR
+    // =========================================================
+    function getSelectedFile(inputId) {
+      const input = document.getElementById(inputId);
+      return input.files && input.files[0] ? input.files[0] : null;
+    }
+
+    async function analyzeImage() {
+      const file = getSelectedFile('visionFile');
+      const prompt = document.getElementById('visionPrompt').value.trim() || 'Descreva esta imagem.';
+      const output = document.getElementById('visionOutput');
+      if (!file) return output.textContent = 'Selecione uma imagem primeiro.';
+      setLoading(output, 'Analisando imagem');
+      try {
+        const modeKey = document.getElementById('chatMode')?.value || 'auto';
+        const model = AI_MODES[modeKey]?.model || '';
+        const response = model ? await puter.ai.chat(prompt, file, false, { model }) : await puter.ai.chat(prompt, file);
+        output.textContent = normalizeResponse(response);
+      } catch (error) {
+        output.textContent = 'Erro na análise: ' + safeError(error);
+      }
+    }
+
+    async function ocrImage() {
+      const file = getSelectedFile('visionFile');
+      const output = document.getElementById('visionOutput');
+      if (!file) return output.textContent = 'Selecione uma imagem primeiro.';
+      setLoading(output, 'Extraindo texto');
+      try {
+        const response = await puter.ai.img2txt(file);
+        output.textContent = normalizeResponse(response);
+      } catch (error) {
+        output.textContent = 'Erro no OCR: ' + safeError(error);
+      }
+    }
+
+    // =========================================================
+    // VÍDEO
+    // =========================================================
+    async function generateVideo() {
+      const prompt = document.getElementById('videoPrompt').value.trim();
+      const testMode = document.getElementById('vidTestMode').checked;
+      const output = document.getElementById('videoOutput');
+      if (!prompt) return output.textContent = 'Digite um prompt para gerar o vídeo.';
+      setLoading(output, 'Gerando vídeo');
+      try {
+        const video = await puter.ai.txt2vid(prompt, testMode);
+        output.innerHTML = '';
+        video.controls = true;
+        video.className = 'max-w-full rounded-2xl shadow-2xl';
+        output.appendChild(video);
+      } catch (error) {
+        output.textContent = 'Erro ao gerar vídeo: ' + safeError(error);
+      }
+    }
+
+    // =========================================================
+    // TEXTO PARA FALA
+    // =========================================================
+    async function generateSpeech() {
+      const text = document.getElementById('ttsText').value.trim();
+      const language = document.getElementById('ttsLang').value.trim();
+      const voice = document.getElementById('ttsVoice').value.trim();
+      const output = document.getElementById('audioOutput');
+      if (!text) return output.textContent = 'Digite o texto para gerar o áudio.';
+      setLoading(output, 'Gerando áudio');
+      try {
+        let audio;
+        if (voice && language) audio = await puter.ai.txt2speech(text, language, voice);
+        else if (language) audio = await puter.ai.txt2speech(text, language);
+        else audio = await puter.ai.txt2speech(text);
+        audio.controls = true;
+        audio.className = 'w-full';
+        output.innerHTML = '';
+        output.appendChild(audio);
+        await audio.play().catch(() => null);
+      } catch (error) {
+        output.textContent = 'Erro ao gerar áudio: ' + safeError(error);
+      }
+    }
+
+    // =========================================================
+    // TRANSCRIÇÃO
+    // =========================================================
+    async function transcribeAudio() {
+      const file = getSelectedFile('audioFile');
+      const output = document.getElementById('transcriptionOutput');
+      if (!file) return output.textContent = 'Selecione um arquivo de áudio ou vídeo.';
+      setLoading(output, 'Transcrevendo');
+      try {
+        const response = await puter.ai.speech2txt(file);
+        output.textContent = response?.text || normalizeResponse(response);
+      } catch (error) {
+        output.textContent = 'Erro na transcrição: ' + safeError(error);
+      }
+    }
+
+    // =========================================================
+    // UTILITÁRIOS
+    // =========================================================
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>'"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[c]));
+    }
+
+    function clearAll() {
+      conversation = [];
+      document.getElementById('chatBox').innerHTML = '';
+      addChatMessage('assistant', currentLang === 'en' ? 'History cleared. You can start a new conversation.' : 'Histórico limpo. Pode começar uma nova conversa.');
+    }
+
+    // =========================================================
+    // BACKGROUND CÓSMICO LYRA LAB
+    // =========================================================
+    function initCosmicBackground() {
+      const canvas = document.getElementById('starfield');
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+      const layers = document.querySelectorAll('.parallax-layer');
+
+      let cx = 0;
+      let cy = 0;
+      let stars = [];
+      let pointerX = 0;
+      let pointerY = 0;
+      let currentX = 0;
+      let currentY = 0;
+      let initialized = false;
+
+      const STAR_COUNT = 180;
+
+      function resizeCanvas() {
+        const ratio = window.devicePixelRatio || 1;
+        canvas.width = window.innerWidth * ratio;
+        canvas.height = window.innerHeight * ratio;
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(ratio, ratio);
+
+        cx = window.innerWidth / 2;
+        cy = window.innerHeight / 2;
+        createStars();
+      }
+
+      function createStars() {
+        stars = Array.from({ length: STAR_COUNT }, () => {
+          const angle = Math.random() * Math.PI * 2;
+          const radius = Math.random() * Math.min(window.innerWidth, window.innerHeight) * 0.45;
+          return {
+            x: cx + Math.cos(angle) * radius,
+            y: cy + Math.sin(angle) * radius,
+            z: Math.random() * 0.9 + 0.1,
+            size: Math.random() * 1.8 + 0.4,
+            alpha: Math.random() * 0.7 + 0.2,
+            speed: Math.random() * 0.08 + 0.015
+          };
+        });
+      }
+
+      function drawStars() {
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+        const glow = ctx.createRadialGradient(
+          cx, cy, 0,
+          cx, cy, Math.min(window.innerWidth, window.innerHeight) * 0.35
+        );
+        glow.addColorStop(0, 'rgba(96,165,250,0.06)');
+        glow.addColorStop(0.35, 'rgba(139,92,246,0.05)');
+        glow.addColorStop(1, 'rgba(2,6,23,0)');
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+        for (const star of stars) {
+          const dx = star.x - cx;
+          const dy = star.y - cy;
+          const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+
+          star.x += (dx / dist) * star.speed * (1 + star.z * 2);
+          star.y += (dy / dist) * star.speed * (1 + star.z * 2);
+
+          if (star.x < -50 || star.x > window.innerWidth + 50 || star.y < -50 || star.y > window.innerHeight + 50) {
+            const angle = Math.random() * Math.PI * 2;
+            const r = Math.random() * 40;
+            star.x = cx + Math.cos(angle) * r;
+            star.y = cy + Math.sin(angle) * r;
+          }
+
+          const trailX = star.x - (dx / dist) * (8 * star.z);
+          const trailY = star.y - (dy / dist) * (8 * star.z);
+
+          ctx.beginPath();
+          ctx.moveTo(trailX, trailY);
+          ctx.lineTo(star.x, star.y);
+          ctx.strokeStyle = `rgba(180,220,255,${0.08 + star.alpha * 0.25})`;
+          ctx.lineWidth = star.size * 0.7;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255,255,255,${star.alpha})`;
+          ctx.fill();
+        }
+      }
+
+      function animate() {
+        currentX += (pointerX - currentX) * 0.06;
+        currentY += (pointerY - currentY) * 0.06;
+
+        layers.forEach(layer => {
+          const depth = parseFloat(layer.dataset.depth || '0.05');
+          layer.style.transform = `translate3d(${currentX * depth}px, ${currentY * depth}px, 0)`;
+        });
+
+        drawStars();
+        requestAnimationFrame(animate);
+      }
+
+      if (!initialized) {
+        window.addEventListener('mousemove', (e) => {
+          const x = e.clientX / window.innerWidth - 0.5;
+          const y = e.clientY / window.innerHeight - 0.5;
+          pointerX = x * -40;
+          pointerY = y * -40;
+        });
+
+        window.addEventListener('deviceorientation', (e) => {
+          const gamma = (e.gamma || 0) / 45;
+          const beta = (e.beta || 0) / 45;
+          pointerX = gamma * 20;
+          pointerY = beta * 20;
+        });
+
+        window.addEventListener('resize', resizeCanvas);
+        initialized = true;
+      }
+
+      resizeCanvas();
+      animate();
+    }
+  </script>
+</body>
+</html>
