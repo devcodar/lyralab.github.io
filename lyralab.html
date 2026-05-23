@@ -142,6 +142,15 @@
     @keyframes haloPulse { 0%,100% { opacity:.2; transform:scale(1); } 50% { opacity:.6; transform:scale(1.12); } }
     @keyframes constellationFlow { from { stroke-dashoffset:0; } to { stroke-dashoffset:-32; } }
 
+
+    .status-pill { border:1px solid rgba(52,211,153,.25); background:rgba(16,185,129,.10); color:#a7f3d0; }
+    .preview-toolbar { position: sticky; top: 76px; z-index: 20; }
+    .site-preview-shell { min-height: 74vh; }
+    .preview-fullscreen { position: fixed !important; inset: 16px !important; z-index: 80 !important; background: rgba(2,6,23,.96); padding: 18px; border-radius: 28px; border: 1px solid rgba(148,163,184,.22); overflow:auto; }
+    .preview-fullscreen iframe { min-height: calc(100vh - 92px) !important; width: 100% !important; border-radius: 18px !important; }
+    .donation-card { background: linear-gradient(135deg, rgba(37,99,235,.18), rgba(124,58,237,.18)); border:1px solid rgba(129,140,248,.25); }
+    .field-label { font-size: 11px; color:#94a3b8; margin-bottom:6px; display:block; }
+
     @media (max-width: 1023px) {
       #desktopSidebar { position: static; }
       #tabs { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -295,6 +304,9 @@
             <option value="pt">PT</option>
             <option value="en">EN</option>
           </select>
+          <button onclick="showTab('settings')" class="hidden md:inline-flex rounded-xl border border-slate-700 px-3 py-2 text-sm text-slate-300 hover:bg-slate-800" data-i18n="nav.settings">Configurações</button>
+          <button onclick="showTab('donate')" class="hidden md:inline-flex rounded-xl border border-indigo-500/40 bg-indigo-500/10 px-3 py-2 text-sm text-indigo-100 hover:bg-indigo-500/20" data-i18n="nav.donate">Apoiar</button>
+          <span id="apiStatusBadge" class="hidden lg:inline-flex rounded-xl status-pill px-3 py-2 text-xs font-bold">Lyra IA: verificando</span>
           <button onclick="newChat()" class="hidden sm:inline-flex rounded-xl border border-slate-700 px-3 py-2 text-sm text-slate-300 hover:bg-slate-800" data-i18n="actions.newChat">Novo chat</button>
           <button onclick="saveCurrentChat()" class="hidden sm:inline-flex rounded-xl border border-slate-700 px-3 py-2 text-sm text-slate-300 hover:bg-slate-800" data-i18n="actions.saveChat">Salvar</button>
           <button onclick="clearAll()" class="hidden sm:inline-flex rounded-xl border border-slate-700 px-3 py-2 text-sm text-slate-300 hover:bg-slate-800" data-i18n="actions.clear">Limpar</button>
@@ -315,6 +327,9 @@
           <button onclick="showTab('vision')" data-tab="vision" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">👁️ <span data-i18n="nav.vision">Imagem/OCR</span></button>
           <button onclick="showTab('audio')" data-tab="audio" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">🔊 <span data-i18n="nav.audio">Áudio</span></button>
           <button onclick="showTab('transcription')" data-tab="transcription" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">🎙️ <span data-i18n="nav.transcription">Transcrição</span></button>
+          <button onclick="showTab('settings')" data-tab="settings" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">⚙️ <span data-i18n="nav.settings">Configurações</span></button>
+          <button onclick="showTab('about')" data-tab="about" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">🪐 <span data-i18n="nav.about">Sobre</span></button>
+          <button onclick="showTab('donate')" data-tab="donate" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">💜 <span data-i18n="nav.donate">Apoiar</span></button>
         </nav>
 
         <div class="mt-5 soft-card rounded-2xl p-4 text-xs text-slate-400 leading-relaxed">
@@ -331,6 +346,12 @@
           <p data-i18n="location">Salvador, Bahia, Brasil</p>
           <p class="mt-2" data-i18n="sidebar.note">Lyra Lab centraliza modelos avançados, criação multimodal e prototipagem rápida.</p>
         </div>
+
+        <div class="mt-5 donation-card rounded-2xl p-4 text-xs text-slate-300 leading-relaxed">
+          <p class="font-black text-white mb-1" data-i18n="donate.sidebarTitle">Apoie a Lyra Lab</p>
+          <p data-i18n="donate.sidebarText">Contribua para manter a Lyra IA rodando em infraestrutura independente.</p>
+          <button onclick="showTab('donate')" class="mt-3 w-full rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-3 py-2 font-bold text-white" data-i18n="donate.button">Contribuir</button>
+        </div>
       </aside>
 
       <section class="space-y-5 min-w-0">
@@ -343,7 +364,7 @@
             </div>
             <div class="grid sm:grid-cols-3 gap-2 w-full md:w-auto">
               <select id="chatMode" onchange="updateAssistantIdentity()" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm">
-                <option value="qwen_local" data-i18n="mode.qwenLocal">Qwen ilimitado — Ollama Local</option>
+                <option value="qwen_local" data-i18n="mode.qwenLocal">Lyra IA — modelo local ilimitado</option>
                 <option value="fast" data-i18n="mode.fast">GPT Mini — OpenAI</option>
                 <option value="advanced" data-i18n="mode.advanced">GPT Avançado — OpenAI</option>
                 <option value="creative" data-i18n="mode.creative">Claude Criativo — Anthropic</option>
@@ -418,7 +439,7 @@
 
         <div id="tab-files" class="tab-panel hidden glass rounded-3xl p-5">
           <h2 class="text-2xl font-black" data-i18n="files.title">Análise de arquivos</h2>
-          <p class="text-slate-400 mt-1 mb-5" data-i18n="files.subtitle">Envie CSV/TXT para gerar tabela, gráficos e insights com o Qwen local ou modelos Puter.</p>
+          <p class="text-slate-400 mt-1 mb-5" data-i18n="files.subtitle">Envie CSV/TXT para gerar tabela, gráficos e insights com a Lyra IA local ou modelos externos.</p>
           <div class="grid xl:grid-cols-[360px_1fr] gap-5">
             <div class="space-y-3">
               <input id="dataFile" type="file" accept=".csv,.txt,.json" class="block w-full text-sm text-slate-300 file:mr-4 file:rounded-xl file:border-0 file:bg-blue-600 file:px-4 file:py-2 file:text-white hover:file:bg-blue-500" />
@@ -440,17 +461,18 @@
         <div id="tab-software" class="tab-panel hidden glass rounded-3xl p-5">
           <div class="flex flex-col xl:flex-row xl:items-end xl:justify-between gap-4 mb-5">
             <div>
-              <h2 class="text-2xl font-black" data-i18n="software.title">Criador de sites com Qwen</h2>
+              <h2 class="text-2xl font-black" data-i18n="software.title">Criador de sites com Lyra IA</h2>
               <p class="text-slate-400 mt-1" data-i18n="software.subtitle">Gere landing pages, dashboards, apresentações web e interfaces completas com Tailwind CDN, animações e pré-visualização responsiva.</p>
             </div>
             <div class="grid grid-cols-3 gap-2 w-full xl:w-auto">
               <button onclick="setPreviewMode('desktop')" id="previewBtnDesktop" class="rounded-2xl bg-blue-600 px-4 py-2 text-sm font-bold">Web</button>
               <button onclick="setPreviewMode('tablet')" id="previewBtnTablet" class="rounded-2xl bg-slate-800 px-4 py-2 text-sm font-bold">Tablet</button>
               <button onclick="setPreviewMode('mobile')" id="previewBtnMobile" class="rounded-2xl bg-slate-800 px-4 py-2 text-sm font-bold">Mobile</button>
+              <button onclick="togglePreviewFullscreen()" id="previewBtnFull" class="rounded-2xl bg-slate-800 px-4 py-2 text-sm font-bold" data-i18n="software.fullscreen">Tela cheia</button>
             </div>
           </div>
 
-          <div class="grid xl:grid-cols-[390px_1fr] gap-5">
+          <div class="grid 2xl:grid-cols-[420px_1fr] xl:grid-cols-[380px_1fr] gap-5">
             <div class="space-y-4">
               <div class="rounded-3xl bg-slate-950/45 border border-slate-800 p-4">
                 <p class="font-black text-slate-100 mb-2" data-i18n="software.brief">Briefing do site</p>
@@ -476,18 +498,20 @@
                   <span class="engine-pill rounded-full px-3 py-1">Lucide Icons</span>
                   <span class="engine-pill rounded-full px-3 py-1">Astro-ready</span>
                 </div>
-                <p data-i18n="software.cdnNote">O Qwen recebe uma skill especializada para gerar HTML final executável no preview, com UX responsiva e código pronto para publicar.</p>
+                <p data-i18n="software.cdnNote">A Lyra IA recebe uma skill especializada para gerar HTML final executável no preview, com UX responsiva e código pronto para publicar.</p>
               </div>
 
               <div class="grid sm:grid-cols-2 gap-3">
                 <button onclick="generateWebsite()" class="rounded-2xl bg-blue-600 px-5 py-3 font-bold hover:bg-blue-500" data-i18n="software.generate">Gerar e visualizar</button>
                 <button onclick="copyGeneratedCode()" class="rounded-2xl bg-slate-800 px-5 py-3 font-bold hover:bg-slate-700" data-i18n="software.copy">Copiar código</button>
+                <button onclick="downloadGeneratedHtml()" class="rounded-2xl bg-slate-800 px-5 py-3 font-bold hover:bg-slate-700" data-i18n="software.download">Baixar HTML</button>
+                <button onclick="openPreviewInNewTab()" class="rounded-2xl bg-slate-800 px-5 py-3 font-bold hover:bg-slate-700" data-i18n="software.newTab">Nova guia</button>
               </div>
               <textarea id="generatedCode" rows="14" class="w-full rounded-3xl bg-slate-950/80 border border-slate-700 px-4 py-3 outline-none resize-y text-xs font-mono" spellcheck="false" placeholder="O HTML gerado aparecerá aqui..."></textarea>
             </div>
             <div>
               <div id="softwareStatus" class="mb-3 text-sm text-slate-400" data-i18n="software.status">A pré-visualização aparecerá aqui.</div>
-              <div class="rounded-3xl bg-slate-950/45 border border-slate-800 p-3 overflow-auto">
+              <div class="site-preview-shell rounded-3xl bg-slate-950/45 border border-slate-800 p-3 overflow-auto">
                 <iframe id="sitePreview" class="preview-frame preview-desktop mx-auto"></iframe>
               </div>
             </div>
@@ -542,12 +566,13 @@
                 </select>
                 <label class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm flex items-center gap-2"><input id="imgTestMode" type="checkbox"> testMode</label>
                 <button onclick="generateImage()" class="rounded-2xl bg-blue-600 px-4 py-2 font-bold hover:bg-blue-500" data-i18n="actions.generate">Gerar</button>
+                <button id="downloadImageBtn" onclick="downloadGeneratedImage()" class="hidden rounded-2xl bg-slate-800 px-4 py-2 font-bold hover:bg-slate-700" data-i18n="image.download">Baixar</button>
               </div>
             </div>
             <div id="imageOutput" class="min-h-[320px] rounded-3xl bg-slate-950/50 border border-slate-800 p-4 grid place-items-center text-slate-500" data-i18n="image.output">A imagem aparecerá aqui.</div>
           </div>
           <div class="mt-5 rounded-3xl bg-slate-950/40 border border-slate-800 p-4">
-            <h3 class="font-black mb-2" data-i18n="image.socialTitle">Texto para redes sociais</h3>
+            <h3 class="font-black mb-2" data-i18n="image.socialTitle">Lyra IA — conteúdo para redes sociais</h3>
             <div class="grid md:grid-cols-[180px_180px_1fr_auto] gap-3">
               <select id="imageSocialPlatform" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm"><option>Instagram</option><option>TikTok</option><option>LinkedIn</option><option>YouTube Shorts</option></select>
               <select id="imageSocialFormat" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm"><option value="post">Post</option><option value="carousel">Carrossel</option><option value="reel">Reels/Short</option><option value="ad">Anúncio</option></select>
@@ -648,6 +673,67 @@
             <div id="transcriptionOutput" class="min-h-[220px] rounded-3xl bg-slate-950/50 border border-slate-800 p-4 overflow-auto text-slate-300 whitespace-pre-wrap" data-i18n="transcription.output">A transcrição aparecerá aqui.</div>
           </div>
         </div>
+
+
+        <div id="tab-settings" class="tab-panel hidden glass rounded-3xl p-5">
+          <h2 class="text-2xl font-black" data-i18n="settings.title">Configurações da Lyra IA Local</h2>
+          <p class="text-slate-400 mt-1 mb-5" data-i18n="settings.subtitle">Configure a URL pública do Cloudflare Tunnel sem precisar abrir o console do navegador.</p>
+          <div class="grid xl:grid-cols-[1fr_360px] gap-5">
+            <div class="rounded-3xl bg-slate-950/45 border border-slate-800 p-5 space-y-4">
+              <label>
+                <span class="field-label" data-i18n="settings.apiLabel">URL da API local</span>
+                <input id="localApiInput" class="w-full rounded-2xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500" placeholder="https://seu-tunnel.trycloudflare.com/api/lyra/chat" />
+              </label>
+              <div class="grid sm:grid-cols-3 gap-3">
+                <button onclick="saveLyraApiUrl()" class="rounded-2xl bg-blue-600 px-4 py-3 font-bold hover:bg-blue-500" data-i18n="settings.save">Salvar API</button>
+                <button onclick="testLyraApi()" class="rounded-2xl bg-slate-800 px-4 py-3 font-bold hover:bg-slate-700" data-i18n="settings.test">Testar conexão</button>
+                <button onclick="clearLyraApiUrl()" class="rounded-2xl bg-slate-800 px-4 py-3 font-bold hover:bg-slate-700" data-i18n="settings.clear">Limpar</button>
+              </div>
+              <div id="settingsStatus" class="rounded-2xl bg-slate-950/60 border border-slate-800 p-4 text-sm text-slate-300">Status aparecerá aqui.</div>
+            </div>
+            <div class="donation-card rounded-3xl p-5 text-sm text-slate-300 leading-relaxed">
+              <h3 class="font-black text-white text-lg mb-2" data-i18n="settings.identityTitle">Identidade da plataforma</h3>
+              <p data-i18n="settings.identityText">A Lyra IA é a assistente oficial da Lyra Lab, desenvolvida por Daniela Rodrigues.</p>
+              <p class="mt-3 text-slate-400" data-i18n="settings.identityNote">Modelos externos exigem login Google. A Lyra IA local funciona apenas com o código de acesso.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-about" class="tab-panel hidden glass rounded-3xl p-5">
+          <h2 class="text-2xl font-black" data-i18n="about.title">Sobre a Lyra Lab</h2>
+          <div class="mt-5 grid lg:grid-cols-[1fr_360px] gap-5">
+            <div class="rounded-3xl bg-slate-950/45 border border-slate-800 p-6 text-slate-300 leading-relaxed space-y-4">
+              <p data-i18n="about.p1">A Lyra Lab é uma plataforma de IA independente para criação, produtividade, software, mídia e prototipagem rápida.</p>
+              <p data-i18n="about.p2">A plataforma foi desenvolvida por Daniela Rodrigues, Engenheira de Software e Analista de Produto, com atuação em UX, desenvolvimento full stack, inteligência artificial, visão computacional, design de produto, automação e pesquisa aplicada à tecnologia.</p>
+              <p data-i18n="about.p3">A proposta da Lyra é centralizar recursos de texto, imagem, vídeo, áudio, análise de arquivos e criação de interfaces em uma experiência simples, acessível e expansível.</p>
+            </div>
+            <div class="rounded-3xl bg-slate-950/45 border border-slate-800 p-6">
+              <div class="nebula-mark mb-4"></div>
+              <h3 class="font-black text-xl">Daniela Rodrigues</h3>
+              <p class="text-blue-200 text-sm mt-1" data-i18n="about.role">Engenheira de Software • Produto • UX • IA</p>
+              <p class="text-slate-400 text-sm mt-4" data-i18n="about.hobbies">Interesses e hobbies: tecnologia, música, design, automação, criação de produtos e experiências imersivas.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-donate" class="tab-panel hidden glass rounded-3xl p-5">
+          <h2 class="text-2xl font-black" data-i18n="donate.title">Apoie a evolução da Lyra Lab</h2>
+          <p class="text-slate-400 mt-1 mb-5" data-i18n="donate.subtitle">A Lyra IA está sendo aprimorada e executada em infraestrutura independente para oferecer melhores respostas, maior disponibilidade e novos recursos.</p>
+          <div class="grid lg:grid-cols-[1fr_360px] gap-5">
+            <div class="donation-card rounded-3xl p-6 text-slate-300 leading-relaxed">
+              <h3 class="font-black text-white text-xl mb-3" data-i18n="donate.whyTitle">Por que contribuir?</h3>
+              <p data-i18n="donate.whyText">Sua contribuição ajuda a manter máquina, modelos locais, testes, melhorias de interface, recursos multimodais e acesso experimental para mais pessoas.</p>
+              <div class="mt-5 rounded-2xl bg-slate-950/60 border border-slate-800 p-4">
+                <p class="text-sm text-slate-400" data-i18n="donate.pixNote">Adicione aqui sua chave PIX, QR Code ou link do Mercado Pago/Stripe.</p>
+                <input id="donationLink" class="mt-3 w-full rounded-2xl bg-slate-950/70 border border-slate-700 px-4 py-3" placeholder="https://link-de-doacao.com ou chave PIX" />
+              </div>
+            </div>
+            <div class="rounded-3xl bg-slate-950/45 border border-slate-800 p-6">
+              <p class="font-black text-white mb-2" data-i18n="donate.transparencyTitle">Transparência</p>
+              <p class="text-slate-400 text-sm" data-i18n="donate.transparencyText">A proposta é evoluir uma IA mais independente, com menor dependência de plataformas fechadas e maior controle sobre a experiência do usuário.</p>
+            </div>
+          </div>
+        </div>
       </section>
     </section>
 
@@ -667,14 +753,14 @@
     const LANG_KEY = 'lyra_lab_lang_v2';
     const CHAT_SESSIONS_KEY = 'lyra_lab_chat_sessions_v4';
     const LYRA_LOCAL_API = localStorage.getItem('lyra_local_api') || 'https://soundtrack-informational-our-soul.trycloudflare.com/api/lyra/chat';
-    const QWEN_LOCAL_MODEL = 'qwen2.5-coder:1.5b';
+    const LYRA_LOCAL_MODEL = 'qwen2.5-coder:1.5b';
     let conversation = [];
     let currentLang = localStorage.getItem(LANG_KEY) || 'pt';
     let selectedSkill = 'general';
     let advancedContextOpen = false;
 
     const AI_MODES = {
-      qwen_local: { model:QWEN_LOCAL_MODEL, local:true, brand:'Qwen', provider:'Ollama Local', badge:'QW', instruction:'Use local Qwen 1.5B coder for unlimited chat, website creation, HTML, CSS, JavaScript, Tailwind CDN, UI engineering and software prototyping.' },
+      qwen_local: { model:LYRA_LOCAL_MODEL, local:true, brand:'Lyra IA', provider:'Modelo local independente', badge:'LY', instruction:'Use the official Lyra IA identity. Do not mention the underlying local model. Prioritize unlimited chat, website creation, HTML, CSS, JavaScript, Tailwind CDN, UI engineering and software prototyping.' },
       fast: { model:'gpt-4o-mini', brand:'GPT', provider:'OpenAI', badge:'GPT', instruction:'Prioritize speed, clarity and concise answers.' },
       advanced: { model:'gpt-4o', brand:'GPT', provider:'OpenAI', badge:'GPT', instruction:'Prioritize deeper reasoning, completeness and quality.' },
       creative: { model:'claude-sonnet-4', brand:'Claude', provider:'Anthropic', badge:'CL', instruction:'Prioritize creativity, writing quality and polished outputs.' },
@@ -706,7 +792,7 @@
         'auth.text':'Para continuar faça login com a sua conta Google.', 'auth.button':'Continuar com Google',
         'author.short':'Desenvolvido por Daniela Rodrigues', 'location':'Salvador, Bahia, Brasil',
         'actions.clear':'Limpar', 'actions.logout':'Sair', 'actions.send':'Enviar', 'actions.generate':'Gerar', 'actions.newChat':'Novo chat', 'actions.saveChat':'Salvar', 'history.title':'Conversas',
-        'nav.chat':'Chat', 'nav.files':'Arquivos e insights', 'nav.software':'Criar site', 'nav.social':'Redes sociais', 'nav.image':'Imagem', 'nav.video':'Vídeo', 'nav.vision':'Imagem/OCR', 'nav.audio':'Áudio', 'nav.transcription':'Transcrição',
+        'nav.chat':'Chat', 'nav.files':'Arquivos e insights', 'nav.software':'Criar site', 'nav.social':'Redes sociais', 'nav.image':'Imagem', 'nav.video':'Vídeo', 'nav.vision':'Imagem/OCR', 'nav.audio':'Áudio', 'nav.transcription':'Transcrição', 'nav.settings':'Configurações', 'nav.about':'Sobre', 'nav.donate':'Apoiar',
         'sidebar.note':'Lyra Lab centraliza modelos avançados, criação multimodal e prototipagem rápida.',
         'chat.title':'Chat com modelos avançados', 'chat.subtitle':'Escolha com quem deseja conversar e envie sua solicitação.', 'chat.activePrefix':'Você está conversando com', 'chat.placeholder':'Digite sua pergunta...',
         'skills.title':'Skills do agente', 'skills.subtitle':'Escolha uma habilidade para orientar a resposta.', 'skills.advanced':'Contexto avançado',
@@ -715,14 +801,17 @@
         'goal.explain':'Explicar', 'goal.create':'Criar', 'goal.improve':'Melhorar', 'goal.analyze':'Analisar', 'goal.plan':'Planejar', 'goal.code':'Programar',
         'tone.natural':'Natural', 'tone.professional':'Profissional', 'tone.commercial':'Comercial', 'tone.technical':'Técnico', 'tone.creative':'Criativo',
         'depth.short':'Curta', 'depth.balanced':'Equilibrada', 'depth.deep':'Detalhada',
-        'mode.qwenLocal':'Qwen ilimitado — Ollama Local', 'mode.fast':'GPT Mini — OpenAI', 'mode.advanced':'GPT Avançado — OpenAI', 'mode.creative':'Claude Criativo — Anthropic', 'mode.technical':'DeepSeek Técnico', 'mode.research':'Gemini Pesquisa — Google', 'mode.auto':'Assistente Automático',
-        'software.title':'Criador de sites com Qwen', 'software.subtitle':'Gere sites, dashboards, apresentações web e interfaces completas com Tailwind CDN, animações e pré-visualização responsiva.', 'software.brief':'Briefing do site', 'software.cdns':'CDNs padrão da Lyra', 'software.cdnNote':'O Qwen recebe uma skill especializada para gerar HTML final executável no preview, com UX responsiva e código pronto para publicar.', 'software.placeholder':'Descreva o site que deseja criar...', 'software.generate':'Gerar e visualizar', 'software.copy':'Copiar código', 'software.status':'A pré-visualização aparecerá aqui.', 'software.landing':'Landing page premium', 'software.portfolio':'Portfólio profissional', 'software.dashboard':'Dashboard SaaS', 'software.presentation':'Apresentação web',
+        'mode.qwenLocal':'Lyra IA — modelo local ilimitado', 'mode.fast':'GPT Mini — OpenAI', 'mode.advanced':'GPT Avançado — OpenAI', 'mode.creative':'Claude Criativo — Anthropic', 'mode.technical':'DeepSeek Técnico', 'mode.research':'Gemini Pesquisa — Google', 'mode.auto':'Assistente Automático',
+        'software.title':'Criador de sites com Lyra IA', 'software.subtitle':'Gere sites, dashboards, apresentações web e interfaces completas com Tailwind CDN, animações e pré-visualização responsiva.', 'software.brief':'Briefing do site', 'software.cdns':'CDNs padrão da Lyra', 'software.cdnNote':'A Lyra IA recebe uma skill especializada para gerar HTML final executável no preview, com UX responsiva e código pronto para publicar.', 'software.placeholder':'Descreva o site que deseja criar...', 'software.generate':'Gerar e visualizar', 'software.copy':'Copiar código', 'software.status':'A pré-visualização aparecerá aqui.', 'software.download':'Baixar HTML', 'software.newTab':'Nova guia', 'software.fullscreen':'Tela cheia', 'software.landing':'Landing page premium', 'software.portfolio':'Portfólio profissional', 'software.dashboard':'Dashboard SaaS', 'software.presentation':'Apresentação web',
         'social.title':'Criador para redes sociais', 'social.subtitle':'Gere texto, roteiro, legenda e imagem de acordo com a plataforma.', 'social.placeholder':'Descreva o tema, produto ou campanha...', 'social.post':'Post', 'social.carousel':'Carrossel', 'social.reel':'Reels/Short', 'social.ad':'Anúncio', 'social.generateText':'Gerar conteúdo', 'social.generateImage':'Texto + imagem', 'social.tiktok':'Roteiro TikTok', 'social.imageBox':'A imagem aparecerá aqui.',
-        'files.title':'Análise de arquivos', 'files.subtitle':'Envie CSV/TXT para gerar tabela, gráficos e insights com o Qwen local ou modelos Puter.', 'files.analyze':'Analisar arquivo', 'files.chart':'Gerar gráfico', 'image.socialTitle':'Texto para redes sociais', 'image.socialButton':'Gerar texto', 'image.title':'Gerador de imagens', 'image.subtitle':'Gere imagens com fallback automático de modelo.', 'image.output':'A imagem aparecerá aqui.', 'image.mode.auto':'Imagem Automática', 'image.mode.creative':'Gemini Imagem — Google', 'image.mode.advanced':'GPT Image — OpenAI',
+        'files.title':'Análise de arquivos', 'files.subtitle':'Envie CSV/TXT para gerar tabela, gráficos e insights com a Lyra IA local ou modelos externos.', 'files.analyze':'Analisar arquivo', 'files.chart':'Gerar gráfico', 'image.socialTitle':'Texto para redes sociais', 'image.socialButton':'Gerar texto', 'image.title':'Gerador de imagens', 'image.subtitle':'Gere imagens com fallback automático de modelo.', 'image.output':'A imagem aparecerá aqui.', 'image.download':'Baixar', 'image.mode.auto':'Imagem Automática', 'image.mode.creative':'Gemini Imagem — Google', 'image.mode.advanced':'GPT Image — OpenAI',
         'video.title':'Gerador de vídeos', 'video.subtitle':'Crie prompts e vídeos curtos para TikTok, Reels e Shorts.', 'video.button':'Gerar vídeo', 'video.script':'Criar roteiro', 'video.output':'O vídeo aparecerá aqui.',
         'vision.title':'Análise de imagem e OCR', 'vision.subtitle':'Envie uma imagem para extrair texto ou pedir uma análise multimodal.', 'vision.analyze':'Analisar', 'vision.ocr':'Extrair texto/OCR', 'vision.output':'Resultado aparecerá aqui.',
         'audio.title':'Texto para áudio', 'audio.subtitle':'Transforme texto em fala natural.', 'audio.placeholder':'Digite o texto para narrar...', 'audio.langLabel':'Idioma', 'audio.voiceLabel':'Voz', 'audio.speedLabel':'Velocidade', 'audio.speedValue':'Velocidade', 'audio.customVoiceLabel':'Nome da voz personalizada', 'audio.voicePlaceholder':'Ex.: Joanna, Matthew, Nova, Alloy...', 'audio.button':'Gerar áudio', 'audio.output':'O player aparecerá aqui.',
         'audio.lang.ptBR':'Português Brasil', 'audio.lang.enUS':'Inglês EUA', 'audio.lang.enGB':'Inglês Reino Unido', 'audio.lang.esES':'Espanhol', 'audio.lang.frFR':'Francês', 'audio.voice.auto':'Voz automática', 'audio.voice.female':'Feminina natural', 'audio.voice.male':'Masculina natural', 'audio.voice.narrator':'Narrador profissional', 'audio.voice.soft':'Suave', 'audio.voice.custom':'Voz personalizada',
+        'settings.title':'Configurações da Lyra IA Local', 'settings.subtitle':'Configure a URL pública do Cloudflare Tunnel sem precisar abrir o console do navegador.', 'settings.apiLabel':'URL da API local', 'settings.save':'Salvar API', 'settings.test':'Testar conexão', 'settings.clear':'Limpar', 'settings.identityTitle':'Identidade da plataforma', 'settings.identityText':'A Lyra IA é a assistente oficial da Lyra Lab, desenvolvida por Daniela Rodrigues.', 'settings.identityNote':'Modelos externos exigem login Google. A Lyra IA local funciona apenas com o código de acesso.',
+        'about.title':'Sobre a Lyra Lab', 'about.p1':'A Lyra Lab é uma plataforma de IA independente para criação, produtividade, software, mídia e prototipagem rápida.', 'about.p2':'A plataforma foi desenvolvida por Daniela Rodrigues, Engenheira de Software e Analista de Produto, com atuação em UX, desenvolvimento full stack, inteligência artificial, visão computacional, design de produto, automação e pesquisa aplicada à tecnologia.', 'about.p3':'A proposta da Lyra é centralizar recursos de texto, imagem, vídeo, áudio, análise de arquivos e criação de interfaces em uma experiência simples, acessível e expansível.', 'about.role':'Engenheira de Software • Produto • UX • IA', 'about.hobbies':'Interesses e hobbies: tecnologia, música, design, automação, criação de produtos e experiências imersivas.',
+        'donate.sidebarTitle':'Apoie a Lyra Lab', 'donate.sidebarText':'Contribua para manter a Lyra IA rodando em infraestrutura independente.', 'donate.button':'Contribuir', 'donate.title':'Apoie a evolução da Lyra Lab', 'donate.subtitle':'A Lyra IA está sendo aprimorada e executada em infraestrutura independente para oferecer melhores respostas, maior disponibilidade e novos recursos.', 'donate.whyTitle':'Por que contribuir?', 'donate.whyText':'Sua contribuição ajuda a manter máquina, modelos locais, testes, melhorias de interface, recursos multimodais e acesso experimental para mais pessoas.', 'donate.pixNote':'Adicione aqui sua chave PIX, QR Code ou link do Mercado Pago/Stripe.', 'donate.transparencyTitle':'Transparência', 'donate.transparencyText':'A proposta é evoluir uma IA mais independente, com menor dependência de plataformas fechadas e maior controle sobre a experiência do usuário.',
         'transcription.title':'Transcrição de áudio', 'transcription.subtitle':'Use um arquivo local de áudio para gerar transcrição.', 'transcription.button':'Transcrever', 'transcription.output':'A transcrição aparecerá aqui.'
       },
       en: {
@@ -735,7 +824,7 @@
         'auth.text':'To continue, sign in with your Google account.', 'auth.button':'Continue with Google',
         'author.short':'Developed by Daniela Rodrigues', 'location':'Salvador, Bahia, Brazil',
         'actions.clear':'Clear', 'actions.logout':'Logout', 'actions.send':'Send', 'actions.generate':'Generate', 'actions.newChat':'New chat', 'actions.saveChat':'Save', 'history.title':'Chats',
-        'nav.chat':'Chat', 'nav.files':'Files and insights', 'nav.software':'Build site', 'nav.social':'Social media', 'nav.image':'Image', 'nav.video':'Video', 'nav.vision':'Image/OCR', 'nav.audio':'Audio', 'nav.transcription':'Transcription',
+        'nav.chat':'Chat', 'nav.files':'Files and insights', 'nav.software':'Build site', 'nav.social':'Social media', 'nav.image':'Image', 'nav.video':'Video', 'nav.vision':'Image/OCR', 'nav.audio':'Audio', 'nav.transcription':'Transcription', 'nav.settings':'Settings', 'nav.about':'About', 'nav.donate':'Support',
         'sidebar.note':'Lyra Lab centralizes advanced models, multimodal creation and rapid prototyping.',
         'chat.title':'Chat with advanced models', 'chat.subtitle':'Choose who you want to talk to and send your request.', 'chat.activePrefix':'You are talking to', 'chat.placeholder':'Type your question...',
         'skills.title':'Agent skills', 'skills.subtitle':'Choose a skill to guide the answer.', 'skills.advanced':'Advanced context',
@@ -744,14 +833,17 @@
         'goal.explain':'Explain', 'goal.create':'Create', 'goal.improve':'Improve', 'goal.analyze':'Analyze', 'goal.plan':'Plan', 'goal.code':'Code',
         'tone.natural':'Natural', 'tone.professional':'Professional', 'tone.commercial':'Commercial', 'tone.technical':'Technical', 'tone.creative':'Creative',
         'depth.short':'Short', 'depth.balanced':'Balanced', 'depth.deep':'Detailed',
-        'mode.qwenLocal':'Unlimited Qwen — Local Ollama', 'mode.fast':'GPT Mini — OpenAI', 'mode.advanced':'Advanced GPT — OpenAI', 'mode.creative':'Creative Claude — Anthropic', 'mode.technical':'Technical DeepSeek', 'mode.research':'Research Gemini — Google', 'mode.auto':'Auto Assistant',
-        'software.title':'Website builder with Qwen', 'software.subtitle':'Generate websites, dashboards, web presentations and complete interfaces with Tailwind CDN, animations and responsive preview.', 'software.brief':'Website brief', 'software.cdns':'Lyra default CDNs', 'software.cdnNote':'Qwen receives a specialized skill to generate final HTML executable in preview, with responsive UX and publish-ready code.', 'software.placeholder':'Describe the website you want to create...', 'software.generate':'Generate and preview', 'software.copy':'Copy code', 'software.status':'The preview will appear here.', 'software.landing':'Premium landing page', 'software.portfolio':'Professional portfolio', 'software.dashboard':'SaaS dashboard', 'software.presentation':'Web presentation',
+        'mode.qwenLocal':'Lyra IA — unlimited local model', 'mode.fast':'GPT Mini — OpenAI', 'mode.advanced':'Advanced GPT — OpenAI', 'mode.creative':'Creative Claude — Anthropic', 'mode.technical':'Technical DeepSeek', 'mode.research':'Research Gemini — Google', 'mode.auto':'Auto Assistant',
+        'software.title':'Website builder with Lyra IA', 'software.subtitle':'Generate websites, dashboards, web presentations and complete interfaces with Tailwind CDN, animations and responsive preview.', 'software.brief':'Website brief', 'software.cdns':'Lyra default CDNs', 'software.cdnNote':'Lyra IA receives a specialized skill to generate final HTML executable in preview, with responsive UX and publish-ready code.', 'software.placeholder':'Describe the website you want to create...', 'software.generate':'Generate and preview', 'software.copy':'Copy code', 'software.status':'The preview will appear here.', 'software.download':'Download HTML', 'software.newTab':'New tab', 'software.fullscreen':'Fullscreen', 'software.landing':'Premium landing page', 'software.portfolio':'Professional portfolio', 'software.dashboard':'SaaS dashboard', 'software.presentation':'Web presentation',
         'social.title':'Social media creator', 'social.subtitle':'Generate text, scripts, captions and images according to each platform.', 'social.placeholder':'Describe the topic, product or campaign...', 'social.post':'Post', 'social.carousel':'Carousel', 'social.reel':'Reels/Short', 'social.ad':'Ad', 'social.generateText':'Generate content', 'social.generateImage':'Text + image', 'social.tiktok':'TikTok script', 'social.imageBox':'The image will appear here.',
-        'files.title':'File analysis', 'files.subtitle':'Upload CSV/TXT to generate tables, charts and insights with local Qwen or Puter models.', 'files.analyze':'Analyze file', 'files.chart':'Generate chart', 'image.socialTitle':'Social media text', 'image.socialButton':'Generate text', 'image.title':'Image generator', 'image.subtitle':'Generate images with automatic model fallback.', 'image.output':'The image will appear here.', 'image.mode.auto':'Auto Image', 'image.mode.creative':'Gemini Image — Google', 'image.mode.advanced':'GPT Image — OpenAI',
+        'files.title':'File analysis', 'files.subtitle':'Upload CSV/TXT to generate tables, charts and insights with Lyra IA local or external models.', 'files.analyze':'Analyze file', 'files.chart':'Generate chart', 'image.socialTitle':'Social media text', 'image.socialButton':'Generate text', 'image.title':'Image generator', 'image.subtitle':'Generate images with automatic model fallback.', 'image.output':'The image will appear here.', 'image.download':'Download', 'image.mode.auto':'Auto Image', 'image.mode.creative':'Gemini Image — Google', 'image.mode.advanced':'GPT Image — OpenAI',
         'video.title':'Video generator', 'video.subtitle':'Create prompts and short videos for TikTok, Reels and Shorts.', 'video.button':'Generate video', 'video.script':'Create script', 'video.output':'The video will appear here.',
         'vision.title':'Image analysis and OCR', 'vision.subtitle':'Upload an image to extract text or request a multimodal analysis.', 'vision.analyze':'Analyze', 'vision.ocr':'Extract text/OCR', 'vision.output':'The result will appear here.',
         'audio.title':'Text to audio', 'audio.subtitle':'Convert text into natural speech.', 'audio.placeholder':'Type the text to narrate...', 'audio.langLabel':'Language', 'audio.voiceLabel':'Voice', 'audio.speedLabel':'Speed', 'audio.speedValue':'Speed', 'audio.customVoiceLabel':'Custom voice name', 'audio.voicePlaceholder':'Ex.: Joanna, Matthew, Nova, Alloy...', 'audio.button':'Generate audio', 'audio.output':'The player will appear here.',
         'audio.lang.ptBR':'Brazilian Portuguese', 'audio.lang.enUS':'US English', 'audio.lang.enGB':'UK English', 'audio.lang.esES':'Spanish', 'audio.lang.frFR':'French', 'audio.voice.auto':'Auto voice', 'audio.voice.female':'Natural female', 'audio.voice.male':'Natural male', 'audio.voice.narrator':'Professional narrator', 'audio.voice.soft':'Soft voice', 'audio.voice.custom':'Custom voice',
+        'settings.title':'Local Lyra IA Settings', 'settings.subtitle':'Configure the public Cloudflare Tunnel URL without opening the browser console.', 'settings.apiLabel':'Local API URL', 'settings.save':'Save API', 'settings.test':'Test connection', 'settings.clear':'Clear', 'settings.identityTitle':'Platform identity', 'settings.identityText':'Lyra IA is the official assistant of Lyra Lab, developed by Daniela Rodrigues.', 'settings.identityNote':'External models require Google login. Local Lyra IA works with access code only.',
+        'about.title':'About Lyra Lab', 'about.p1':'Lyra Lab is an independent AI platform for creation, productivity, software, media and rapid prototyping.', 'about.p2':'The platform was developed by Daniela Rodrigues, Software Engineer and Product Analyst with experience in UX, full-stack development, artificial intelligence, computer vision, product design, automation and applied technology research.', 'about.p3':'Lyra centralizes text, image, video, audio, file analysis and interface creation into a simple, accessible and extensible experience.', 'about.role':'Software Engineer • Product • UX • AI', 'about.hobbies':'Interests and hobbies: technology, music, design, automation, product creation and immersive experiences.',
+        'donate.sidebarTitle':'Support Lyra Lab', 'donate.sidebarText':'Contribute to keep Lyra IA running on independent infrastructure.', 'donate.button':'Contribute', 'donate.title':'Support Lyra Lab evolution', 'donate.subtitle':'Lyra IA is being improved and executed on independent infrastructure to offer better answers, availability and new resources.', 'donate.whyTitle':'Why contribute?', 'donate.whyText':'Your contribution helps maintain hardware, local models, tests, interface improvements, multimodal features and experimental access for more people.', 'donate.pixNote':'Add your PIX key, QR Code or Mercado Pago/Stripe link here.', 'donate.transparencyTitle':'Transparency', 'donate.transparencyText':'The goal is to evolve a more independent AI with less dependence on closed platforms and more control over user experience.',
         'transcription.title':'Audio transcription', 'transcription.subtitle':'Use a local audio file to generate a transcription.', 'transcription.button':'Transcribe', 'transcription.output':'The transcription will appear here.'
       }
     };
@@ -838,7 +930,7 @@
       document.getElementById('accessCode')?.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
       document.getElementById('chatInput')?.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) sendChat(); });
       renderSkillChips();
-      addChatMessage('assistant', currentLang === 'en' ? 'Hello. Choose a skill and send your request.' : 'Olá. Escolha uma skill e envie sua solicitação.');
+      addChatMessage('assistant', currentLang === 'en' ? 'Hello. I am Lyra IA. Choose a skill and send your request.' : 'Olá. Eu sou a Lyra IA. Escolha uma skill e envie sua solicitação.');
     });
 
     async function sha256(text) {
@@ -914,6 +1006,8 @@
       setLanguage(currentLang);
       updateAssistantIdentity();
       renderChatHistory();
+      syncSettingsForm();
+      refreshApiStatus();
       showTab(location.hash.replace('#','') || 'chat', false);
     }
 
@@ -932,6 +1026,120 @@
       const assistant = getCurrentAssistant();
       const info = document.getElementById('activeAssistantInfo');
       if (info) info.textContent = `${t('chat.activePrefix')} ${assistant.brand} — ${assistant.provider}.`;
+    }
+
+
+
+    function requiresGoogleAuth(modeKey) {
+      const mode = AI_MODES[modeKey] || AI_MODES.qwen_local;
+      return !mode.local;
+    }
+
+    async function ensureExternalModelAuth(modeKey) {
+      if (!requiresGoogleAuth(modeKey)) return true;
+      const signed = await isPuterSignedIn();
+      if (signed) return true;
+      document.getElementById('appView')?.classList.add('hidden');
+      document.getElementById('authView')?.classList.remove('hidden');
+      const msg = document.getElementById('authMsg');
+      if (msg) {
+        msg.textContent = currentLang === 'en' ? 'Google login is required only for external models.' : 'Login Google é necessário apenas para usar modelos externos.';
+        msg.classList.remove('hidden');
+      }
+      return false;
+    }
+
+    function getLyraApiBase() {
+      const configured = (localStorage.getItem('lyra_local_api') || LYRA_LOCAL_API || '').trim();
+      return configured.replace(/\/api\/lyra\/chat$/,'').replace(/\/api\/chat$/,'').replace(/\/chat$/,'').replace(/\/api\/generate$/,'').replace(/\/+$/,'');
+    }
+
+    function syncSettingsForm() {
+      const input = document.getElementById('localApiInput');
+      if (input) input.value = localStorage.getItem('lyra_local_api') || LYRA_LOCAL_API;
+    }
+
+    function saveLyraApiUrl() {
+      const input = document.getElementById('localApiInput');
+      const value = (input?.value || '').trim();
+      const status = document.getElementById('settingsStatus');
+      if (!value) return status.textContent = currentLang === 'en' ? 'Enter the API URL first.' : 'Informe a URL da API primeiro.';
+      localStorage.setItem('lyra_local_api', value);
+      status.textContent = currentLang === 'en' ? 'API URL saved.' : 'URL da API salva.';
+      refreshApiStatus();
+    }
+
+    function clearLyraApiUrl() {
+      localStorage.removeItem('lyra_local_api');
+      syncSettingsForm();
+      document.getElementById('settingsStatus').textContent = currentLang === 'en' ? 'Custom API cleared.' : 'API personalizada limpa.';
+      refreshApiStatus();
+    }
+
+    async function testLyraApi() {
+      const status = document.getElementById('settingsStatus');
+      setLoading(status, currentLang === 'en' ? 'Testing Lyra IA' : 'Testando Lyra IA');
+      try {
+        const base = getLyraApiBase();
+        const response = await fetch(`${base}/health`, { method:'GET', mode:'cors' });
+        const data = await response.json().catch(() => ({}));
+        status.textContent = `Online • ${data.service || 'Lyra Local API'} • ${data.ollama || 'status disponível'}`;
+        refreshApiStatus();
+      } catch (error) {
+        status.textContent = (currentLang === 'en' ? 'Connection failed: ' : 'Falha na conexão: ') + safeError(error);
+        refreshApiStatus(false);
+      }
+    }
+
+    async function refreshApiStatus(forceOk) {
+      const badge = document.getElementById('apiStatusBadge');
+      if (!badge) return;
+      if (forceOk === false) { badge.textContent = 'Lyra IA: offline'; badge.classList.remove('status-pill'); badge.classList.add('bg-red-500/10','text-red-200','border','border-red-500/30'); return; }
+      try {
+        const base = getLyraApiBase();
+        const response = await fetch(`${base}/health`, { method:'GET', mode:'cors' });
+        if (!response.ok) throw new Error('offline');
+        badge.textContent = 'Lyra IA: online';
+        badge.classList.add('status-pill');
+      } catch (_) {
+        badge.textContent = 'Lyra IA: verificar API';
+      }
+    }
+
+    function getGeneratedHtml() { return document.getElementById('generatedCode')?.value || document.getElementById('sitePreview')?.srcdoc || ''; }
+
+    function openPreviewInNewTab() {
+      const html = getGeneratedHtml();
+      if (!html) return document.getElementById('softwareStatus').textContent = currentLang === 'en' ? 'Generate a site first.' : 'Gere um site primeiro.';
+      const blob = new Blob([html], { type:'text/html' });
+      const url = URL.createObjectURL(blob);
+      window.open(url, '_blank');
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
+    }
+
+    function downloadGeneratedHtml() {
+      const html = getGeneratedHtml();
+      if (!html) return document.getElementById('softwareStatus').textContent = currentLang === 'en' ? 'Generate a site first.' : 'Gere um site primeiro.';
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([html], { type:'text/html' }));
+      a.download = `site-lyra-lab-${Date.now()}.html`;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    }
+
+    function togglePreviewFullscreen() {
+      const shell = document.getElementById('sitePreview')?.parentElement;
+      if (!shell) return;
+      shell.classList.toggle('preview-fullscreen');
+    }
+
+    function downloadGeneratedImage() {
+      const img = document.querySelector('#imageOutput img');
+      if (!img?.src) return;
+      const a = document.createElement('a');
+      a.href = img.src;
+      a.download = `lyra-image-${Date.now()}.png`;
+      document.body.appendChild(a); a.click(); a.remove();
     }
 
     function renderSkillChips() {
@@ -959,10 +1167,12 @@
       const context = document.getElementById('projectContext')?.value.trim() || '';
       const languageName = currentLang === 'en' ? 'English' : 'Português do Brasil';
 
-      return `You are operating inside Lyra Lab.
+      return `${LYRA_IDENTITY_PROMPT}
+
+You are operating inside Lyra Lab.
 Language: ${languageName}.
 Skill: ${skill.prompt}
-Assistant identity: ${mode.brand} from ${mode.provider}.
+Assistant identity: Lyra IA.
 Mode: ${mode.instruction}
 Goal: ${goal}. Tone: ${tone}. Depth: ${depth}.
 Important style rules:
@@ -978,7 +1188,7 @@ ${userText}`;
     }
 
     function showTab(name, updateHash = true) {
-      const allowed = ['chat','files','software','social','image','video','vision','audio','transcription'];
+      const allowed = ['chat','files','software','social','image','video','vision','audio','transcription','settings','about','donate'];
       const tab = allowed.includes(name) ? name : 'chat';
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
       document.getElementById(`tab-${tab}`)?.classList.remove('hidden');
@@ -1043,6 +1253,7 @@ ${userText}`;
       const text = input.value.trim();
       if (!text) return;
       const modeKey = document.getElementById('chatMode')?.value || 'qwen_local';
+      if (!(await ensureExternalModelAuth(modeKey))) return;
       const assistantMode = AI_MODES[modeKey] || AI_MODES.qwen_local;
       const selectedModel = assistantMode.model || '';
       const temperature = Number(document.getElementById('temperature')?.value || 0.7);
@@ -1062,7 +1273,7 @@ ${userText}`;
           outputEl.textContent = cleanAssistantText(localText) || (currentLang === 'en' ? 'Empty local response.' : 'Resposta local vazia.');
           conversation.push({ role:'assistant', content: localText });
         } catch (error) {
-          outputEl.textContent = (currentLang === 'en' ? 'Local Qwen failed: ' : 'Erro no Qwen local: ') + safeError(error);
+          outputEl.textContent = (currentLang === 'en' ? 'Local Lyra IA failed: ' : 'Erro na Lyra IA local: ') + safeError(error);
         }
         return;
       }
@@ -1138,13 +1349,14 @@ ${userText}`;
     }
 
     async function callLocalLyra(messages, options = {}) {
-      const model = options.model || QWEN_LOCAL_MODEL;
+      const model = options.model || LYRA_LOCAL_MODEL;
       const prompt = getLastUserContent(messages);
       const payload = {
         model,
         messages: Array.isArray(messages) ? messages : [{ role: 'user', content: prompt }],
         message: prompt,
         prompt,
+        system: LYRA_IDENTITY_PROMPT,
         temperature: Number(options.temperature ?? 0.7),
         num_predict: Number(options.num_predict ?? 1500),
         stream: false,
@@ -1197,9 +1409,10 @@ ${userText}`;
     window.callLocalLyra = callLocalLyra;
 
     async function tryChat(prompt, model='gpt-4o-mini') {
-      if (model === QWEN_LOCAL_MODEL || model === 'qwen_local') {
-        return await callLocalLyra([{ role:'user', content: prompt }], { model: QWEN_LOCAL_MODEL, temperature: 0.28, num_predict: 2200 });
+      if (model === LYRA_LOCAL_MODEL || model === 'qwen_local') {
+        return await callLocalLyra([{ role:'user', content: prompt }], { model: LYRA_LOCAL_MODEL, temperature: 0.28, num_predict: 2200 });
       }
+      if (model && model !== LYRA_LOCAL_MODEL && !(await ensureExternalModelAuth(model))) throw new Error(currentLang === 'en' ? 'Google login required for external models.' : 'Login Google necessário para modelos externos.');
       const options = model ? { model } : undefined;
       const response = options ? await puter.ai.chat(prompt, options) : await puter.ai.chat(prompt);
       return normalizeResponse(response);
@@ -1243,7 +1456,7 @@ Request: ${prompt}`;
 
       try {
         let html;
-        try { html = extractHtml(await tryChat(instruction, QWEN_LOCAL_MODEL)); }
+        try { html = extractHtml(await tryChat(instruction, LYRA_LOCAL_MODEL)); }
         catch (localError) { html = extractHtml(await tryChat(instruction, 'gpt-4o')); }
         if (!/tailwindcss\.com/.test(html)) {
           html = html.replace('</head>', '<script src="https://cdn.tailwindcss.com"><\/script></head>');
@@ -1279,6 +1492,7 @@ Request: ${prompt}`;
             output.innerHTML = '';
             img.className = 'max-w-full rounded-2xl shadow-2xl';
             output.appendChild(img);
+            document.getElementById('downloadImageBtn')?.classList.remove('hidden');
             return img;
           }
         } catch (e) { lastError = e; }
@@ -1306,6 +1520,7 @@ Request: ${prompt}`;
       const testMode = document.getElementById('imgTestMode').checked;
       const output = document.getElementById('imageOutput');
       if (!prompt) return output.textContent = currentLang === 'en' ? 'Type a prompt first.' : 'Digite um prompt primeiro.';
+      document.getElementById('downloadImageBtn')?.classList.add('hidden');
       setLoading(output, currentLang === 'en' ? 'Generating image' : 'Gerando imagem');
       try { await callTxt2Img(prompt, output, testMode, model); }
       catch (error) { output.textContent = (currentLang === 'en' ? 'Image generation failed: ' : 'Erro ao gerar imagem: ') + safeError(error); }
@@ -1327,7 +1542,9 @@ Return: hook, main copy, caption, CTA, hashtags, image prompt, and if video form
 Avoid markdown # and *.
 Topic: ${topic}`;
       try {
-        const text = cleanAssistantText(await tryChat(prompt, 'gpt-4o-mini'));
+        let text;
+        try { text = cleanAssistantText(await callLocalLyra([{ role:'user', content: `${LYRA_IDENTITY_PROMPT}\n\n${prompt}` }], { model: LYRA_LOCAL_MODEL, temperature: 0.45, num_predict: 1200 })); }
+        catch (_) { text = cleanAssistantText(await tryChat(prompt, 'gpt-4o-mini')); }
         output.textContent = text;
         if (withImage) {
           const imagePrompt = `High-quality social media visual for ${platform}. ${topic}. Premium composition, modern, clean, engaging.`;
@@ -1427,7 +1644,7 @@ User question: ${question}
 Sample:
 ${sample}`;
         let insight;
-        try { insight = await callLocalLyra([{ role:'user', content: prompt }], { model: QWEN_LOCAL_MODEL, temperature: 0.25, num_predict: 1200 }); }
+        try { insight = await callLocalLyra([{ role:'user', content: `${LYRA_IDENTITY_PROMPT}\n\n${prompt}` }], { model: LYRA_LOCAL_MODEL, temperature: 0.25, num_predict: 1200 }); }
         catch (_) { insight = await tryChat(prompt, 'gpt-4o-mini'); }
         out.textContent = cleanAssistantText(insight);
       } catch (error) {
@@ -1463,7 +1680,7 @@ ${sample}`;
       const prompt = `Create ${platform} ${format} content in ${currentLang === 'en' ? 'English' : 'Portuguese'} for: ${topic}. Return hook, caption, CTA, hashtags and image prompt.`;
       try {
         let text;
-        try { text = await callLocalLyra([{ role:'user', content: prompt }], { model: QWEN_LOCAL_MODEL, temperature: 0.45, num_predict: 900 }); }
+        try { text = await callLocalLyra([{ role:'user', content: `${LYRA_IDENTITY_PROMPT}\n\n${prompt}` }], { model: LYRA_LOCAL_MODEL, temperature: 0.45, num_predict: 900 }); }
         catch (_) { text = await tryChat(prompt, 'gpt-4o-mini'); }
         out.textContent = cleanAssistantText(text);
       } catch (error) { out.textContent = safeError(error); }
