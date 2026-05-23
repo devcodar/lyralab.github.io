@@ -666,7 +666,7 @@
     const STORAGE_KEY = 'lyra_lab_access_ok_v2';
     const LANG_KEY = 'lyra_lab_lang_v2';
     const CHAT_SESSIONS_KEY = 'lyra_lab_chat_sessions_v4';
-    const LYRA_LOCAL_API = localStorage.getItem('lyra_local_api') || 'https://breeds-beverage-biggest-simple.trycloudflare.com/api/lyra/chat';
+    const LYRA_LOCAL_API = localStorage.getItem('lyra_local_api') || 'https://bell-southern-protein-consistently.trycloudflare.com/api/lyra/chat';
     const QWEN_LOCAL_MODEL = 'qwen2.5-coder:1.5b';
     let conversation = [];
     let currentLang = localStorage.getItem(LANG_KEY) || 'pt';
@@ -757,6 +757,62 @@
     };
 
     function t(key) { return I18N[currentLang]?.[key] || I18N.pt[key] || key; }
+
+
+    function getChatSessions() {
+      try {
+        const raw = localStorage.getItem(CHAT_SESSIONS_KEY);
+        const sessions = raw ? JSON.parse(raw) : [];
+        return Array.isArray(sessions) ? sessions : [];
+      } catch (_) {
+        return [];
+      }
+    }
+
+    function setChatSessions(sessions) {
+      try {
+        localStorage.setItem(CHAT_SESSIONS_KEY, JSON.stringify(Array.isArray(sessions) ? sessions : []));
+      } catch (_) {}
+    }
+
+    function renderChatHistory() {
+      const select = document.getElementById('chatHistorySelect');
+      if (!select) return;
+      const sessions = getChatSessions();
+      if (!sessions.length) {
+        select.innerHTML = `<option value="">${currentLang === 'en' ? 'No saved chats' : 'Nenhuma conversa salva'}</option>`;
+        return;
+      }
+      select.innerHTML = `<option value="">${currentLang === 'en' ? 'Select a chat' : 'Selecionar conversa'}</option>` + sessions.map((session, index) => {
+        const title = escapeHtml(session.title || `${currentLang === 'en' ? 'Chat' : 'Conversa'} ${index + 1}`);
+        return `<option value="${index}">${title}</option>`;
+      }).join('');
+    }
+
+    function saveCurrentChat() {
+      const sessions = getChatSessions();
+      const firstUser = conversation.find(m => m && m.role === 'user')?.content || '';
+      const titleBase = firstUser ? firstUser.slice(0, 48) : (currentLang === 'en' ? 'New chat' : 'Nova conversa');
+      sessions.unshift({
+        title: titleBase,
+        createdAt: new Date().toISOString(),
+        messages: conversation
+      });
+      setChatSessions(sessions.slice(0, 30));
+      renderChatHistory();
+    }
+
+    function loadSelectedChat() {
+      const select = document.getElementById('chatHistorySelect');
+      const index = Number(select?.value);
+      if (!Number.isInteger(index) || index < 0) return;
+      const session = getChatSessions()[index];
+      if (!session) return;
+      conversation = Array.isArray(session.messages) ? session.messages : [];
+      const chatBox = document.getElementById('chatBox');
+      if (chatBox) chatBox.innerHTML = '';
+      conversation.forEach(m => addChatMessage(m.role === 'assistant' ? 'assistant' : 'user', m.content || ''));
+    }
 
     function setLanguage(lang) {
       currentLang = lang === 'en' ? 'en' : 'pt';
