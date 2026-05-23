@@ -661,6 +661,7 @@
   </main>
 
   <script>
+    const ACCESS_CODE = 'THUNBER2026';
     const ACCESS_CODE_HASHES = ['4b857052aac2d4c8b0928988cd40d7ecf3af5d8b814d95b3b61868df11426bd4'];
     const STORAGE_KEY = 'lyra_lab_access_ok_v2';
     const LANG_KEY = 'lyra_lab_lang_v2';
@@ -777,7 +778,7 @@
     window.addEventListener('load', () => {
       initCosmicBackground();
       setLanguage(currentLang);
-      if (localStorage.getItem(STORAGE_KEY) === 'true') showAuthOrApp();
+      if (localStorage.getItem(STORAGE_KEY) === 'true') openApp();
       document.getElementById('accessCode')?.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
       document.getElementById('chatInput')?.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) sendChat(); });
       renderSkillChips();
@@ -785,18 +786,32 @@
     });
 
     async function sha256(text) {
+      if (!window.crypto || !crypto.subtle) return '';
       const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
       return [...new Uint8Array(buffer)].map(b => b.toString(16).padStart(2,'0')).join('');
     }
 
     async function login() {
-      const code = document.getElementById('accessCode').value.trim();
+      const input = document.getElementById('accessCode');
+      const code = (input?.value || '').trim();
       if (!code) return showLoginError(currentLang === 'en' ? 'Enter the access code.' : 'Digite o código de acesso.');
-      const hash = await sha256(code);
-      if (ACCESS_CODE_HASHES.includes(hash)) {
+
+      let isValid = code === ACCESS_CODE;
+      if (!isValid) {
+        try {
+          const hash = await sha256(code);
+          isValid = ACCESS_CODE_HASHES.includes(hash);
+        } catch (_) {
+          isValid = false;
+        }
+      }
+
+      if (isValid) {
         localStorage.setItem(STORAGE_KEY, 'true');
-        showAuthOrApp();
-      } else showLoginError(currentLang === 'en' ? 'Invalid code. Please check and try again.' : 'Código inválido. Verifique e tente novamente.');
+        openApp();
+      } else {
+        showLoginError(currentLang === 'en' ? 'Invalid code. Please check and try again.' : 'Código inválido. Verifique e tente novamente.');
+      }
     }
 
     function showLoginError(text) {
@@ -1250,8 +1265,7 @@ Topic: ${topic}`;
         const rows = currentDataRows.length - 1;
         const cols = currentDataRows[0]?.length || 0;
         summary.textContent = `${rows} linhas • ${cols} colunas`;
-        const sample = currentDataRows.slice(0, 25).map(r => r.join(' | ')).join('
-');
+        const sample = currentDataRows.slice(0, 25).map(r => r.join(' | ')).join('\n');
         const question = document.getElementById('dataQuestion')?.value.trim() || (currentLang === 'en' ? 'Generate insights, risks, patterns and recommendations.' : 'Gere insights, riscos, padrões e recomendações.');
         const prompt = `Analyze this dataset sample and answer in ${currentLang === 'en' ? 'English' : 'Portuguese'}.
 Rows: ${rows}. Columns: ${cols}.
