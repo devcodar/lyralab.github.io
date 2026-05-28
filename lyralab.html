@@ -1940,5 +1940,284 @@ ${sample}`;
       animate();
     }
   </script>
+  <script>
+/* Lyra Lab v3.4 growth patch — keeps original logo/parallax/design and adds functional upgrades */
+(function(){
+  const LYRA_CURRENT_TUNNEL = 'https://cloud-prisoners-reporter-royal.trycloudflare.com/api/lyra/chat';
+  let lyraAbortController = null;
+  let lyraIsGenerating = false;
+
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
+  function lang(){ return document.body?.dataset?.lang || localStorage.getItem('lyra_lab_lang_v2') || 'pt'; }
+  function isEN(){ return lang() === 'en'; }
+  function setText(el, text){ if(el) el.textContent = text; }
+  function setLoadingLite(el, text){ if(el) el.innerHTML = `<div class="flex items-center gap-2 text-slate-300"><span>${esc(text)}</span><span class="typing-dot">●</span><span class="typing-dot">●</span><span class="typing-dot">●</span></div>`; }
+
+  function injectGrowthStyles(){
+    if ($('lyraGrowthStyles')) return;
+    const css = document.createElement('style');
+    css.id = 'lyraGrowthStyles';
+    css.textContent = `
+      .lyra-glow-card{background:linear-gradient(135deg,rgba(15,23,42,.78),rgba(30,41,59,.48));border:1px solid rgba(148,163,184,.18);box-shadow:0 22px 60px rgba(0,0,0,.22)}
+      .lyra-mini-btn{border-radius:1rem;background:rgba(30,41,59,.86);border:1px solid rgba(148,163,184,.18);padding:.65rem .85rem;font-size:.82rem;font-weight:800;color:#e2e8f0;transition:.18s ease}
+      .lyra-mini-btn:hover{background:rgba(51,65,85,.9);transform:translateY(-1px)}
+      .lyra-primary-btn{border-radius:1rem;background:linear-gradient(135deg,#2563eb,#7c3aed);padding:.7rem .95rem;font-size:.86rem;font-weight:900;color:white;box-shadow:0 16px 34px rgba(37,99,235,.18)}
+      .lyra-danger-btn{border-radius:1rem;background:rgba(239,68,68,.16);border:1px solid rgba(248,113,113,.32);padding:.7rem .95rem;font-size:.86rem;font-weight:900;color:#fecaca}
+      .lyra-select{border-radius:1rem;background:rgba(2,6,23,.72);border:1px solid rgb(51,65,85);padding:.65rem .8rem;font-size:.85rem;color:#e2e8f0;outline:none}
+      .lyra-input-tools{display:flex;gap:.55rem;align-items:center;justify-content:flex-end;flex-wrap:wrap;margin-top:.75rem}
+      .preview-fullscreen .lyra-close-fullscreen{display:inline-flex!important}
+      .lyra-close-fullscreen{display:none;position:fixed;right:34px;top:34px;z-index:120;border-radius:999px;background:rgba(15,23,42,.96);border:1px solid rgba(148,163,184,.28);padding:.75rem 1rem;font-weight:900;color:#fff;box-shadow:0 16px 50px rgba(0,0,0,.35)}
+      .lyra-image-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem;width:100%}
+      .lyra-image-card{background:rgba(2,6,23,.55);border:1px solid rgba(148,163,184,.18);border-radius:1.25rem;padding:.55rem}.lyra-image-card img{width:100%;border-radius:.95rem;display:block}.lyra-image-card button{margin-top:.55rem;width:100%}
+      @media(max-width:720px){.lyra-image-grid{grid-template-columns:1fr}.lyra-input-tools{justify-content:stretch}.lyra-input-tools button{flex:1}.lyra-close-fullscreen{right:22px;top:22px}}
+    `;
+    document.head.appendChild(css);
+  }
+
+  function ensureLocalApiDefault(){
+    const current = localStorage.getItem('lyra_local_api');
+    if (!current || /super-page-outline-fee|soundtrack-informational|bell-southern|breeds-beverage/.test(current)) {
+      localStorage.setItem('lyra_local_api', LYRA_CURRENT_TUNNEL);
+    }
+    const input = $('localApiInput');
+    if (input && (!input.value || /super-page-outline-fee|soundtrack-informational|bell-southern|breeds-beverage/.test(input.value))) input.value = localStorage.getItem('lyra_local_api') || LYRA_CURRENT_TUNNEL;
+  }
+
+  function ensureChatControls(){
+    const sendBtn = document.querySelector('#tab-chat button[onclick="sendChat()"]');
+    if (sendBtn && !$('stopChatBtn')) {
+      const stop = document.createElement('button');
+      stop.id = 'stopChatBtn';
+      stop.type = 'button';
+      stop.className = 'hidden rounded-3xl bg-red-500/15 border border-red-400/30 px-6 py-3 font-bold text-red-100 hover:bg-red-500/25';
+      stop.textContent = isEN() ? 'Stop' : 'Parar';
+      stop.onclick = window.stopLyraResponse;
+      sendBtn.parentElement.appendChild(stop);
+    }
+
+    const input = $('chatInput');
+    if (input && !input.dataset.lyraEnterSubmit) {
+      input.dataset.lyraEnterSubmit = 'true';
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          window.sendChat();
+        }
+      });
+    }
+
+    const grid = input?.closest('.grid');
+    if (grid && !$('lyraChatTools')) {
+      const tools = document.createElement('div');
+      tools.id = 'lyraChatTools';
+      tools.className = 'md:col-span-2 lyra-input-tools';
+      tools.innerHTML = `
+        <button type="button" class="lyra-mini-btn" onclick="lyraStartDictation()">🎙️ ${isEN()?'Dictate':'Ditar'}</button>
+        <button type="button" class="lyra-mini-btn" onclick="lyraReadLastAnswer()">🔊 ${isEN()?'Read answer':'Ler resposta'}</button>
+        <button type="button" class="lyra-mini-btn" onclick="lyraExportChatMarkdown()">⬇️ ${isEN()?'Export chat':'Exportar chat'}</button>
+      `;
+      grid.appendChild(tools);
+    }
+  }
+
+  function toggleStopButton(show){
+    const btn = $('stopChatBtn');
+    if (btn) btn.classList.toggle('hidden', !show);
+  }
+
+  window.stopLyraResponse = function(){
+    if (lyraAbortController) lyraAbortController.abort();
+    if (window.speechSynthesis) speechSynthesis.cancel();
+    lyraIsGenerating = false;
+    toggleStopButton(false);
+  };
+
+  const originalCallLocal = window.callLocalLyra;
+  window.callLocalLyra = async function(messages, options = {}){
+    if (typeof originalCallLocal !== 'function') throw new Error('Local Lyra API function unavailable.');
+    // If original function cannot receive an abort signal, use enhanced fetch path here.
+    const model = options.model || window.LYRA_LOCAL_MODEL || 'qwen2.5-coder:1.5b';
+    const prompt = Array.isArray(messages) ? (messages.at(-1)?.content || messages.map(m => m.content || '').join('\n')) : String(messages || '');
+    const endpoint = (localStorage.getItem('lyra_local_api') || LYRA_CURRENT_TUNNEL).trim();
+    lyraAbortController = new AbortController();
+    const payload = { model, messages: Array.isArray(messages) ? messages : [{role:'user', content: prompt}], message: prompt, prompt, system: window.LYRA_IDENTITY_PROMPT || '', temperature: Number(options.temperature ?? .45), num_predict: Number(options.num_predict ?? 1200), goal: options.goal || $('taskGoal')?.value || 'explain', stream: false };
+    const response = await fetch(endpoint, { method:'POST', mode:'cors', headers:{'Content-Type':'application/json','Accept':'application/json, text/plain, */*'}, body:JSON.stringify(payload), signal: lyraAbortController.signal });
+    const raw = await response.text();
+    if (!response.ok) throw new Error(`HTTP ${response.status}: ${raw.slice(0,220)}`);
+    let data = raw; try { data = JSON.parse(raw); } catch(_){ }
+    if (typeof data === 'string') return data;
+    return data.answer || data.response || data.text || data.output || data.message?.content || data.message || JSON.stringify(data,null,2);
+  };
+
+  window.sendChat = async function(){
+    const input = $('chatInput');
+    const text = input?.value?.trim();
+    if (!text || lyraIsGenerating) return;
+    const modeKey = $('chatMode')?.value || 'qwen_local';
+    if (typeof ensureExternalModelAuth === 'function' && !(await ensureExternalModelAuth(modeKey))) return;
+    const assistantMode = (window.AI_MODES?.[modeKey]) || { local:true, model:'qwen2.5-coder:1.5b', brand:'Lyra IA' };
+    const temperature = Number($('temperature')?.value || 0.45);
+    const stream = $('streamMode')?.checked;
+    input.value = '';
+    lyraIsGenerating = true; toggleStopButton(true);
+    const add = window.addChatMessage || function(role, msg){ console.log(role,msg); const el=document.createElement('div'); return el; };
+    add('user', text);
+    const outputEl = add('assistant', isEN() ? 'Thinking...' : 'Pensando...');
+    try {
+      const contextual = typeof buildContextPrompt === 'function' ? buildContextPrompt(text) : text;
+      window.conversation = window.conversation || [];
+      const messages = [...window.conversation, {role:'user', content: contextual}];
+      window.conversation.push({role:'user', content:text});
+      let final = '';
+      if (assistantMode.local || modeKey === 'qwen_local') {
+        final = await window.callLocalLyra(messages, { model: assistantMode.model || 'qwen2.5-coder:1.5b', temperature, num_predict: Number($('responseDepth')?.value === 'deep' ? 1800 : 1000) });
+      } else {
+        lyraAbortController = new AbortController();
+        if (!window.puter?.ai?.chat) throw new Error(isEN() ? 'External AI service did not load.' : 'O serviço externo de IA não carregou.');
+        const opts = assistantMode.model ? { model:assistantMode.model, temperature } : { temperature };
+        if (stream) {
+          const resp = await puter.ai.chat(messages, { ...opts, stream:true });
+          for await (const part of resp) {
+            if (!lyraIsGenerating) break;
+            const chunk = part?.text || part?.message?.content || part?.content || '';
+            if (chunk) { final += chunk; outputEl.textContent = typeof cleanAssistantText === 'function' ? cleanAssistantText(final) : final; }
+          }
+        } else {
+          const resp = await puter.ai.chat(messages, opts);
+          final = typeof normalizeResponse === 'function' ? normalizeResponse(resp) : String(resp || '');
+        }
+      }
+      outputEl.textContent = (typeof cleanAssistantText === 'function' ? cleanAssistantText(final) : final) || (isEN()?'Empty response.':'Resposta vazia.');
+      window.conversation.push({role:'assistant', content:final});
+    } catch (err) {
+      if (err?.name === 'AbortError') outputEl.textContent = isEN() ? 'Response stopped.' : 'Resposta interrompida.';
+      else outputEl.textContent = (isEN() ? 'Lyra IA failed: ' : 'Erro na Lyra IA: ') + (err?.message || err);
+    } finally { lyraIsGenerating = false; toggleStopButton(false); lyraAbortController = null; }
+  };
+
+  function ensureSiteTools(){
+    const fullBtn = $('previewBtnFull');
+    if (fullBtn) fullBtn.textContent = document.querySelector('.preview-fullscreen') ? (isEN()?'Exit full screen':'Sair da tela cheia') : (isEN()?'Full screen':'Tela cheia');
+    const shell = $('sitePreview')?.parentElement;
+    if (shell && !$('lyraCloseFullscreenBtn')) {
+      const close = document.createElement('button');
+      close.id = 'lyraCloseFullscreenBtn';
+      close.className = 'lyra-close-fullscreen';
+      close.textContent = isEN() ? 'Close full screen' : 'Fechar tela cheia';
+      close.onclick = () => window.closePreviewFullscreen();
+      shell.appendChild(close);
+    }
+    const copyBtn = document.querySelector('button[onclick="copyGeneratedCode()"]');
+    if (copyBtn && !$('improveSiteBtn')) {
+      const b = document.createElement('button');
+      b.id = 'improveSiteBtn'; b.className = 'rounded-2xl bg-violet-600 px-5 py-3 font-bold hover:bg-violet-500';
+      b.textContent = isEN() ? 'Improve site' : 'Melhorar site';
+      b.onclick = window.improveGeneratedWebsite;
+      copyBtn.parentElement.appendChild(b);
+    }
+  }
+
+  window.togglePreviewFullscreen = function(){
+    const shell = $('sitePreview')?.parentElement; if (!shell) return;
+    shell.classList.toggle('preview-fullscreen');
+    const fullBtn = $('previewBtnFull'); if (fullBtn) fullBtn.textContent = shell.classList.contains('preview-fullscreen') ? (isEN()?'Exit full screen':'Sair da tela cheia') : (isEN()?'Full screen':'Tela cheia');
+  };
+  window.closePreviewFullscreen = function(){
+    const shell = $('sitePreview')?.parentElement; if (!shell) return;
+    shell.classList.remove('preview-fullscreen');
+    const fullBtn = $('previewBtnFull'); if (fullBtn) fullBtn.textContent = isEN()?'Full screen':'Tela cheia';
+  };
+
+  window.generateWebsite = async function(){
+    const preset = $('softwarePreset')?.value || 'landing';
+    const briefing = $('softwarePrompt')?.value?.trim();
+    const codeBox = $('generatedCode'), frame = $('sitePreview'), status = $('softwareStatus');
+    if (!briefing) return setText(status, isEN() ? 'Describe the website first.' : 'Descreva o site primeiro.');
+    setText(status, isEN() ? 'Lyra IA is creating the website...' : 'Lyra IA está criando a página...');
+    const instruction = `Você é a Lyra IA no modo Web Builder. Gere uma página HTML completa, executável e publicável.
+Regras obrigatórias:
+- Retorne apenas o HTML final começando por <!DOCTYPE html>.
+- Use Tailwind CDN no head.
+- Inclua design premium, responsivo, acessível, com boa hierarquia visual.
+- Use JavaScript puro apenas quando necessário.
+- Não mencione Qwen, Ollama ou modelo base.
+Tipo de site: ${preset}
+Briefing: ${briefing}`;
+    try {
+      let html = await window.callLocalLyra([{role:'user', content: instruction}], { model:'qwen2.5-coder:1.5b', temperature:.28, num_predict:2600, goal:'code' });
+      html = (typeof extractHtml === 'function' ? extractHtml(html) : html).trim();
+      if (!/^<!DOCTYPE html/i.test(html)) html = '<!DOCTYPE html>\n' + html;
+      if (!/tailwindcss\.com/.test(html)) html = html.replace(/<head[^>]*>/i, m => `${m}\n<script src="https://cdn.tailwindcss.com"><\/script>`);
+      codeBox.value = html; frame.srcdoc = html; setText(status, isEN() ? 'Page generated by Lyra IA.' : 'Página gerada pela Lyra IA.');
+    } catch(err){ setText(status, (isEN()?'Could not generate website: ':'Não foi possível gerar o site: ') + (err?.message || err)); }
+  };
+
+  window.improveGeneratedWebsite = async function(){
+    const html = $('generatedCode')?.value || $('sitePreview')?.srcdoc || '';
+    const request = $('softwarePrompt')?.value?.trim() || (isEN()?'Improve visual quality, responsiveness and conversion.':'Melhore qualidade visual, responsividade e conversão.');
+    const status = $('softwareStatus'); if (!html) return setText(status, isEN()?'Generate a site first.':'Gere um site primeiro.');
+    setText(status, isEN()?'Lyra IA is improving the current site...':'Lyra IA está melhorando o site atual...');
+    const prompt = `Melhore este HTML mantendo página única, Tailwind CDN, responsividade, acessibilidade e design premium. Retorne apenas o HTML completo começando com <!DOCTYPE html>. Pedido adicional: ${request}\n\nHTML atual:\n${html.slice(0,24000)}`;
+    try { let next = await window.callLocalLyra([{role:'user', content:prompt}], {temperature:.22, num_predict:3000, goal:'code'}); next = (typeof extractHtml === 'function'?extractHtml(next):next).trim(); if (!/^<!DOCTYPE html/i.test(next)) next='<!DOCTYPE html>\n'+next; $('generatedCode').value=next; $('sitePreview').srcdoc=next; setText(status, isEN()?'Improved version generated.':'Versão melhorada gerada.'); } catch(e){ setText(status, (isEN()?'Could not improve site: ':'Não foi possível melhorar o site: ') + (e?.message||e)); }
+  };
+
+  const IMAGE_SIZES = { square:{width:1024,height:1024}, post:{width:1080,height:1080}, story:{width:1080,height:1920}, landscape:{width:1536,height:864}, banner:{width:1600,height:900} };
+  const STYLE_PROMPTS = { commercial:'premium commercial photography, professional advertising style, clean composition, brand-ready visual', realistic:'photorealistic, natural lighting, realistic textures, sharp focus', cinematic:'cinematic lighting, dramatic composition, film still, depth of field', product:'studio product photography, clean background, premium lighting, detailed materials', ui:'futuristic interface design, glassmorphism, neon blue and violet, high-end SaaS visual', editorial:'editorial magazine style, sophisticated colors, refined composition', '3d':'high quality 3D render, realistic materials, soft shadows, polished render', anime:'high quality anime illustration, detailed background, expressive composition' };
+  window.enhanceImagePrompt = function(prompt){ const style=$('imageStyle')?.value||'commercial'; return `${prompt}\n\n${STYLE_PROMPTS[style]||STYLE_PROMPTS.commercial}. High quality, detailed, sharp focus, professional lighting, polished composition, high resolution. Avoid blurry image, distorted anatomy, extra fingers, unreadable text, watermark, logo artifacts, low quality.`; };
+  window.buildPollinationsImageUrl = function(prompt, format){ const size=IMAGE_SIZES[format||$('imageFormat')?.value||'square']||IMAGE_SIZES.square; const seed=Math.floor(Math.random()*99999999); return `https://image.pollinations.ai/prompt/${encodeURIComponent(window.enhanceImagePrompt(prompt))}?width=${size.width}&height=${size.height}&seed=${seed}&nologo=true&enhance=true`; };
+  window.generateImageWithPollinations = async function(prompt, options={}){ return window.buildPollinationsImageUrl(prompt, options.format || $('imageFormat')?.value || 'square'); };
+
+  function ensureImageControls(){
+    if ($('imageStyle')) return;
+    const mode = $('imageMode'); if (!mode) return;
+    if (![...mode.options].some(o=>o.value==='pollinations')) mode.insertAdjacentHTML('afterbegin','<option value="pollinations">Lyra Imagem Experimental</option>');
+    mode.value = 'pollinations';
+    const controls = document.createElement('div'); controls.className='grid sm:grid-cols-3 gap-3'; controls.innerHTML = `
+      <select id="imageStyle" class="lyra-select"><option value="commercial">Comercial premium</option><option value="realistic">Realista</option><option value="cinematic">Cinematográfico</option><option value="product">Produto/publicidade</option><option value="ui">UI futurista</option><option value="editorial">Editorial</option><option value="3d">Render 3D</option><option value="anime">Anime/ilustração</option></select>
+      <select id="imageFormat" class="lyra-select"><option value="square">Quadrado 1024</option><option value="post">Post 1080</option><option value="story">Story/Reels</option><option value="landscape">Paisagem</option><option value="banner">Banner</option></select>
+      <select id="imageVariations" class="lyra-select"><option value="1">1 imagem</option><option value="2">2 variações</option><option value="4" selected>4 variações</option></select>`;
+    mode.closest('.grid')?.insertAdjacentElement('beforebegin', controls);
+  }
+
+  window.generateImage = async function(){
+    const prompt = $('imagePrompt')?.value?.trim(); const output = $('imageOutput'); if (!prompt) return setText(output, isEN()?'Type a prompt first.':'Digite um prompt primeiro.');
+    $('downloadImageBtn')?.classList.add('hidden'); setLoadingLite(output, isEN()?'Generating image variations':'Gerando variações de imagem');
+    try {
+      const count = Number($('imageVariations')?.value || 1); const format = $('imageFormat')?.value || 'square'; const urls = Array.from({length:count},()=>window.buildPollinationsImageUrl(prompt, format));
+      if (count === 1) { window.lastGeneratedImageUrl=urls[0]; output.innerHTML = `<div class="w-full space-y-3"><img src="${urls[0]}" class="max-w-full rounded-2xl shadow-2xl mx-auto"><p class="text-xs text-slate-500 text-center">${isEN()?'Image generated by Lyra Experimental Image.':'Imagem gerada pela Lyra Imagem Experimental.'}</p></div>`; $('downloadImageBtn')?.classList.remove('hidden'); return; }
+      output.innerHTML = `<div class="lyra-image-grid">${urls.map((u,i)=>`<div class="lyra-image-card"><img src="${u}" alt="Lyra image ${i+1}"><button class="lyra-primary-btn" onclick="selectGeneratedImage('${u}')">${isEN()?'Use image':'Usar imagem'} ${i+1}</button></div>`).join('')}</div>`;
+    } catch(e){ setText(output, (isEN()?'Image generation failed: ':'Erro ao gerar imagem: ') + (e?.message||e)); }
+  };
+  window.selectGeneratedImage = function(url){ window.lastGeneratedImageUrl=url; $('downloadImageBtn')?.classList.remove('hidden'); };
+
+  function loadScriptOnce(id, src){ return new Promise((resolve,reject)=>{ if($(id)) return resolve(); const s=document.createElement('script'); s.id=id; s.src=src; s.onload=resolve; s.onerror=reject; document.head.appendChild(s); }); }
+  async function prepareVisionLibs(){ await Promise.allSettled([ loadScriptOnce('lyraTfjs','https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js'), loadScriptOnce('lyraTesseract','https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js') ]); }
+  async function preprocessImageForOCR(file){
+    const bitmap = await createImageBitmap(file); const maxW=1600; const scale=Math.min(1,maxW/bitmap.width); const canvas=document.createElement('canvas'); canvas.width=Math.round(bitmap.width*scale); canvas.height=Math.round(bitmap.height*scale); const ctx=canvas.getContext('2d'); ctx.drawImage(bitmap,0,0,canvas.width,canvas.height); const img=ctx.getImageData(0,0,canvas.width,canvas.height); const d=img.data; for(let i=0;i<d.length;i+=4){ const g=(d[i]*.299+d[i+1]*.587+d[i+2]*.114); const v=g>138?255:0; d[i]=d[i+1]=d[i+2]=v; } ctx.putImageData(img,0,0); return canvas;
+  }
+  window.ocrImage = async function(){
+    const file = $('visionFile')?.files?.[0]; const output=$('visionOutput'); if(!file) return setText(output,isEN()?'Select an image first.':'Selecione uma imagem primeiro.');
+    setLoadingLite(output, isEN()?'Loading OCR and TensorFlow.js':'Carregando OCR e TensorFlow.js');
+    try { await prepareVisionLibs(); const canvas = await preprocessImageForOCR(file); if (!window.Tesseract) throw new Error('Tesseract.js não carregou.'); setLoadingLite(output, isEN()?'Extracting text locally':'Extraindo texto localmente'); const result = await Tesseract.recognize(canvas, currentLang === 'en' ? 'eng' : 'por+eng'); const text = result?.data?.text?.trim() || (isEN()?'No text found.':'Nenhum texto encontrado.'); output.textContent = `${text}\n\n---\n${isEN()?'OCR processed locally with Tesseract.js. TensorFlow.js ready for visual models.':'OCR processado localmente com Tesseract.js. TensorFlow.js pronto para modelos visuais.'}`; } catch(e){ setText(output, (isEN()?'OCR failed: ':'Erro no OCR: ') + (e?.message||e)); }
+  };
+
+  window.lyraStartDictation = function(){
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition; if(!SR) return alert(isEN()?'Speech recognition is not supported in this browser.':'Reconhecimento de voz não suportado neste navegador.');
+    const rec = new SR(); rec.lang = isEN()?'en-US':'pt-BR'; rec.interimResults=false; rec.onresult = e => { const txt=e.results?.[0]?.[0]?.transcript || ''; const input=$('chatInput'); if(input) input.value = (input.value ? input.value+' ' : '') + txt; }; rec.start();
+  };
+  window.lyraReadLastAnswer = function(){
+    const answers = [...document.querySelectorAll('#chatBox .plain-answer')]; const last = answers.at(-1)?.textContent?.trim(); if(!last) return; speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(last); u.lang = isEN()?'en-US':'pt-BR'; speechSynthesis.speak(u);
+  };
+  window.lyraExportChatMarkdown = function(){
+    const data = (window.conversation || []).map(m => `## ${m.role}\n\n${m.content}`).join('\n\n---\n\n'); const blob = new Blob([data || 'Lyra Lab chat'], {type:'text/markdown'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`lyra-chat-${Date.now()}.md`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  };
+
+  function boot(){ injectGrowthStyles(); ensureLocalApiDefault(); ensureChatControls(); ensureSiteTools(); ensureImageControls(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+  const oldShowTab = window.showTab; window.showTab = function(name, updateHash=true){ if (typeof oldShowTab === 'function') oldShowTab(name, updateHash); setTimeout(boot, 50); };
+})();
+
+  </script>
 </body>
 </html>
