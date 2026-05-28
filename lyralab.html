@@ -560,6 +560,7 @@
               <textarea id="imagePrompt" rows="7" placeholder="Ex.: interface futurista da Lyra Lab, glassmorphism, neon azul e roxo, alta qualidade..." class="w-full rounded-3xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
               <div class="grid sm:grid-cols-3 gap-3">
                 <select id="imageMode" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm">
+                  <option value="pollinations" data-i18n="image.mode.experimental">Lyra Imagem Experimental</option>
                   <option value="auto" data-i18n="image.mode.auto">Imagem Automática</option>
                   <option value="creative" data-i18n="image.mode.creative">Gemini Imagem — Google</option>
                   <option value="advanced" data-i18n="image.mode.advanced">GPT Image — OpenAI</option>
@@ -752,7 +753,7 @@
     const STORAGE_KEY = 'lyra_lab_access_ok_v2';
     const LANG_KEY = 'lyra_lab_lang_v2';
     const CHAT_SESSIONS_KEY = 'lyra_lab_chat_sessions_v4';
-    const LYRA_LOCAL_API = localStorage.getItem('lyra_local_api') || 'https://super-page-outline-fee.trycloudflare.com/api/lyra/chat';
+    const LYRA_LOCAL_API = localStorage.getItem('lyra_local_api') || 'https://cloud-prisoners-reporter-royal.trycloudflare.com/api/lyra/chat';
     const LYRA_LOCAL_MODEL = 'qwen2.5-coder:1.5b';
     const LYRA_IDENTITY_PROMPT = `
 Você é a Lyra IA, assistente oficial da plataforma Lyra Lab.
@@ -819,7 +820,7 @@ Responda sempre no idioma do usuário. Seja útil, clara, prática e objetiva.
         'mode.qwenLocal':'Lyra IA — modelo local ilimitado', 'mode.fast':'GPT Mini — OpenAI', 'mode.advanced':'GPT Avançado — OpenAI', 'mode.creative':'Claude Criativo — Anthropic', 'mode.technical':'DeepSeek Técnico', 'mode.research':'Gemini Pesquisa — Google', 'mode.auto':'Assistente Automático',
         'software.title':'Criador de sites com Lyra IA', 'software.subtitle':'Gere sites, dashboards, apresentações web e interfaces completas com Tailwind CDN, animações e pré-visualização responsiva.', 'software.brief':'Briefing do site', 'software.cdns':'CDNs padrão da Lyra', 'software.cdnNote':'A Lyra IA recebe uma skill especializada para gerar HTML final executável no preview, com UX responsiva e código pronto para publicar.', 'software.placeholder':'Descreva o site que deseja criar...', 'software.generate':'Gerar e visualizar', 'software.copy':'Copiar código', 'software.status':'A pré-visualização aparecerá aqui.', 'software.download':'Baixar HTML', 'software.newTab':'Nova guia', 'software.fullscreen':'Tela cheia', 'software.landing':'Landing page premium', 'software.portfolio':'Portfólio profissional', 'software.dashboard':'Dashboard SaaS', 'software.presentation':'Apresentação web',
         'social.title':'Criador para redes sociais', 'social.subtitle':'Gere texto, roteiro, legenda e imagem de acordo com a plataforma.', 'social.placeholder':'Descreva o tema, produto ou campanha...', 'social.post':'Post', 'social.carousel':'Carrossel', 'social.reel':'Reels/Short', 'social.ad':'Anúncio', 'social.generateText':'Gerar conteúdo', 'social.generateImage':'Texto + imagem', 'social.tiktok':'Roteiro TikTok', 'social.imageBox':'A imagem aparecerá aqui.',
-        'files.title':'Análise de arquivos', 'files.subtitle':'Envie CSV/TXT para gerar tabela, gráficos e insights com a Lyra IA local ou modelos externos.', 'files.analyze':'Analisar arquivo', 'files.chart':'Gerar gráfico', 'image.socialTitle':'Texto para redes sociais', 'image.socialButton':'Gerar texto', 'image.title':'Gerador de imagens', 'image.subtitle':'Gere imagens com fallback automático de modelo.', 'image.output':'A imagem aparecerá aqui.', 'image.download':'Baixar', 'image.mode.auto':'Imagem Automática', 'image.mode.creative':'Gemini Imagem — Google', 'image.mode.advanced':'GPT Image — OpenAI',
+        'files.title':'Análise de arquivos', 'files.subtitle':'Envie CSV/TXT para gerar tabela, gráficos e insights com a Lyra IA local ou modelos externos.', 'files.analyze':'Analisar arquivo', 'files.chart':'Gerar gráfico', 'image.socialTitle':'Texto para redes sociais', 'image.socialButton':'Gerar texto', 'image.title':'Gerador de imagens', 'image.subtitle':'Gere imagens com fallback automático de modelo.', 'image.output':'A imagem aparecerá aqui.', 'image.download':'Baixar', 'image.mode.experimental':'Lyra Imagem Experimental', 'image.mode.auto':'Imagem Automática', 'image.mode.creative':'Gemini Imagem — Google', 'image.mode.advanced':'GPT Image — OpenAI',
         'video.title':'Gerador de vídeos', 'video.subtitle':'Crie prompts e vídeos curtos para TikTok, Reels e Shorts.', 'video.button':'Gerar vídeo', 'video.script':'Criar roteiro', 'video.output':'O vídeo aparecerá aqui.',
         'vision.title':'Análise de imagem e OCR', 'vision.subtitle':'Envie uma imagem para extrair texto ou pedir uma análise multimodal.', 'vision.analyze':'Analisar', 'vision.ocr':'Extrair texto/OCR', 'vision.output':'Resultado aparecerá aqui.',
         'audio.title':'Texto para áudio', 'audio.subtitle':'Transforme texto em fala natural.', 'audio.placeholder':'Digite o texto para narrar...', 'audio.langLabel':'Idioma', 'audio.voiceLabel':'Voz', 'audio.speedLabel':'Velocidade', 'audio.speedValue':'Velocidade', 'audio.customVoiceLabel':'Nome da voz personalizada', 'audio.voicePlaceholder':'Ex.: Joanna, Matthew, Nova, Alloy...', 'audio.button':'Gerar áudio', 'audio.output':'O player aparecerá aqui.',
@@ -851,7 +852,7 @@ Responda sempre no idioma do usuário. Seja útil, clara, prática e objetiva.
         'mode.qwenLocal':'Lyra IA — unlimited local model', 'mode.fast':'GPT Mini — OpenAI', 'mode.advanced':'Advanced GPT — OpenAI', 'mode.creative':'Creative Claude — Anthropic', 'mode.technical':'Technical DeepSeek', 'mode.research':'Research Gemini — Google', 'mode.auto':'Auto Assistant',
         'software.title':'Website builder with Lyra IA', 'software.subtitle':'Generate websites, dashboards, web presentations and complete interfaces with Tailwind CDN, animations and responsive preview.', 'software.brief':'Website brief', 'software.cdns':'Lyra default CDNs', 'software.cdnNote':'Lyra IA receives a specialized skill to generate final HTML executable in preview, with responsive UX and publish-ready code.', 'software.placeholder':'Describe the website you want to create...', 'software.generate':'Generate and preview', 'software.copy':'Copy code', 'software.status':'The preview will appear here.', 'software.download':'Download HTML', 'software.newTab':'New tab', 'software.fullscreen':'Fullscreen', 'software.landing':'Premium landing page', 'software.portfolio':'Professional portfolio', 'software.dashboard':'SaaS dashboard', 'software.presentation':'Web presentation',
         'social.title':'Social media creator', 'social.subtitle':'Generate text, scripts, captions and images according to each platform.', 'social.placeholder':'Describe the topic, product or campaign...', 'social.post':'Post', 'social.carousel':'Carousel', 'social.reel':'Reels/Short', 'social.ad':'Ad', 'social.generateText':'Generate content', 'social.generateImage':'Text + image', 'social.tiktok':'TikTok script', 'social.imageBox':'The image will appear here.',
-        'files.title':'File analysis', 'files.subtitle':'Upload CSV/TXT to generate tables, charts and insights with Lyra IA local or external models.', 'files.analyze':'Analyze file', 'files.chart':'Generate chart', 'image.socialTitle':'Social media text', 'image.socialButton':'Generate text', 'image.title':'Image generator', 'image.subtitle':'Generate images with automatic model fallback.', 'image.output':'The image will appear here.', 'image.download':'Download', 'image.mode.auto':'Auto Image', 'image.mode.creative':'Gemini Image — Google', 'image.mode.advanced':'GPT Image — OpenAI',
+        'files.title':'File analysis', 'files.subtitle':'Upload CSV/TXT to generate tables, charts and insights with Lyra IA local or external models.', 'files.analyze':'Analyze file', 'files.chart':'Generate chart', 'image.socialTitle':'Social media text', 'image.socialButton':'Generate text', 'image.title':'Image generator', 'image.subtitle':'Generate images with automatic model fallback.', 'image.output':'The image will appear here.', 'image.download':'Download', 'image.mode.experimental':'Lyra Experimental Image', 'image.mode.auto':'Auto Image', 'image.mode.creative':'Gemini Image — Google', 'image.mode.advanced':'GPT Image — OpenAI',
         'video.title':'Video generator', 'video.subtitle':'Create prompts and short videos for TikTok, Reels and Shorts.', 'video.button':'Generate video', 'video.script':'Create script', 'video.output':'The video will appear here.',
         'vision.title':'Image analysis and OCR', 'vision.subtitle':'Upload an image to extract text or request a multimodal analysis.', 'vision.analyze':'Analyze', 'vision.ocr':'Extract text/OCR', 'vision.output':'The result will appear here.',
         'audio.title':'Text to audio', 'audio.subtitle':'Convert text into natural speech.', 'audio.placeholder':'Type the text to narrate...', 'audio.langLabel':'Language', 'audio.voiceLabel':'Voice', 'audio.speedLabel':'Speed', 'audio.speedValue':'Speed', 'audio.customVoiceLabel':'Custom voice name', 'audio.voicePlaceholder':'Ex.: Joanna, Matthew, Nova, Alloy...', 'audio.button':'Generate audio', 'audio.output':'The player will appear here.',
@@ -1148,13 +1149,27 @@ Responda sempre no idioma do usuário. Seja útil, clara, prática e objetiva.
       shell.classList.toggle('preview-fullscreen');
     }
 
-    function downloadGeneratedImage() {
-      const img = document.querySelector('#imageOutput img');
-      if (!img?.src) return;
-      const a = document.createElement('a');
-      a.href = img.src;
-      a.download = `lyra-image-${Date.now()}.png`;
-      document.body.appendChild(a); a.click(); a.remove();
+    async function downloadGeneratedImage() {
+      const source = window.lastGeneratedImageUrl || document.querySelector('#imageOutput img')?.src || document.querySelector('#socialImageOutput img')?.src;
+      if (!source) return;
+
+      try {
+        const response = await fetch(source, { mode: 'cors' });
+        const blob = await response.blob();
+        const objectUrl = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = objectUrl;
+        a.download = `lyra-imagem-${Date.now()}.png`;
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+      } catch (_) {
+        const a = document.createElement('a');
+        a.href = source;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.download = `lyra-imagem-${Date.now()}.png`;
+        document.body.appendChild(a); a.click(); a.remove();
+      }
     }
 
     function renderSkillChips() {
@@ -1491,7 +1506,46 @@ Request: ${prompt}`;
       document.getElementById('softwareStatus').textContent = currentLang === 'en' ? 'Code copied.' : 'Código copiado.';
     }
 
-    async function callTxt2Img(prompt, output, testMode=false, preferredModel='') {
+    async function generateImageWithPollinations(prompt, options = {}) {
+      const width = options.width || 1024;
+      const height = options.height || 1024;
+      const seed = options.seed || Date.now();
+      const enhancedPrompt = `${prompt}, high quality, detailed, professional digital art`;
+      const encodedPrompt = encodeURIComponent(enhancedPrompt);
+      return `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true`;
+    }
+
+    async function renderGeneratedImage(url, output, caption='') {
+      window.lastGeneratedImageUrl = url;
+      output.innerHTML = '';
+      const wrap = document.createElement('div');
+      wrap.className = 'w-full space-y-3';
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = currentLang === 'en' ? 'Image generated by Lyra IA' : 'Imagem gerada pela Lyra IA';
+      img.className = 'max-w-full rounded-2xl shadow-2xl mx-auto';
+      wrap.appendChild(img);
+      if (caption) {
+        const note = document.createElement('p');
+        note.className = 'text-xs text-slate-500 text-center';
+        note.textContent = caption;
+        wrap.appendChild(note);
+      }
+      output.appendChild(wrap);
+      document.getElementById('downloadImageBtn')?.classList.remove('hidden');
+      return img;
+    }
+
+    async function callTxt2Img(prompt, output, testMode=false, preferredModel='', imageMode='auto') {
+      const experimentalCaption = currentLang === 'en'
+        ? 'Image generated by Lyra Experimental Image.'
+        : 'Imagem gerada pela Lyra Imagem Experimental.';
+
+      if (imageMode === 'pollinations' || imageMode === 'auto' || !window.puter?.ai?.txt2img) {
+        const imageUrl = await generateImageWithPollinations(prompt);
+        return renderGeneratedImage(imageUrl, output, experimentalCaption);
+      }
+
       const attempts = [
         () => preferredModel ? puter.ai.txt2img(prompt, testMode, { model: preferredModel }) : puter.ai.txt2img(prompt, testMode),
         () => preferredModel ? puter.ai.txt2img(prompt, { model: preferredModel, testMode }) : puter.ai.txt2img(prompt, { testMode }),
@@ -1504,15 +1558,18 @@ Request: ${prompt}`;
           const result = await attempt();
           const img = await normalizeImageResult(result);
           if (img) {
+            window.lastGeneratedImageUrl = img.src;
             output.innerHTML = '';
-            img.className = 'max-w-full rounded-2xl shadow-2xl';
+            img.className = 'max-w-full rounded-2xl shadow-2xl mx-auto';
             output.appendChild(img);
             document.getElementById('downloadImageBtn')?.classList.remove('hidden');
             return img;
           }
         } catch (e) { lastError = e; }
       }
-      throw lastError || new Error('Image generation unavailable.');
+
+      const fallbackUrl = await generateImageWithPollinations(prompt);
+      return renderGeneratedImage(fallbackUrl, output, experimentalCaption);
     }
 
     async function normalizeImageResult(result) {
@@ -1537,7 +1594,7 @@ Request: ${prompt}`;
       if (!prompt) return output.textContent = currentLang === 'en' ? 'Type a prompt first.' : 'Digite um prompt primeiro.';
       document.getElementById('downloadImageBtn')?.classList.add('hidden');
       setLoading(output, currentLang === 'en' ? 'Generating image' : 'Gerando imagem');
-      try { await callTxt2Img(prompt, output, testMode, model); }
+      try { await callTxt2Img(prompt, output, testMode, model, imageMode); }
       catch (error) { output.textContent = (currentLang === 'en' ? 'Image generation failed: ' : 'Erro ao gerar imagem: ') + safeError(error); }
     }
 
@@ -1564,7 +1621,7 @@ Topic: ${topic}`;
         if (withImage) {
           const imagePrompt = `High-quality social media visual for ${platform}. ${topic}. Premium composition, modern, clean, engaging.`;
           setLoading(imageOutput, currentLang === 'en' ? 'Generating image' : 'Gerando imagem');
-          await callTxt2Img(imagePrompt, imageOutput, false, '');
+          await callTxt2Img(imagePrompt, imageOutput, false, '', 'auto');
         }
       } catch (error) {
         output.textContent = (currentLang === 'en' ? 'Could not generate content: ' : 'Não foi possível gerar o conteúdo: ') + safeError(error);
