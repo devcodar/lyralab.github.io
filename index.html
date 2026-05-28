@@ -2,49 +2,28 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#020617" />
   <title>Lyra Lab — Plataforma de IA</title>
 
-  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
   <script src="https://js.puter.com/v2/"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'Arial']
-          },
-          boxShadow: {
-            glow: '0 0 40px rgba(59, 130, 246, .25)'
-          }
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'Arial'] },
+          boxShadow: { glow: '0 0 40px rgba(59,130,246,.25)' }
         }
       }
     }
   </script>
 
   <style>
-    * { scroll-behavior: smooth; }
-    body { background: radial-gradient(circle at top left, #1e3a8a 0, transparent 28%), radial-gradient(circle at bottom right, #7c3aed 0, transparent 25%), #020617; }
-    .glass { background: rgba(15, 23, 42, .74); border: 1px solid rgba(148, 163, 184, .18); backdrop-filter: blur(18px); }
-    .soft-card { background: rgba(15, 23, 42, .62); border: 1px solid rgba(148, 163, 184, .16); }
-    .skill-chip { border: 1px solid rgba(148, 163, 184, .18); background: rgba(15, 23, 42, .72); color: #cbd5e1; }
-    .skill-chip-active { border-color: rgba(96, 165, 250, .75); background: linear-gradient(135deg, rgba(37, 99, 235, .92), rgba(124, 58, 237, .92)); color: white; }
-    .tab-active { background: linear-gradient(135deg, #2563eb, #7c3aed); color: white; }
-    .tab-inactive { background: rgba(30, 41, 59, .72); color: #cbd5e1; }
-    .typing-dot { animation: pulse 1s infinite ease-in-out; }
-    .typing-dot:nth-child(2) { animation-delay: .15s; }
-    .typing-dot:nth-child(3) { animation-delay: .3s; }
-    @keyframes pulse { 0%, 100% { opacity: .25; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-2px); } }
-    ::-webkit-scrollbar { width: 9px; height: 9px; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 999px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-
-    /* =========================================================
-       LYRA LAB — COSMIC PARALLAX BACKGROUND
-    ========================================================= */
+    * { scroll-behavior: smooth; box-sizing: border-box; }
+    html, body { width: 100%; min-height: 100%; }
     body {
       overflow-x: hidden;
       background:
@@ -54,21 +33,22 @@
         #020617;
     }
 
-    #cosmicBg {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      overflow: hidden;
-      pointer-events: none;
-    }
+    .glass { background: rgba(15,23,42,.74); border: 1px solid rgba(148,163,184,.18); backdrop-filter: blur(18px); }
+    .soft-card { background: rgba(15,23,42,.62); border: 1px solid rgba(148,163,184,.16); }
+    .tab-active { background: linear-gradient(135deg,#2563eb,#7c3aed); color: white; }
+    .tab-inactive { background: rgba(30,41,59,.72); color: #cbd5e1; }
+    .skill-chip { border: 1px solid rgba(148,163,184,.18); background: rgba(15,23,42,.72); color: #cbd5e1; }
+    .skill-chip-active { border-color: rgba(96,165,250,.75); background: linear-gradient(135deg,rgba(37,99,235,.92),rgba(124,58,237,.92)); color:white; }
+    .typing-dot { animation: pulse 1s infinite ease-in-out; }
+    .typing-dot:nth-child(2) { animation-delay: .15s; }
+    .typing-dot:nth-child(3) { animation-delay: .3s; }
+    @keyframes pulse { 0%,100% { opacity:.25; transform:translateY(0); } 50% { opacity:1; transform:translateY(-2px); } }
+    ::-webkit-scrollbar { width: 9px; height: 9px; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 999px; }
+    ::-webkit-scrollbar-track { background: transparent; }
 
-    .parallax-layer {
-      position: absolute;
-      inset: -5%;
-      will-change: transform;
-      transition: transform 0.18s ease-out;
-    }
-
+    #cosmicBg { position: fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; }
+    .parallax-layer { position:absolute; inset:-5%; will-change:transform; transition:transform .18s ease-out; }
     .cosmic-nebula {
       background:
         radial-gradient(circle at 20% 25%, rgba(59,130,246,.20), transparent 18%),
@@ -76,112 +56,142 @@
         radial-gradient(circle at 45% 70%, rgba(6,182,212,.14), transparent 22%),
         radial-gradient(circle at 80% 75%, rgba(99,102,241,.10), transparent 18%);
       filter: blur(38px) saturate(130%);
-      opacity: .95;
+      opacity:.95;
       animation: nebulaShift 18s ease-in-out infinite alternate;
     }
-
     .cosmic-glow {
       background:
         radial-gradient(circle at 50% 50%, rgba(255,255,255,.05), transparent 20%),
         radial-gradient(circle at 52% 49%, rgba(96,165,250,.12), transparent 30%);
       filter: blur(90px);
-      opacity: .8;
+      opacity:.8;
       animation: pulseUniverse 12s ease-in-out infinite;
     }
-
     .cosmic-noise {
-      position: absolute;
-      inset: 0;
-      opacity: .035;
-      background-image: radial-gradient(rgba(255,255,255,.9) 0.5px, transparent 0.7px);
+      position:absolute; inset:0; opacity:.035;
+      background-image: radial-gradient(rgba(255,255,255,.9) .5px, transparent .7px);
       background-size: 8px 8px;
       mix-blend-mode: screen;
     }
-
-    #starfield {
-      width: 100%;
-      height: 100%;
-      opacity: .95;
-    }
-
-    #lyraConstellation {
-      width: 100%;
-      height: 100%;
-      opacity: .55;
-      filter: drop-shadow(0 0 12px rgba(96,165,250,.25));
-    }
-
+    #starfield, #lyraConstellation { width:100%; height:100%; }
+    #starfield { opacity:.95; }
+    #lyraConstellation { opacity:.55; filter: drop-shadow(0 0 12px rgba(96,165,250,.25)); }
     #lyraConstellation .lyra-lines line {
-      stroke: rgba(148, 197, 255, .45);
-      stroke-width: 1.6;
-      stroke-linecap: round;
-      stroke-dasharray: 8 8;
+      stroke: rgba(148,197,255,.45);
+      stroke-width:1.6;
+      stroke-linecap:round;
+      stroke-dasharray:8 8;
       animation: constellationFlow 8s linear infinite;
     }
+    #lyraConstellation .star { fill:rgba(255,255,255,.95); }
+    #lyraConstellation .star.major { fill:#fff; filter:drop-shadow(0 0 12px rgba(255,255,255,.9)); animation:twinkle 2.8s ease-in-out infinite; }
+    #lyraConstellation .star.halo { fill:rgba(96,165,250,.15); animation:haloPulse 3.2s ease-in-out infinite; }
+    #lyraConstellation .star:not(.major):not(.halo) { animation:twinkle 4s ease-in-out infinite; }
 
-    #lyraConstellation .star { fill: rgba(255,255,255,.95); }
-    #lyraConstellation .star.major {
-      fill: #ffffff;
-      filter: drop-shadow(0 0 12px rgba(255,255,255,.9));
-      animation: twinkle 2.8s ease-in-out infinite;
+    .nebula-mark {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      border-radius: 18px;
+      background: radial-gradient(circle at 35% 35%, #ffffff, #60a5fa 18%, #7c3aed 42%, #0f172a 70%);
+      box-shadow: inset -8px -10px 22px rgba(2,6,23,.55), inset 8px 8px 20px rgba(255,255,255,.22), 0 0 30px rgba(96,165,250,.35), 0 18px 38px rgba(0,0,0,.35);
+      transform: perspective(600px) rotateX(8deg) rotateY(-12deg);
+      overflow: hidden;
     }
-    #lyraConstellation .star.halo {
-      fill: rgba(96,165,250,.15);
-      animation: haloPulse 3.2s ease-in-out infinite;
+    .nebula-mark::before {
+      content:"";
+      position:absolute;
+      inset:9px 2px;
+      border:1px solid rgba(255,255,255,.75);
+      border-left-color: transparent;
+      border-right-color: rgba(255,255,255,.2);
+      border-radius:50%;
+      transform: rotate(-22deg);
     }
-    #lyraConstellation .star:not(.major):not(.halo) { animation: twinkle 4s ease-in-out infinite; }
+    .nebula-mark::after {
+      content:"";
+      position:absolute;
+      width:7px;
+      height:7px;
+      border-radius:999px;
+      background:#fff;
+      right:10px;
+      top:9px;
+      box-shadow: 0 0 12px #fff;
+    }
 
-    @keyframes nebulaShift {
-      0% { transform: scale(1) translate3d(0, 0, 0) rotate(0deg); }
-      100% { transform: scale(1.08) translate3d(1.5%, -1.2%, 0) rotate(2deg); }
+    .preview-frame {
+      width:100%;
+      min-height:520px;
+      border:0;
+      border-radius:22px;
+      background:white;
+      transition: width .25s ease, height .25s ease, border-radius .25s ease, box-shadow .25s ease;
+    }
+    .preview-desktop { width:100%; min-height:640px; }
+    .preview-tablet { width:768px; max-width:100%; min-height:720px; }
+    .preview-mobile { width:390px; max-width:100%; min-height:760px; border-radius:34px; box-shadow:0 0 0 10px rgba(15,23,42,.7), 0 25px 70px rgba(0,0,0,.5); }
+    .engine-pill { border: 1px solid rgba(96,165,250,.22); background: rgba(15,23,42,.65); }
+
+    .plain-answer h1, .plain-answer h2, .plain-answer h3 { font-size: inherit; font-weight: inherit; }
+    .bottom-mobile-nav { display:none; }
+
+    @keyframes nebulaShift { 0% { transform:scale(1) translate3d(0,0,0) rotate(0deg); } 100% { transform:scale(1.08) translate3d(1.5%,-1.2%,0) rotate(2deg); } }
+    @keyframes pulseUniverse { 0%,100% { opacity:.55; transform:scale(1); } 50% { opacity:.9; transform:scale(1.06); } }
+    @keyframes twinkle { 0%,100% { opacity:.55; transform:scale(1); } 50% { opacity:1; transform:scale(1.18); } }
+    @keyframes haloPulse { 0%,100% { opacity:.2; transform:scale(1); } 50% { opacity:.6; transform:scale(1.12); } }
+    @keyframes constellationFlow { from { stroke-dashoffset:0; } to { stroke-dashoffset:-32; } }
+
+
+    .status-pill { border:1px solid rgba(52,211,153,.25); background:rgba(16,185,129,.10); color:#a7f3d0; }
+    .preview-toolbar { position: sticky; top: 76px; z-index: 20; }
+    .site-preview-shell { min-height: 74vh; }
+    .preview-fullscreen { position: fixed !important; inset: 16px !important; z-index: 80 !important; background: rgba(2,6,23,.96); padding: 18px; border-radius: 28px; border: 1px solid rgba(148,163,184,.22); overflow:auto; }
+    .preview-fullscreen iframe { min-height: calc(100vh - 92px) !important; width: 100% !important; border-radius: 18px !important; }
+    .donation-card { background: linear-gradient(135deg, rgba(37,99,235,.18), rgba(124,58,237,.18)); border:1px solid rgba(129,140,248,.25); }
+    .field-label { font-size: 11px; color:#94a3b8; margin-bottom:6px; display:block; }
+
+    @media (max-width: 1023px) {
+      #desktopSidebar { position: static; }
+      #tabs { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      #tabs button { text-align:center; padding: .85rem .55rem; font-size:.82rem; }
+      #chatBox { height: 56vh; min-height:360px; }
+      .app-shell { padding-bottom: 88px; }
+      .bottom-mobile-nav {
+        display:grid;
+        grid-template-columns: repeat(5, minmax(0,1fr));
+        position: fixed;
+        left: 12px; right: 12px; bottom: 12px;
+        z-index: 50;
+        border-radius: 24px;
+        background: rgba(2,6,23,.88);
+        border: 1px solid rgba(148,163,184,.18);
+        backdrop-filter: blur(18px);
+        overflow: hidden;
+        box-shadow: 0 18px 50px rgba(0,0,0,.35);
+      }
+      .bottom-mobile-nav button { padding: 10px 6px; font-size: 18px; }
     }
 
-    @keyframes pulseUniverse {
-      0%, 100% { opacity: .55; transform: scale(1); }
-      50% { opacity: .9; transform: scale(1.06); }
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: .55; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.18); }
-    }
-
-    @keyframes haloPulse {
-      0%, 100% { opacity: .2; transform: scale(1); }
-      50% { opacity: .6; transform: scale(1.12); }
-    }
-
-    @keyframes constellationFlow {
-      from { stroke-dashoffset: 0; }
-      to { stroke-dashoffset: -32; }
+    @media (max-width: 640px) {
+      main { padding-left: max(14px, env(safe-area-inset-left)); padding-right: max(14px, env(safe-area-inset-right)); }
+      .glass { border-radius: 26px; }
+      .preview-frame { min-height: 460px; }
+      #tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .cosmic-nebula,
-      .cosmic-glow,
-      #lyraConstellation .lyra-lines line,
-      #lyraConstellation .star.major,
-      #lyraConstellation .star.halo,
-      #lyraConstellation .star:not(.major):not(.halo) {
-        animation: none !important;
-      }
-      .parallax-layer { transition: none !important; }
+      .cosmic-nebula, .cosmic-glow, #lyraConstellation .lyra-lines line, #lyraConstellation .star { animation: none !important; }
+      .parallax-layer { transition:none !important; }
     }
   </style>
 </head>
+
 <body class="min-h-screen text-slate-100 font-sans" data-lang="pt">
-  <!-- Background cósmico Lyra Lab -->
   <div id="cosmicBg" aria-hidden="true">
     <div class="cosmic-nebula parallax-layer" data-depth="0.03"></div>
     <canvas id="starfield" class="parallax-layer" data-depth="0.10"></canvas>
-
-    <svg
-      id="lyraConstellation"
-      class="parallax-layer"
-      data-depth="0.18"
-      viewBox="0 0 1000 1000"
-      preserveAspectRatio="xMidYMid slice"
-    >
+    <svg id="lyraConstellation" class="parallax-layer" data-depth="0.18" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
       <g class="lyra-lines">
         <line x1="530" y1="250" x2="420" y2="420"></line>
         <line x1="530" y1="250" x2="650" y2="380"></line>
@@ -190,7 +200,6 @@
         <line x1="390" y1="620" x2="630" y2="610"></line>
         <line x1="420" y1="420" x2="630" y2="610"></line>
       </g>
-
       <g class="lyra-stars">
         <circle class="star major" cx="530" cy="250" r="7"></circle>
         <circle class="star halo" cx="530" cy="250" r="18"></circle>
@@ -200,75 +209,68 @@
         <circle class="star" cx="630" cy="610" r="4"></circle>
       </g>
     </svg>
-
     <div class="cosmic-glow parallax-layer" data-depth="0.06"></div>
     <div class="cosmic-noise"></div>
   </div>
 
-  <!-- LOGIN -->
   <main id="loginView" class="min-h-screen flex items-center justify-center p-5">
     <section class="glass max-w-5xl w-full rounded-3xl shadow-glow overflow-hidden">
       <div class="grid lg:grid-cols-[1.05fr_.95fr]">
         <div class="p-8 sm:p-10 lg:p-12">
           <div class="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-500/10 px-4 py-2 text-xs font-bold text-blue-200 mb-7">
             <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span data-i18n="login.badge">Acesso exclusivo à plataforma</span>
+            <span data-i18n="login.badge">Acesso exclusivo</span>
           </div>
 
           <div class="mb-8">
-            <div class="w-16 h-16 rounded-3xl bg-gradient-to-br from-blue-500 to-violet-600 grid place-items-center shadow-lg mb-6">
-              <span class="text-3xl font-black">LY</span>
+            <div class="flex items-center gap-4 mb-6">
+              <div class="nebula-mark"></div>
+              <div>
+                <h1 class="text-4xl sm:text-5xl font-black tracking-tight leading-tight">Lyra Lab</h1>
+                <p class="text-blue-200 text-sm font-semibold" data-i18n="login.tagline">LLMs, criação e automação em uma única experiência.</p>
+              </div>
             </div>
-            <h1 class="text-4xl sm:text-5xl font-black tracking-tight leading-tight"><span data-i18n="login.title">Lyra Lab, sua central de inteligência artificial.</span></h1>
-            <p class="text-slate-300 mt-5 leading-relaxed text-lg"><span data-i18n="login.subtitle">Crie textos, imagens, vídeos, áudios, transcrições e análises multimodais com uma experiência simples, moderna e integrada diretamente no navegador.</span></p>
+            <p class="text-slate-300 mt-5 leading-relaxed text-lg" data-i18n="login.subtitle">Lyra reúne modelos avançados de LLM para criar, analisar, programar e transformar ideias em conteúdo, produtos e experiências digitais.</p>
           </div>
 
-          <div class="grid sm:grid-cols-3 gap-3 mb-8">
+          <div class="grid sm:grid-cols-2 gap-3 mb-8">
             <div class="rounded-2xl bg-slate-950/50 border border-slate-800 p-4">
-              <p class="text-xl font-black">Lyra</p>
-              <p class="text-xs text-slate-400 mt-1"><span data-i18n="stats.models">Modelos avançados</span></p>
+              <p class="text-xl font-black">GPT, Claude, Gemini</p>
+              <p class="text-xs text-slate-400 mt-1" data-i18n="stats.models">Modelos avançados</p>
             </div>
             <div class="rounded-2xl bg-slate-950/50 border border-slate-800 p-4">
-              <p class="text-xl font-black">100%</p>
-              <p class="text-xs text-slate-400 mt-1"><span data-i18n="stats.web">Interface web</span></p>
-            </div>
-            <div class="rounded-2xl bg-slate-950/50 border border-slate-800 p-4">
-              <p class="text-xl font-black">Tudo</p>
-              <p class="text-xs text-slate-400 mt-1"><span data-i18n="stats.file">Em um arquivo</span></p>
+              <p class="text-xl font-black">Texto, imagem, vídeo</p>
+              <p class="text-xs text-slate-400 mt-1" data-i18n="stats.creation">Criação multimodal</p>
             </div>
           </div>
-
-          <p class="text-sm text-slate-500"><span data-i18n="author">Desenvolvido por Daniela Rodrigues • Salvador, Bahia, Brasil</span></p>
         </div>
 
         <div class="bg-slate-950/55 border-t lg:border-t-0 lg:border-l border-slate-800 p-8 sm:p-10 lg:p-12 flex items-center">
           <div class="w-full">
-            <div class="mb-7">
-              <div class="flex items-start justify-between gap-3">
-                <div>
-                  <h2 class="text-2xl font-black" data-i18n="login.formTitle">Entrar na plataforma</h2>
-                  <p class="text-slate-400 mt-2" data-i18n="login.formSubtitle">Informe seu código de acesso para liberar o painel de ferramentas de IA.</p>
-                </div>
-                <select id="languageSelect" onchange="setLanguage(this.value)" class="rounded-xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-xs text-slate-200">
-                  <option value="pt">PT</option>
-                  <option value="en">EN</option>
-                </select>
+            <div class="flex items-start justify-between gap-3 mb-7">
+              <div>
+                <h2 class="text-2xl font-black" data-i18n="login.formTitle">Entrar na Lyra Lab</h2>
+                <p class="text-slate-400 mt-2" data-i18n="login.formSubtitle">Informe seu código de acesso para continuar.</p>
               </div>
+              <select id="languageSelect" onchange="setLanguage(this.value)" class="rounded-xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-xs text-slate-200">
+                <option value="pt">PT</option>
+                <option value="en">EN</option>
+              </select>
             </div>
 
             <div class="space-y-4">
               <label class="block">
-                <span class="text-sm text-slate-300"><span data-i18n="login.codeLabel">Código de acesso</span></span>
+                <span class="text-sm text-slate-300" data-i18n="login.codeLabel">Código de acesso</span>
                 <input id="accessCode" type="password" placeholder="Digite seu código exclusivo" data-i18n-placeholder="login.codePlaceholder" class="mt-2 w-full rounded-2xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500" />
               </label>
-
-              <button onclick="login()" class="w-full rounded-2xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-3 font-bold hover:opacity-95 active:scale-[.99] transition"><span data-i18n="login.button">Acessar agora</span></button>
-
+              <button onclick="login()" class="w-full rounded-2xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-3 font-bold hover:opacity-95 active:scale-[.99] transition">
+                <span data-i18n="login.button">Acessar agora</span>
+              </button>
               <p id="loginMsg" class="hidden rounded-2xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200"></p>
             </div>
 
-            <div class="mt-6 rounded-2xl bg-slate-900/60 border border-slate-800 p-4 text-xs text-slate-400 leading-relaxed">
-              <span data-i18n="login.note">Lyra Lab é uma plataforma experimental para produtividade, criação de conteúdo e automação com IA. O acesso é restrito a usuários autorizados.</span>
+            <div class="mt-6 rounded-2xl bg-slate-900/60 border border-slate-800 p-4 text-xs text-slate-400 leading-relaxed" data-i18n="login.note">
+              Plataforma de IA para produtividade, criação e prototipagem rápida.
             </div>
           </div>
         </div>
@@ -276,15 +278,25 @@
     </section>
   </main>
 
-  <!-- APP -->
-  <main id="appView" class="hidden min-h-screen">
+  <main id="authView" class="hidden min-h-screen flex items-center justify-center p-5">
+    <section class="glass max-w-xl w-full rounded-3xl shadow-glow p-8 sm:p-10 text-center">
+      <div class="nebula-mark mx-auto mb-5"></div>
+      <h2 class="text-3xl font-black mb-3">Lyra Lab</h2>
+      <p class="text-slate-300 mb-6" data-i18n="auth.text">Para continuar faça login com a sua conta Google.</p>
+      <button onclick="connectPuterAccount()" class="w-full rounded-2xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-3 font-bold hover:opacity-95 active:scale-[.99] transition" data-i18n="auth.button">
+        Continuar com Google
+      </button>
+      <p id="authMsg" class="hidden mt-4 rounded-2xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200"></p>
+    </section>
+  </main>
+
+  <main id="appView" class="hidden min-h-screen app-shell">
     <header class="sticky top-0 z-40 border-b border-slate-800 bg-slate-950/80 backdrop-blur-xl">
       <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
-        <div class="flex items-center gap-3">
-          <div id="brandBadge" class="w-11 h-11 rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 grid place-items-center font-black">GPT</div>
-          <div>
-            <h1 class="font-black leading-tight">Lyra Lab</h1>
-            <p class="text-xs text-slate-400" data-i18n="author">Desenvolvido por Daniela Rodrigues • Salvador, Bahia, Brasil</p>
+        <div class="flex items-center gap-3 min-w-0">
+          <div id="brandBadge" class="nebula-mark shrink-0"></div>
+          <div class="min-w-0">
+            <h1 class="font-black leading-tight truncate">Lyra Lab</h1>
           </div>
         </div>
         <div class="flex items-center gap-2">
@@ -292,6 +304,11 @@
             <option value="pt">PT</option>
             <option value="en">EN</option>
           </select>
+          <button onclick="showTab('settings')" class="hidden md:inline-flex rounded-xl border border-slate-700 px-3 py-2 text-sm text-slate-300 hover:bg-slate-800" data-i18n="nav.settings">Configurações</button>
+          <button onclick="showTab('donate')" class="hidden md:inline-flex rounded-xl border border-indigo-500/40 bg-indigo-500/10 px-3 py-2 text-sm text-indigo-100 hover:bg-indigo-500/20" data-i18n="nav.donate">Apoiar</button>
+          <span id="apiStatusBadge" class="hidden lg:inline-flex rounded-xl status-pill px-3 py-2 text-xs font-bold">Lyra IA: verificando</span>
+          <button onclick="newChat()" class="hidden sm:inline-flex rounded-xl border border-slate-700 px-3 py-2 text-sm text-slate-300 hover:bg-slate-800" data-i18n="actions.newChat">Novo chat</button>
+          <button onclick="saveCurrentChat()" class="hidden sm:inline-flex rounded-xl border border-slate-700 px-3 py-2 text-sm text-slate-300 hover:bg-slate-800" data-i18n="actions.saveChat">Salvar</button>
           <button onclick="clearAll()" class="hidden sm:inline-flex rounded-xl border border-slate-700 px-3 py-2 text-sm text-slate-300 hover:bg-slate-800" data-i18n="actions.clear">Limpar</button>
           <button onclick="logout()" class="rounded-xl bg-slate-800 px-3 py-2 text-sm text-slate-200 hover:bg-slate-700" data-i18n="actions.logout">Sair</button>
         </div>
@@ -299,37 +316,55 @@
     </header>
 
     <section class="max-w-7xl mx-auto px-4 py-6 grid lg:grid-cols-[280px_1fr] gap-5">
-      <!-- SIDEBAR -->
-      <aside class="glass rounded-3xl p-4 h-fit lg:sticky lg:top-24">
+      <aside id="desktopSidebar" class="glass rounded-3xl p-4 h-fit lg:sticky lg:top-24">
         <nav class="grid gap-2" id="tabs">
-          <button onclick="showTab('chat')" data-tab="chat" class="tab-active text-left rounded-2xl px-4 py-3 font-semibold">💬 <span data-i18n="nav.chat">Chat IA</span></button>
-          <button onclick="showTab('image')" data-tab="image" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">🖼️ <span data-i18n="nav.image">Gerar imagem</span></button>
-          <button onclick="showTab('vision')" data-tab="vision" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">👁️ <span data-i18n="nav.vision">Analisar imagem/OCR</span></button>
-          <button onclick="showTab('video')" data-tab="video" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">🎬 <span data-i18n="nav.video">Gerar vídeo</span></button>
-          <button onclick="showTab('audio')" data-tab="audio" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">🔊 <span data-i18n="nav.audio">Texto para áudio</span></button>
+          <button onclick="showTab('chat')" data-tab="chat" class="tab-active text-left rounded-2xl px-4 py-3 font-semibold">💬 <span data-i18n="nav.chat">Chat</span></button>
+          <button onclick="showTab('files')" data-tab="files" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">📊 <span data-i18n="nav.files">Arquivos e insights</span></button>
+          <button onclick="showTab('software')" data-tab="software" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">🧩 <span data-i18n="nav.software">Criar site</span></button>
+          <button onclick="showTab('social')" data-tab="social" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">📱 <span data-i18n="nav.social">Redes sociais</span></button>
+          <button onclick="showTab('image')" data-tab="image" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">🖼️ <span data-i18n="nav.image">Imagem</span></button>
+          <button onclick="showTab('video')" data-tab="video" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">🎬 <span data-i18n="nav.video">Vídeo</span></button>
+          <button onclick="showTab('vision')" data-tab="vision" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">👁️ <span data-i18n="nav.vision">Imagem/OCR</span></button>
+          <button onclick="showTab('audio')" data-tab="audio" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">🔊 <span data-i18n="nav.audio">Áudio</span></button>
           <button onclick="showTab('transcription')" data-tab="transcription" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">🎙️ <span data-i18n="nav.transcription">Transcrição</span></button>
-          </nav>
+          <button onclick="showTab('settings')" data-tab="settings" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">⚙️ <span data-i18n="nav.settings">Configurações</span></button>
+          <button onclick="showTab('about')" data-tab="about" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">🪐 <span data-i18n="nav.about">Sobre</span></button>
+          <button onclick="showTab('donate')" data-tab="donate" class="tab-inactive text-left rounded-2xl px-4 py-3 font-semibold">💜 <span data-i18n="nav.donate">Apoiar</span></button>
+        </nav>
+
+        <div class="mt-5 soft-card rounded-2xl p-4 text-xs text-slate-400 leading-relaxed">
+          <p class="font-bold text-slate-200 mb-2" data-i18n="history.title">Conversas</p>
+          <select id="chatHistorySelect" onchange="loadSelectedChat()" class="w-full rounded-xl bg-slate-950/70 border border-slate-700 px-2 py-2 text-xs text-slate-200 mb-2"></select>
+          <div class="grid grid-cols-2 gap-2 mb-3">
+            <button onclick="newChat()" class="rounded-xl bg-slate-800 px-2 py-2 hover:bg-slate-700" data-i18n="actions.newChat">Novo chat</button>
+            <button onclick="saveCurrentChat()" class="rounded-xl bg-slate-800 px-2 py-2 hover:bg-slate-700" data-i18n="actions.saveChat">Salvar</button>
+          </div>
+        </div>
 
         <div class="mt-5 soft-card rounded-2xl p-4 text-xs text-slate-400 leading-relaxed">
           <p class="font-bold text-slate-200 mb-1" data-i18n="author.short">Desenvolvido por Daniela Rodrigues</p>
           <p data-i18n="location">Salvador, Bahia, Brasil</p>
-          <p class="mt-2" data-i18n="sidebar.note">Lyra Lab centraliza criação, análise, automação e produtividade em ambiente web.</p>
+          <p class="mt-2" data-i18n="sidebar.note">Lyra Lab centraliza modelos avançados, criação multimodal e prototipagem rápida.</p>
+        </div>
+
+        <div class="mt-5 donation-card rounded-2xl p-4 text-xs text-slate-300 leading-relaxed">
+          <p class="font-black text-white mb-1" data-i18n="donate.sidebarTitle">Apoie a Lyra Lab</p>
+          <p data-i18n="donate.sidebarText">Contribua para manter a Lyra IA rodando em infraestrutura independente.</p>
+          <button onclick="showTab('donate')" class="mt-3 w-full rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-3 py-2 font-bold text-white" data-i18n="donate.button">Contribuir</button>
         </div>
       </aside>
 
-      <!-- CONTENT -->
-      <section class="space-y-5">
-
-        <!-- CHAT -->
+      <section class="space-y-5 min-w-0">
         <div id="tab-chat" class="tab-panel glass rounded-3xl p-5">
           <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5">
             <div>
-              <h2 class="text-2xl font-black"><span data-i18n="chat.title">Chat com IA</span></h2>
-              <p class="text-slate-400 mt-1"><span data-i18n="chat.subtitle">Escolha com quem deseja conversar e envie sua solicitação.</span></p>
+              <h2 class="text-2xl font-black" data-i18n="chat.title">Chat com modelos avançados</h2>
+              <p class="text-slate-400 mt-1" data-i18n="chat.subtitle">Escolha com quem deseja conversar e envie sua solicitação.</p>
               <p id="activeAssistantInfo" class="mt-2 text-xs text-blue-200 bg-blue-500/10 border border-blue-400/20 rounded-xl px-3 py-2 inline-flex">Você está conversando com GPT — OpenAI.</p>
             </div>
             <div class="grid sm:grid-cols-3 gap-2 w-full md:w-auto">
               <select id="chatMode" onchange="updateAssistantIdentity()" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm">
+                <option value="qwen_local" data-i18n="mode.qwenLocal">Lyra IA — modelo local ilimitado</option>
                 <option value="fast" data-i18n="mode.fast">GPT Mini — OpenAI</option>
                 <option value="advanced" data-i18n="mode.advanced">GPT Avançado — OpenAI</option>
                 <option value="creative" data-i18n="mode.creative">Claude Criativo — Anthropic</option>
@@ -345,8 +380,8 @@
           <div class="mb-5 rounded-3xl bg-slate-950/40 border border-slate-800 p-4">
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-4">
               <div>
-                <h3 class="font-black" data-i18n="skills.title">Skills do assistente</h3>
-                <p class="text-sm text-slate-400" data-i18n="skills.subtitle">Escolha uma habilidade para orientar o modelo antes da resposta.</p>
+                <h3 class="font-black" data-i18n="skills.title">Skills do agente</h3>
+                <p class="text-sm text-slate-400" data-i18n="skills.subtitle">Escolha uma habilidade para orientar a resposta.</p>
               </div>
               <button onclick="toggleAdvancedContext()" class="rounded-xl border border-slate-700 px-3 py-2 text-sm text-slate-300 hover:bg-slate-800" data-i18n="skills.advanced">Contexto avançado</button>
             </div>
@@ -355,7 +390,7 @@
 
             <div class="grid md:grid-cols-3 gap-3">
               <label class="block">
-                <span class="text-xs text-slate-400" data-i18n="skills.goalLabel">Objetivo da resposta</span>
+                <span class="text-xs text-slate-400" data-i18n="skills.goalLabel">Objetivo</span>
                 <select id="taskGoal" class="mt-1 w-full rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm">
                   <option value="explain" data-i18n="goal.explain">Explicar</option>
                   <option value="create" data-i18n="goal.create">Criar</option>
@@ -368,8 +403,8 @@
               <label class="block">
                 <span class="text-xs text-slate-400" data-i18n="skills.toneLabel">Tom</span>
                 <select id="responseTone" class="mt-1 w-full rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm">
+                  <option value="natural" data-i18n="tone.natural">Natural</option>
                   <option value="professional" data-i18n="tone.professional">Profissional</option>
-                  <option value="didactic" data-i18n="tone.didactic">Didático</option>
                   <option value="commercial" data-i18n="tone.commercial">Comercial</option>
                   <option value="technical" data-i18n="tone.technical">Técnico</option>
                   <option value="creative" data-i18n="tone.creative">Criativo</option>
@@ -392,337 +427,499 @@
                 <p data-i18n="skills.flowText">O sistema combina skill, objetivo, tom, profundidade e contexto antes de consultar o modelo.</p>
               </div>
             </div>
-
-            <div class="mt-4 flex flex-wrap gap-2">
-              <button onclick="usePromptTemplate('brief')" class="rounded-xl bg-slate-800 px-3 py-2 text-xs hover:bg-slate-700" data-i18n="template.brief">Criar briefing</button>
-              <button onclick="usePromptTemplate('requirements')" class="rounded-xl bg-slate-800 px-3 py-2 text-xs hover:bg-slate-700" data-i18n="template.requirements">Levantar requisitos</button>
-              <button onclick="usePromptTemplate('stepByStep')" class="rounded-xl bg-slate-800 px-3 py-2 text-xs hover:bg-slate-700" data-i18n="template.stepByStep">Passo a passo</button>
-              <button onclick="usePromptTemplate('critique')" class="rounded-xl bg-slate-800 px-3 py-2 text-xs hover:bg-slate-700" data-i18n="template.critique">Análise crítica</button>
-            </div>
           </div>
 
           <div id="chatBox" class="h-[420px] overflow-auto rounded-3xl bg-slate-950/50 border border-slate-800 p-4 space-y-4"></div>
 
           <div class="mt-4 grid md:grid-cols-[1fr_auto] gap-3">
             <textarea id="chatInput" rows="3" placeholder="Digite sua pergunta..." data-i18n-placeholder="chat.placeholder" class="rounded-3xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
-            <button onclick="sendChat()" class="rounded-3xl bg-gradient-to-r from-blue-600 to-violet-600 px-7 py-3 font-bold hover:opacity-95"><span data-i18n="actions.send">Enviar</span></button>
+            <button onclick="sendChat()" class="rounded-3xl bg-gradient-to-r from-blue-600 to-violet-600 px-7 py-3 font-bold hover:opacity-95" data-i18n="actions.send">Enviar</button>
           </div>
         </div>
 
-        <!-- IMAGE -->
-        <div id="tab-image" class="tab-panel hidden glass rounded-3xl p-5">
-          <h2 class="text-2xl font-black"><span data-i18n="image.title">Gerador de imagens</span></h2>
-          <p class="text-slate-400 mt-1 mb-5"><span data-i18n="image.subtitle">Gere imagens com modos criativos otimizados.</span></p>
+        <div id="tab-files" class="tab-panel hidden glass rounded-3xl p-5">
+          <h2 class="text-2xl font-black" data-i18n="files.title">Análise de arquivos</h2>
+          <p class="text-slate-400 mt-1 mb-5" data-i18n="files.subtitle">Envie CSV/TXT para gerar tabela, gráficos e insights com a Lyra IA local ou modelos externos.</p>
+          <div class="grid xl:grid-cols-[360px_1fr] gap-5">
+            <div class="space-y-3">
+              <input id="dataFile" type="file" accept=".csv,.txt,.json" class="block w-full text-sm text-slate-300 file:mr-4 file:rounded-xl file:border-0 file:bg-blue-600 file:px-4 file:py-2 file:text-white hover:file:bg-blue-500" />
+              <textarea id="dataQuestion" rows="5" class="w-full rounded-3xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none" placeholder="Ex.: analise padrões, oportunidades, riscos e gere recomendações."></textarea>
+              <div class="grid sm:grid-cols-2 gap-3">
+                <button onclick="analyzeDataFile()" class="rounded-2xl bg-blue-600 px-4 py-3 font-bold hover:bg-blue-500" data-i18n="files.analyze">Analisar arquivo</button>
+                <button onclick="renderDataChart()" class="rounded-2xl bg-slate-800 px-4 py-3 font-bold hover:bg-slate-700" data-i18n="files.chart">Gerar gráfico</button>
+              </div>
+              <div id="fileSummary" class="rounded-3xl bg-slate-950/50 border border-slate-800 p-4 text-xs text-slate-400">Aguardando arquivo.</div>
+            </div>
+            <div class="space-y-4">
+              <div class="rounded-3xl bg-slate-950/50 border border-slate-800 p-4 overflow-auto max-h-[300px]"><table id="dataTable" class="w-full text-xs text-left"></table></div>
+              <div class="rounded-3xl bg-slate-950/50 border border-slate-800 p-4"><canvas id="dataChart" height="120"></canvas></div>
+              <div id="dataInsights" class="min-h-[180px] rounded-3xl bg-slate-950/50 border border-slate-800 p-4 overflow-auto text-slate-300 whitespace-pre-wrap">Os insights aparecerão aqui.</div>
+            </div>
+          </div>
+        </div>
 
+        <div id="tab-software" class="tab-panel hidden glass rounded-3xl p-5">
+          <div class="flex flex-col xl:flex-row xl:items-end xl:justify-between gap-4 mb-5">
+            <div>
+              <h2 class="text-2xl font-black" data-i18n="software.title">Criador de sites com Lyra IA</h2>
+              <p class="text-slate-400 mt-1" data-i18n="software.subtitle">Gere landing pages, dashboards, apresentações web e interfaces completas com Tailwind CDN, animações e pré-visualização responsiva.</p>
+            </div>
+            <div class="grid grid-cols-3 gap-2 w-full xl:w-auto">
+              <button onclick="setPreviewMode('desktop')" id="previewBtnDesktop" class="rounded-2xl bg-blue-600 px-4 py-2 text-sm font-bold">Web</button>
+              <button onclick="setPreviewMode('tablet')" id="previewBtnTablet" class="rounded-2xl bg-slate-800 px-4 py-2 text-sm font-bold">Tablet</button>
+              <button onclick="setPreviewMode('mobile')" id="previewBtnMobile" class="rounded-2xl bg-slate-800 px-4 py-2 text-sm font-bold">Mobile</button>
+              <button onclick="togglePreviewFullscreen()" id="previewBtnFull" class="rounded-2xl bg-slate-800 px-4 py-2 text-sm font-bold" data-i18n="software.fullscreen">Tela cheia</button>
+            </div>
+          </div>
+
+          <div class="grid 2xl:grid-cols-[420px_1fr] xl:grid-cols-[380px_1fr] gap-5">
+            <div class="space-y-4">
+              <div class="rounded-3xl bg-slate-950/45 border border-slate-800 p-4">
+                <p class="font-black text-slate-100 mb-2" data-i18n="software.brief">Briefing do site</p>
+                <select id="softwarePreset" class="w-full mb-3 rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm">
+                  <option value="landing" data-i18n="software.landing">Landing page premium</option>
+                  <option value="portfolio" data-i18n="software.portfolio">Portfólio profissional</option>
+                  <option value="dashboard" data-i18n="software.dashboard">Dashboard SaaS</option>
+                  <option value="presentation" data-i18n="software.presentation">Apresentação web</option>
+                  <option value="ecommerce">E-commerce</option>
+                  <option value="course">Página de curso</option>
+                </select>
+                <textarea id="softwarePrompt" rows="8" class="w-full rounded-3xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none" data-i18n-placeholder="software.placeholder" placeholder="Descreva o site que deseja criar..."></textarea>
+              </div>
+
+              <div class="rounded-3xl bg-slate-950/45 border border-slate-800 p-4 space-y-2 text-xs text-slate-400">
+                <p class="font-bold text-slate-200" data-i18n="software.cdns">CDNs padrão da Lyra</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="engine-pill rounded-full px-3 py-1">Tailwind CDN</span>
+                  <span class="engine-pill rounded-full px-3 py-1">Alpine.js</span>
+                  <span class="engine-pill rounded-full px-3 py-1">AOS</span>
+                  <span class="engine-pill rounded-full px-3 py-1">GSAP</span>
+                  <span class="engine-pill rounded-full px-3 py-1">Chart.js</span>
+                  <span class="engine-pill rounded-full px-3 py-1">Lucide Icons</span>
+                  <span class="engine-pill rounded-full px-3 py-1">Astro-ready</span>
+                </div>
+                <p data-i18n="software.cdnNote">A Lyra IA recebe uma skill especializada para gerar HTML final executável no preview, com UX responsiva e código pronto para publicar.</p>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-3">
+                <button onclick="generateWebsite()" class="rounded-2xl bg-blue-600 px-5 py-3 font-bold hover:bg-blue-500" data-i18n="software.generate">Gerar e visualizar</button>
+                <button onclick="copyGeneratedCode()" class="rounded-2xl bg-slate-800 px-5 py-3 font-bold hover:bg-slate-700" data-i18n="software.copy">Copiar código</button>
+                <button onclick="downloadGeneratedHtml()" class="rounded-2xl bg-slate-800 px-5 py-3 font-bold hover:bg-slate-700" data-i18n="software.download">Baixar HTML</button>
+                <button onclick="openPreviewInNewTab()" class="rounded-2xl bg-slate-800 px-5 py-3 font-bold hover:bg-slate-700" data-i18n="software.newTab">Nova guia</button>
+              </div>
+              <textarea id="generatedCode" rows="14" class="w-full rounded-3xl bg-slate-950/80 border border-slate-700 px-4 py-3 outline-none resize-y text-xs font-mono" spellcheck="false" placeholder="O HTML gerado aparecerá aqui..."></textarea>
+            </div>
+            <div>
+              <div id="softwareStatus" class="mb-3 text-sm text-slate-400" data-i18n="software.status">A pré-visualização aparecerá aqui.</div>
+              <div class="site-preview-shell rounded-3xl bg-slate-950/45 border border-slate-800 p-3 overflow-auto">
+                <iframe id="sitePreview" class="preview-frame preview-desktop mx-auto"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-social" class="tab-panel hidden glass rounded-3xl p-5">
+          <h2 class="text-2xl font-black" data-i18n="social.title">Criador para redes sociais</h2>
+          <p class="text-slate-400 mt-1 mb-5" data-i18n="social.subtitle">Gere texto, roteiro, legenda e imagem de acordo com a plataforma.</p>
+
+          <div class="grid xl:grid-cols-[1fr_420px] gap-5">
+            <div class="space-y-3">
+              <div class="grid sm:grid-cols-3 gap-3">
+                <select id="socialPlatform" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm">
+                  <option>TikTok</option><option>Instagram</option><option>LinkedIn</option><option>YouTube Shorts</option><option>X/Twitter</option>
+                </select>
+                <select id="socialFormat" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm">
+                  <option value="post" data-i18n="social.post">Post</option>
+                  <option value="carousel" data-i18n="social.carousel">Carrossel</option>
+                  <option value="reel" data-i18n="social.reel">Reels/Short</option>
+                  <option value="ad" data-i18n="social.ad">Anúncio</option>
+                </select>
+                <select id="socialTone" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm">
+                  <option value="commercial" data-i18n="tone.commercial">Comercial</option>
+                  <option value="natural" data-i18n="tone.natural">Natural</option>
+                  <option value="creative" data-i18n="tone.creative">Criativo</option>
+                </select>
+              </div>
+              <textarea id="socialPrompt" rows="7" class="w-full rounded-3xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none" data-i18n-placeholder="social.placeholder" placeholder="Descreva o tema, produto ou campanha..."></textarea>
+              <div class="grid sm:grid-cols-3 gap-3">
+                <button onclick="generateSocialContent(false)" class="rounded-2xl bg-blue-600 px-4 py-3 font-bold hover:bg-blue-500" data-i18n="social.generateText">Gerar conteúdo</button>
+                <button onclick="generateSocialContent(true)" class="rounded-2xl bg-violet-600 px-4 py-3 font-bold hover:bg-violet-500" data-i18n="social.generateImage">Texto + imagem</button>
+                <button onclick="generateTikTokVideoPlan()" class="rounded-2xl bg-slate-800 px-4 py-3 font-bold hover:bg-slate-700" data-i18n="social.tiktok">Roteiro TikTok</button>
+              </div>
+              <div id="socialOutput" class="min-h-[260px] rounded-3xl bg-slate-950/50 border border-slate-800 p-4 overflow-auto text-slate-300 whitespace-pre-wrap"></div>
+            </div>
+            <div id="socialImageOutput" class="min-h-[420px] rounded-3xl bg-slate-950/50 border border-slate-800 p-4 grid place-items-center text-slate-500" data-i18n="social.imageBox">A imagem aparecerá aqui.</div>
+          </div>
+        </div>
+
+        <div id="tab-image" class="tab-panel hidden glass rounded-3xl p-5">
+          <h2 class="text-2xl font-black" data-i18n="image.title">Gerador de imagens</h2>
+          <p class="text-slate-400 mt-1 mb-5" data-i18n="image.subtitle">Gere imagens com fallback automático de modelo.</p>
           <div class="grid lg:grid-cols-[1fr_420px] gap-5">
             <div class="space-y-3">
               <textarea id="imagePrompt" rows="7" placeholder="Ex.: interface futurista da Lyra Lab, glassmorphism, neon azul e roxo, alta qualidade..." class="w-full rounded-3xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
               <div class="grid sm:grid-cols-3 gap-3">
                 <select id="imageMode" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm">
+                  <option value="pollinations" data-i18n="image.mode.experimental">Lyra Imagem Experimental</option>
                   <option value="auto" data-i18n="image.mode.auto">Imagem Automática</option>
                   <option value="creative" data-i18n="image.mode.creative">Gemini Imagem — Google</option>
                   <option value="advanced" data-i18n="image.mode.advanced">GPT Image — OpenAI</option>
                 </select>
                 <label class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm flex items-center gap-2"><input id="imgTestMode" type="checkbox"> testMode</label>
-                <button onclick="generateImage()" class="rounded-2xl bg-blue-600 px-4 py-2 font-bold hover:bg-blue-500"><span data-i18n="actions.generate">Gerar</span></button>
+                <button onclick="generateImage()" class="rounded-2xl bg-blue-600 px-4 py-2 font-bold hover:bg-blue-500" data-i18n="actions.generate">Gerar</button>
+                <button id="downloadImageBtn" onclick="downloadGeneratedImage()" class="hidden rounded-2xl bg-slate-800 px-4 py-2 font-bold hover:bg-slate-700" data-i18n="image.download">Baixar</button>
               </div>
             </div>
-            <div id="imageOutput" class="min-h-[320px] rounded-3xl bg-slate-950/50 border border-slate-800 p-4 grid place-items-center text-slate-500"><span data-i18n="image.output">A imagem aparecerá aqui.</span></div>
+            <div id="imageOutput" class="min-h-[320px] rounded-3xl bg-slate-950/50 border border-slate-800 p-4 grid place-items-center text-slate-500" data-i18n="image.output">A imagem aparecerá aqui.</div>
+          </div>
+          <div class="mt-5 rounded-3xl bg-slate-950/40 border border-slate-800 p-4">
+            <h3 class="font-black mb-2" data-i18n="image.socialTitle">Lyra IA — conteúdo para redes sociais</h3>
+            <div class="grid md:grid-cols-[180px_180px_1fr_auto] gap-3">
+              <select id="imageSocialPlatform" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm"><option>Instagram</option><option>TikTok</option><option>LinkedIn</option><option>YouTube Shorts</option></select>
+              <select id="imageSocialFormat" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm"><option value="post">Post</option><option value="carousel">Carrossel</option><option value="reel">Reels/Short</option><option value="ad">Anúncio</option></select>
+              <input id="imageSocialTopic" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm" placeholder="Tema do conteúdo..." />
+              <button onclick="generateImageSocialText()" class="rounded-2xl bg-violet-600 px-4 py-2 font-bold hover:bg-violet-500" data-i18n="image.socialButton">Gerar texto</button>
+            </div>
+            <div id="imageSocialOutput" class="mt-3 min-h-[120px] rounded-2xl bg-slate-950/50 border border-slate-800 p-4 text-sm text-slate-300 whitespace-pre-wrap"></div>
           </div>
         </div>
 
-        <!-- VISION -->
-        <div id="tab-vision" class="tab-panel hidden glass rounded-3xl p-5">
-          <h2 class="text-2xl font-black"><span data-i18n="vision.title">Análise de imagem e OCR</span></h2>
-          <p class="text-slate-400 mt-1 mb-5"><span data-i18n="vision.subtitle">Envie uma imagem para extrair texto ou pedir uma análise multimodal.</span></p>
+        <div id="tab-video" class="tab-panel hidden glass rounded-3xl p-5">
+          <h2 class="text-2xl font-black" data-i18n="video.title">Gerador de vídeos</h2>
+          <p class="text-slate-400 mt-1 mb-5" data-i18n="video.subtitle">Crie prompts e vídeos curtos para TikTok, Reels e Shorts.</p>
+          <div class="grid lg:grid-cols-[1fr_420px] gap-5">
+            <div class="space-y-3">
+              <select id="videoPlatform" class="w-full rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm">
+                <option>TikTok</option><option>Instagram Reels</option><option>YouTube Shorts</option><option>Cinematic</option>
+              </select>
+              <textarea id="videoPrompt" rows="7" class="w-full rounded-3xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none" placeholder="Ex.: vídeo vertical sobre IA para produtividade, estética futurista, ritmo rápido..."></textarea>
+              <label class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm flex items-center gap-2 w-fit"><input id="vidTestMode" type="checkbox"> testMode</label>
+              <div class="grid sm:grid-cols-2 gap-3">
+                <button onclick="generateVideo()" class="rounded-2xl bg-blue-600 px-5 py-3 font-bold hover:bg-blue-500" data-i18n="video.button">Gerar vídeo</button>
+                <button onclick="generateVideoScript()" class="rounded-2xl bg-slate-800 px-5 py-3 font-bold hover:bg-slate-700" data-i18n="video.script">Criar roteiro</button>
+              </div>
+            </div>
+            <div id="videoOutput" class="min-h-[320px] rounded-3xl bg-slate-950/50 border border-slate-800 p-4 grid place-items-center text-slate-500" data-i18n="video.output">O vídeo aparecerá aqui.</div>
+          </div>
+        </div>
 
+        <div id="tab-vision" class="tab-panel hidden glass rounded-3xl p-5">
+          <h2 class="text-2xl font-black" data-i18n="vision.title">Análise de imagem e OCR</h2>
+          <p class="text-slate-400 mt-1 mb-5" data-i18n="vision.subtitle">Envie uma imagem para extrair texto ou pedir uma análise multimodal.</p>
           <div class="grid lg:grid-cols-2 gap-5">
             <div class="space-y-3">
               <input id="visionFile" type="file" accept="image/*" class="block w-full text-sm text-slate-300 file:mr-4 file:rounded-xl file:border-0 file:bg-blue-600 file:px-4 file:py-2 file:text-white hover:file:bg-blue-500" />
               <textarea id="visionPrompt" rows="5" class="w-full rounded-3xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none">Descreva a imagem em detalhes e extraia qualquer texto visível.</textarea>
               <div class="grid sm:grid-cols-2 gap-3">
-                <button onclick="analyzeImage()" class="rounded-2xl bg-blue-600 px-4 py-2 font-bold hover:bg-blue-500"><span data-i18n="vision.analyze">Analisar com chat</span></button>
-                <button onclick="ocrImage()" class="rounded-2xl bg-slate-800 px-4 py-2 font-bold hover:bg-slate-700"><span data-i18n="vision.ocr">Extrair texto/OCR</span></button>
+                <button onclick="analyzeImage()" class="rounded-2xl bg-blue-600 px-4 py-2 font-bold hover:bg-blue-500" data-i18n="vision.analyze">Analisar</button>
+                <button onclick="ocrImage()" class="rounded-2xl bg-slate-800 px-4 py-2 font-bold hover:bg-slate-700" data-i18n="vision.ocr">Extrair texto/OCR</button>
               </div>
             </div>
-            <div id="visionOutput" class="min-h-[320px] rounded-3xl bg-slate-950/50 border border-slate-800 p-4 overflow-auto text-slate-300 whitespace-pre-wrap"><span data-i18n="vision.output">Resultado aparecerá aqui.</span></div>
+            <div id="visionOutput" class="min-h-[320px] rounded-3xl bg-slate-950/50 border border-slate-800 p-4 overflow-auto text-slate-300 whitespace-pre-wrap" data-i18n="vision.output">Resultado aparecerá aqui.</div>
           </div>
         </div>
 
-        <!-- VIDEO -->
-        <div id="tab-video" class="tab-panel hidden glass rounded-3xl p-5">
-          <h2 class="text-2xl font-black"><span data-i18n="video.title">Texto para vídeo</span></h2>
-          <p class="text-slate-400 mt-1 mb-5"><span data-i18n="video.subtitle">Gere clipes curtos a partir de descrições criativas.</span></p>
-
-          <div class="grid lg:grid-cols-[1fr_420px] gap-5">
-            <div class="space-y-3">
-              <textarea id="videoPrompt" rows="7" placeholder="Ex.: câmera sobrevoando uma cidade futurista à noite, luzes neon, chuva, estilo cinematográfico..." class="w-full rounded-3xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
-              <label class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm flex items-center gap-2 w-fit"><input id="vidTestMode" type="checkbox" checked> testMode</label>
-              <button onclick="generateVideo()" class="rounded-2xl bg-blue-600 px-5 py-3 font-bold hover:bg-blue-500">Gerar vídeo</button>
-            </div>
-            <div id="videoOutput" class="min-h-[320px] rounded-3xl bg-slate-950/50 border border-slate-800 p-4 grid place-items-center text-slate-500"><span data-i18n="video.output">O vídeo aparecerá aqui.</span></div>
-          </div>
-        </div>
-
-        <!-- AUDIO -->
         <div id="tab-audio" class="tab-panel hidden glass rounded-3xl p-5">
-          <h2 class="text-2xl font-black"><span data-i18n="audio.title">Texto para áudio</span></h2>
-          <p class="text-slate-400 mt-1 mb-5"><span data-i18n="audio.subtitle">Transforme texto em fala natural.</span></p>
-
+          <h2 class="text-2xl font-black" data-i18n="audio.title">Texto para áudio</h2>
+          <p class="text-slate-400 mt-1 mb-5" data-i18n="audio.subtitle">Transforme texto em fala natural.</p>
           <textarea id="ttsText" rows="7" placeholder="Digite o texto para narrar..." data-i18n-placeholder="audio.placeholder" class="w-full rounded-3xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
-          <div class="mt-3 grid sm:grid-cols-3 gap-3">
-            <input id="ttsLang" value="pt-BR" placeholder="Idioma: pt-BR" data-i18n-placeholder="audio.langPlaceholder" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm" />
-            <input id="ttsVoice" placeholder="Voz opcional" data-i18n-placeholder="audio.voicePlaceholder" class="rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm" />
-            <button onclick="generateSpeech()" class="rounded-2xl bg-blue-600 px-4 py-2 font-bold hover:bg-blue-500"><span data-i18n="audio.button">Gerar áudio</span></button>
+          <div class="mt-3 grid lg:grid-cols-4 sm:grid-cols-2 gap-3">
+            <label class="block">
+              <span class="text-xs text-slate-400" data-i18n="audio.langLabel">Idioma</span>
+              <select id="ttsLang" onchange="syncVoiceOptions()" class="mt-1 w-full rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm">
+                <option value="pt-BR" data-i18n="audio.lang.ptBR">Português Brasil</option>
+                <option value="en-US" data-i18n="audio.lang.enUS">Inglês EUA</option>
+                <option value="en-GB" data-i18n="audio.lang.enGB">Inglês Reino Unido</option>
+                <option value="es-ES" data-i18n="audio.lang.esES">Espanhol</option>
+                <option value="fr-FR" data-i18n="audio.lang.frFR">Francês</option>
+              </select>
+            </label>
+            <label class="block">
+              <span class="text-xs text-slate-400" data-i18n="audio.voiceLabel">Voz</span>
+              <select id="ttsVoicePreset" onchange="toggleCustomVoice()" class="mt-1 w-full rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm">
+                <option value="" data-i18n="audio.voice.auto">Voz automática</option>
+                <option value="female" data-i18n="audio.voice.female">Feminina natural</option>
+                <option value="male" data-i18n="audio.voice.male">Masculina natural</option>
+                <option value="narrator" data-i18n="audio.voice.narrator">Narrador profissional</option>
+                <option value="soft" data-i18n="audio.voice.soft">Suave</option>
+                <option value="custom" data-i18n="audio.voice.custom">Voz personalizada</option>
+              </select>
+            </label>
+            <label class="block">
+              <span class="text-xs text-slate-400" data-i18n="audio.speedLabel">Velocidade</span>
+              <div class="mt-1 rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2">
+                <input id="ttsSpeed" type="range" min="0.5" max="2" step="0.05" value="1" oninput="updateSpeedLabel()" class="w-full accent-blue-500" />
+                <p class="text-xs text-slate-400 mt-1"><span data-i18n="audio.speedValue">Velocidade</span>: <span id="ttsSpeedValue">1.00x</span></p>
+              </div>
+            </label>
+            <div class="flex items-end">
+              <button onclick="generateSpeech()" class="w-full rounded-2xl bg-blue-600 px-4 py-3 font-bold hover:bg-blue-500" data-i18n="audio.button">Gerar áudio</button>
+            </div>
           </div>
-          <div id="audioOutput" class="mt-4 rounded-3xl bg-slate-950/50 border border-slate-800 p-4 text-slate-400"><span data-i18n="audio.output">O player aparecerá aqui.</span></div>
+          <div id="customVoiceBox" class="hidden mt-3">
+            <label class="block">
+              <span class="text-xs text-slate-400" data-i18n="audio.customVoiceLabel">Nome da voz personalizada</span>
+              <input id="ttsVoice" placeholder="Ex.: Joanna, Matthew, Nova, Alloy..." data-i18n-placeholder="audio.voicePlaceholder" class="mt-1 w-full rounded-2xl bg-slate-950/70 border border-slate-700 px-3 py-2 text-sm" />
+            </label>
+          </div>
+          <div id="audioOutput" class="mt-4 rounded-3xl bg-slate-950/50 border border-slate-800 p-4 text-slate-400" data-i18n="audio.output">O player aparecerá aqui.</div>
         </div>
 
-        <!-- TRANSCRIPTION -->
         <div id="tab-transcription" class="tab-panel hidden glass rounded-3xl p-5">
-          <h2 class="text-2xl font-black"><span data-i18n="transcription.title">Transcrição de áudio</span></h2>
-          <p class="text-slate-400 mt-1 mb-5"><span data-i18n="transcription.subtitle">Use um arquivo local de áudio para gerar transcrição.</span></p>
-
+          <h2 class="text-2xl font-black" data-i18n="transcription.title">Transcrição de áudio</h2>
+          <p class="text-slate-400 mt-1 mb-5" data-i18n="transcription.subtitle">Use um arquivo local de áudio para gerar transcrição.</p>
           <div class="space-y-3">
             <input id="audioFile" type="file" accept="audio/*,video/*" class="block w-full text-sm text-slate-300 file:mr-4 file:rounded-xl file:border-0 file:bg-blue-600 file:px-4 file:py-2 file:text-white hover:file:bg-blue-500" />
-            <button onclick="transcribeAudio()" class="rounded-2xl bg-blue-600 px-5 py-3 font-bold hover:bg-blue-500"><span data-i18n="transcription.button">Transcrever</span></button>
-            <div id="transcriptionOutput" class="min-h-[220px] rounded-3xl bg-slate-950/50 border border-slate-800 p-4 overflow-auto text-slate-300 whitespace-pre-wrap"><span data-i18n="transcription.output">A transcrição aparecerá aqui.</span></div>
+            <button onclick="transcribeAudio()" class="rounded-2xl bg-blue-600 px-5 py-3 font-bold hover:bg-blue-500" data-i18n="transcription.button">Transcrever</button>
+            <div id="transcriptionOutput" class="min-h-[220px] rounded-3xl bg-slate-950/50 border border-slate-800 p-4 overflow-auto text-slate-300 whitespace-pre-wrap" data-i18n="transcription.output">A transcrição aparecerá aqui.</div>
           </div>
         </div>
 
-        </section>
+
+        <div id="tab-settings" class="tab-panel hidden glass rounded-3xl p-5">
+          <h2 class="text-2xl font-black" data-i18n="settings.title">Configurações da Lyra IA Local</h2>
+          <p class="text-slate-400 mt-1 mb-5" data-i18n="settings.subtitle">Configure a URL pública do Cloudflare Tunnel sem precisar abrir o console do navegador.</p>
+          <div class="grid xl:grid-cols-[1fr_360px] gap-5">
+            <div class="rounded-3xl bg-slate-950/45 border border-slate-800 p-5 space-y-4">
+              <label>
+                <span class="field-label" data-i18n="settings.apiLabel">URL da API local</span>
+                <input id="localApiInput" class="w-full rounded-2xl bg-slate-950/70 border border-slate-700 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500" placeholder="https://seu-tunnel.trycloudflare.com/api/lyra/chat" />
+              </label>
+              <div class="grid sm:grid-cols-3 gap-3">
+                <button onclick="saveLyraApiUrl()" class="rounded-2xl bg-blue-600 px-4 py-3 font-bold hover:bg-blue-500" data-i18n="settings.save">Salvar API</button>
+                <button onclick="testLyraApi()" class="rounded-2xl bg-slate-800 px-4 py-3 font-bold hover:bg-slate-700" data-i18n="settings.test">Testar conexão</button>
+                <button onclick="clearLyraApiUrl()" class="rounded-2xl bg-slate-800 px-4 py-3 font-bold hover:bg-slate-700" data-i18n="settings.clear">Limpar</button>
+              </div>
+              <div id="settingsStatus" class="rounded-2xl bg-slate-950/60 border border-slate-800 p-4 text-sm text-slate-300">Status aparecerá aqui.</div>
+            </div>
+            <div class="donation-card rounded-3xl p-5 text-sm text-slate-300 leading-relaxed">
+              <h3 class="font-black text-white text-lg mb-2" data-i18n="settings.identityTitle">Identidade da plataforma</h3>
+              <p data-i18n="settings.identityText">A Lyra IA é a assistente oficial da Lyra Lab, desenvolvida por Daniela Rodrigues.</p>
+              <p class="mt-3 text-slate-400" data-i18n="settings.identityNote">Modelos externos exigem login Google. A Lyra IA local funciona apenas com o código de acesso.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-about" class="tab-panel hidden glass rounded-3xl p-5">
+          <h2 class="text-2xl font-black" data-i18n="about.title">Sobre a Lyra Lab</h2>
+          <div class="mt-5 grid lg:grid-cols-[1fr_360px] gap-5">
+            <div class="rounded-3xl bg-slate-950/45 border border-slate-800 p-6 text-slate-300 leading-relaxed space-y-4">
+              <p data-i18n="about.p1">A Lyra Lab é uma plataforma de IA independente para criação, produtividade, software, mídia e prototipagem rápida.</p>
+              <p data-i18n="about.p2">A plataforma foi desenvolvida por Daniela Rodrigues, Engenheira de Software e Analista de Produto, com atuação em UX, desenvolvimento full stack, inteligência artificial, visão computacional, design de produto, automação e pesquisa aplicada à tecnologia.</p>
+              <p data-i18n="about.p3">A proposta da Lyra é centralizar recursos de texto, imagem, vídeo, áudio, análise de arquivos e criação de interfaces em uma experiência simples, acessível e expansível.</p>
+            </div>
+            <div class="rounded-3xl bg-slate-950/45 border border-slate-800 p-6">
+              <div class="nebula-mark mb-4"></div>
+              <h3 class="font-black text-xl">Daniela Rodrigues</h3>
+              <p class="text-blue-200 text-sm mt-1" data-i18n="about.role">Engenheira de Software • Produto • UX • IA</p>
+              <p class="text-slate-400 text-sm mt-4" data-i18n="about.hobbies">Interesses e hobbies: tecnologia, música, design, automação, criação de produtos e experiências imersivas.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-donate" class="tab-panel hidden glass rounded-3xl p-5">
+          <h2 class="text-2xl font-black" data-i18n="donate.title">Apoie a evolução da Lyra Lab</h2>
+          <p class="text-slate-400 mt-1 mb-5" data-i18n="donate.subtitle">A Lyra IA está sendo aprimorada e executada em infraestrutura independente para oferecer melhores respostas, maior disponibilidade e novos recursos.</p>
+          <div class="grid lg:grid-cols-[1fr_360px] gap-5">
+            <div class="donation-card rounded-3xl p-6 text-slate-300 leading-relaxed">
+              <h3 class="font-black text-white text-xl mb-3" data-i18n="donate.whyTitle">Por que contribuir?</h3>
+              <p data-i18n="donate.whyText">Sua contribuição ajuda a manter máquina, modelos locais, testes, melhorias de interface, recursos multimodais e acesso experimental para mais pessoas.</p>
+              <div class="mt-5 rounded-2xl bg-slate-950/60 border border-slate-800 p-4">
+                <p class="text-sm text-slate-400" data-i18n="donate.pixNote">Adicione aqui sua chave PIX, QR Code ou link do Mercado Pago/Stripe.</p>
+                <input id="donationLink" class="mt-3 w-full rounded-2xl bg-slate-950/70 border border-slate-700 px-4 py-3" placeholder="https://link-de-doacao.com ou chave PIX" />
+              </div>
+            </div>
+            <div class="rounded-3xl bg-slate-950/45 border border-slate-800 p-6">
+              <p class="font-black text-white mb-2" data-i18n="donate.transparencyTitle">Transparência</p>
+              <p class="text-slate-400 text-sm" data-i18n="donate.transparencyText">A proposta é evoluir uma IA mais independente, com menor dependência de plataformas fechadas e maior controle sobre a experiência do usuário.</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </section>
+
+    <nav class="bottom-mobile-nav">
+      <button onclick="showTab('chat')">💬</button>
+      <button onclick="showTab('software')">🧩</button>
+      <button onclick="showTab('social')">📱</button>
+      <button onclick="showTab('image')">🖼️</button>
+      <button onclick="showTab('video')">🎬</button>
+    </nav>
   </main>
 
   <script>
-    // =========================================================
-    // CONFIGURAÇÃO DO LOGIN
-    // =========================================================
-    // Hash SHA-256 do código de acesso autorizado.
-    // Para gerar outro hash no navegador:
-    // crypto.subtle.digest('SHA-256', new TextEncoder().encode('SEU-CODIGO'))
-    const ACCESS_CODE_HASHES = [
-      '4b857052aac2d4c8b0928988cd40d7ecf3af5d8b814d95b3b61868df11426bd4'
-    ];
+    const ACCESS_CODE = 'THUNBER2026';
+    const ACCESS_CODE_HASHES = ['4b857052aac2d4c8b0928988cd40d7ecf3af5d8b814d95b3b61868df11426bd4'];
+    const STORAGE_KEY = 'lyra_lab_access_ok_v2';
+    const LANG_KEY = 'lyra_lab_lang_v2';
+    const CHAT_SESSIONS_KEY = 'lyra_lab_chat_sessions_v4';
+    const LYRA_LOCAL_API = localStorage.getItem('lyra_local_api') || 'https://cloud-prisoners-reporter-royal.trycloudflare.com/api/lyra/chat';
+    const LYRA_LOCAL_MODEL = 'qwen2.5-coder:1.5b';
+    const LYRA_IDENTITY_PROMPT = `
+Você é a Lyra IA, assistente oficial da plataforma Lyra Lab.
 
-    const STORAGE_KEY = 'ai_studio_access_ok_v1';
-    const LANG_KEY = 'ai_studio_lang_v1';
+Nunca se apresente como Qwen, Ollama ou modelo base. Para o usuário final, sua identidade pública é sempre Lyra IA.
+Não mencione o nome do modelo local, exceto se Daniela Rodrigues estiver fazendo diagnóstico técnico do backend ou pedir explicitamente detalhes internos.
+
+A Lyra Lab foi desenvolvida por Daniela Rodrigues.
+
+Mini-bio institucional:
+Daniela Rodrigues é Engenheira de Software e Analista de Produto, com experiência em UX, desenvolvimento full stack, inteligência artificial, visão computacional, design de produto, automação, arquitetura de soluções e pesquisa aplicada à tecnologia. Atua na criação de produtos digitais, interfaces inteligentes, sistemas web, protótipos com IA e experiências imersivas. Entre seus interesses e hobbies estão tecnologia, música, design, pesquisa, automação, criação de soluções digitais e experiências imersivas.
+
+Quando perguntarem quem criou, desenvolveu, idealizou ou está por trás da Lyra Lab, responda de forma natural, objetiva e profissional que a plataforma foi desenvolvida por Daniela Rodrigues e apresente a mini-bio de forma resumida.
+
+Responda sempre no idioma do usuário. Seja útil, clara, prática e objetiva.
+`;
     let conversation = [];
     let currentLang = localStorage.getItem(LANG_KEY) || 'pt';
     let selectedSkill = 'general';
     let advancedContextOpen = false;
 
     const AI_MODES = {
-      fast: { model: 'gpt-4o-mini', brand: 'GPT', provider: 'OpenAI', badge: 'GPT', pt: 'GPT Mini — OpenAI', en: 'GPT Mini — OpenAI', instruction: 'Prioritize speed, clarity and concise answers.' },
-      advanced: { model: 'gpt-4o', brand: 'GPT', provider: 'OpenAI', badge: 'GPT', pt: 'GPT Avançado — OpenAI', en: 'Advanced GPT — OpenAI', instruction: 'Prioritize deeper reasoning, completeness and high-quality structure.' },
-      creative: { model: 'claude-sonnet-4', brand: 'Claude', provider: 'Anthropic', badge: 'CL', pt: 'Claude Criativo — Anthropic', en: 'Creative Claude — Anthropic', instruction: 'Prioritize creative direction, originality, storytelling and polished outputs.' },
-      technical: { model: 'deepseek-chat', brand: 'DeepSeek', provider: 'DeepSeek', badge: 'DS', pt: 'DeepSeek Técnico', en: 'Technical DeepSeek', instruction: 'Prioritize technical precision, implementation detail, architecture and code-level reasoning.' },
-      research: { model: 'gemini-2.0-flash', brand: 'Gemini', provider: 'Google', badge: 'GM', pt: 'Gemini Pesquisa — Google', en: 'Research Gemini — Google', instruction: 'Prioritize structured analysis, synthesis, research framing and evidence-oriented reasoning.' },
-      auto: { model: '', brand: 'Assistente Automático', provider: 'Lyra Lab', badge: 'LY', pt: 'Assistente Automático', en: 'Auto Assistant', instruction: 'Select the most appropriate response strategy automatically.' }
+      qwen_local: { model:LYRA_LOCAL_MODEL, local:true, brand:'Lyra IA', provider:'Modelo local independente', badge:'LY', instruction:'Use the official Lyra IA identity. Do not mention the underlying local model. Prioritize unlimited chat, website creation, HTML, CSS, JavaScript, Tailwind CDN, UI engineering and software prototyping.' },
+      fast: { model:'gpt-4o-mini', brand:'GPT', provider:'OpenAI', badge:'GPT', instruction:'Prioritize speed, clarity and concise answers.' },
+      advanced: { model:'gpt-4o', brand:'GPT', provider:'OpenAI', badge:'GPT', instruction:'Prioritize deeper reasoning, completeness and quality.' },
+      creative: { model:'claude-sonnet-4', brand:'Claude', provider:'Anthropic', badge:'CL', instruction:'Prioritize creativity, writing quality and polished outputs.' },
+      technical: { model:'deepseek-chat', brand:'DeepSeek', provider:'DeepSeek', badge:'DS', instruction:'Prioritize technical precision, architecture and implementation.' },
+      research: { model:'gemini-2.0-flash', brand:'Gemini', provider:'Google', badge:'GM', instruction:'Prioritize structured analysis and synthesis.' },
+      auto: { model:'', brand:'Assistente Automático', provider:'Lyra Lab', badge:'LY', instruction:'Select the best strategy automatically.' }
     };
 
     const SKILLS = {
-      general: { icon: '✨', pt: 'Assistente geral', en: 'General assistant', prompt: 'Act as a precise, practical AI assistant. Understand the user intent and deliver a useful answer with clear next steps.' },
-      product: { icon: '🧭', pt: 'Product Manager', en: 'Product Manager', prompt: 'Act as a senior product manager. Convert ideas into value proposition, target audience, user journey, requirements, priorities, MVP scope, risks, metrics, roadmap and execution plan.' },
-      ux: { icon: '🎨', pt: 'UX/UI Design', en: 'UX/UI Design', prompt: 'Act as a senior UX/UI designer. Focus on usability, accessibility, information architecture, user flow, microcopy, visual hierarchy, design system, friction reduction and conversion.' },
-      dev: { icon: '💻', pt: 'Software Engineer', en: 'Software Engineer', prompt: 'Act as a senior software engineer. Prioritize architecture, clean code, security, scalability, maintainability, error handling, documentation and implementation steps.' },
-      marketing: { icon: '📣', pt: 'Marketing e vendas', en: 'Marketing and sales', prompt: 'Act as a growth and marketing strategist. Improve positioning, offer, copywriting, acquisition channels, conversion, objections, pricing logic and go-to-market execution.' },
-      research: { icon: '🔬', pt: 'Pesquisa acadêmica', en: 'Academic research', prompt: 'Act as an academic research advisor. Structure arguments with rigor, methodology, literature framing, research gaps, hypotheses, limitations, technical vocabulary and formal writing.' },
-      data: { icon: '📊', pt: 'Dados e análise', en: 'Data analysis', prompt: 'Act as a data analyst. Transform raw information into insights, assumptions, metrics, data model, analysis logic, visualizations, validation criteria and decision recommendations.' },
-      creative: { icon: '🎬', pt: 'Criativo multimodal', en: 'Multimodal creative', prompt: 'Act as a creative director for text, image, audio and video. Produce strong concepts, prompts, scenes, scripts, mood, style direction and production-ready creative instructions.' }
+      general: { icon:'✨', pt:'Assistente geral', en:'General assistant', prompt:'Act as a precise and practical assistant.' },
+      dev: { icon:'💻', pt:'Software Engineer', en:'Software Engineer', prompt:'Act as a senior software engineer. Build clean, functional, secure and maintainable solutions.' },
+      web: { icon:'🧩', pt:'Criador de sites perfeito', en:'Perfect website builder', prompt:'Act as an elite front-end engineer and product designer. Generate premium, responsive, production-ready websites using a single HTML file. Always include Tailwind CDN. When useful, include Alpine.js for interactions, AOS or GSAP for animations, Chart.js for dashboards, Lucide icons via CDN, Google Fonts and clean JavaScript. Prioritize mobile-first UX, accessibility, semantic HTML, conversion copy, polished spacing, modern components and direct preview compatibility. When asked to generate code, return only complete executable HTML without markdown fences.' },
+      presentation: { icon:'🪄', pt:'Apresentações incríveis', en:'Amazing presentations', prompt:'Act as a world-class presentation strategist. Create persuasive structures, slide-by-slide narratives, strong visual direction and speaker notes.' },
+      social: { icon:'📱', pt:'Redes sociais', en:'Social content', prompt:'Act as a social media creative strategist. Generate platform-specific copy, hooks, captions, hashtags, image prompts, scripts and CTA.' },
+      video: { icon:'🎬', pt:'Vídeos TikTok/Reels', en:'TikTok/Reels videos', prompt:'Act as a short-form video director. Create vertical scripts, scene sequence, hooks, visual pacing, captions, shot list and generation prompts.' },
+      ux: { icon:'🎨', pt:'UX/UI Design', en:'UX/UI Design', prompt:'Act as a senior UX/UI designer. Focus on usability, accessibility, hierarchy, flows and conversion.' },
+      marketing: { icon:'📣', pt:'Marketing e vendas', en:'Marketing and sales', prompt:'Act as a growth strategist. Improve positioning, offer, conversion and go-to-market.' },
+      research: { icon:'🔬', pt:'Pesquisa acadêmica', en:'Academic research', prompt:'Act as an academic research advisor with rigor, methodology and formal writing.' }
     };
 
     const I18N = {
       pt: {
-        'login.badge': 'Acesso exclusivo à plataforma',
-        'login.title': 'Lyra Lab, sua central de inteligência artificial.',
-        'login.subtitle': 'Crie textos, imagens, vídeos, áudios, transcrições e análises multimodais com uma experiência simples, moderna e integrada diretamente no navegador.',
-        'stats.models': 'Modos inteligentes',
-        'stats.web': 'Interface web',
-        'stats.file': 'Em um arquivo',
-        'author': 'Desenvolvido por Daniela Rodrigues • Salvador, Bahia, Brasil',
-        'author.short': 'Desenvolvido por Daniela Rodrigues',
-        'location': 'Salvador, Bahia, Brasil',
-        'login.formTitle': 'Entrar na plataforma',
-        'login.formSubtitle': 'Informe seu código de acesso para liberar o painel de ferramentas de IA.',
-        'login.codeLabel': 'Código de acesso',
-        'login.codePlaceholder': 'Digite seu código exclusivo',
-        'login.button': 'Acessar agora',
-        'login.note': 'Lyra Lab é uma plataforma experimental para produtividade, criação de conteúdo e automação com IA. O acesso é restrito a usuários autorizados.',
-        'actions.clear': 'Limpar',
-        'actions.logout': 'Sair',
-        'actions.send': 'Enviar',
-        'actions.generate': 'Gerar',
-        'nav.chat': 'Chat IA',
-        'nav.image': 'Gerar imagem',
-        'nav.vision': 'Analisar imagem/OCR',
-        'nav.video': 'Gerar vídeo',
-        'nav.audio': 'Texto para áudio',
-        'nav.transcription': 'Transcrição',
-        'sidebar.note': 'Lyra Lab centraliza criação, análise, automação e produtividade em ambiente web.',
-        'chat.title': 'Chat com IA',
-        'chat.subtitle': 'Escolha com quem deseja conversar e envie sua solicitação.',
-        'chat.activePrefix': 'Você está conversando com',
-        'chat.placeholder': 'Digite sua pergunta...',
-        'image.title': 'Gerador de imagens',
-        'image.subtitle': 'Gere imagens com modos criativos otimizados.',
-        'image.defaultModel': 'Modelo padrão',
-        'image.output': 'A imagem aparecerá aqui.',
-        'image.mode.auto': 'Imagem Automática',
-        'image.mode.creative': 'Gemini Imagem — Google',
-        'image.mode.advanced': 'GPT Image — OpenAI',
-        'vision.title': 'Análise de imagem e OCR',
-        'vision.subtitle': 'Envie uma imagem para extrair texto ou pedir uma análise multimodal.',
-        'vision.analyze': 'Analisar com chat',
-        'vision.ocr': 'Extrair texto/OCR',
-        'vision.output': 'Resultado aparecerá aqui.',
-        'video.title': 'Texto para vídeo',
-        'video.subtitle': 'Gere clipes curtos a partir de descrições criativas.',
-        'video.button': 'Gerar vídeo',
-        'video.output': 'O vídeo aparecerá aqui.',
-        'audio.title': 'Texto para áudio',
-        'audio.subtitle': 'Transforme texto em fala natural.',
-        'audio.placeholder': 'Digite o texto para narrar...',
-        'audio.langPlaceholder': 'Idioma: pt-BR',
-        'audio.voicePlaceholder': 'Voz opcional',
-        'audio.button': 'Gerar áudio',
-        'audio.output': 'O player aparecerá aqui.',
-        'transcription.title': 'Transcrição de áudio',
-        'transcription.subtitle': 'Use um arquivo local de áudio para gerar transcrição.',
-        'transcription.button': 'Transcrever',
-        'transcription.output': 'A transcrição aparecerá aqui.',
-        
-        'skills.title': 'Skills do assistente',
-        'skills.subtitle': 'Escolha uma habilidade para orientar o modelo antes da resposta.',
-        'skills.advanced': 'Contexto avançado',
-        'skills.goalLabel': 'Objetivo da resposta',
-        'skills.toneLabel': 'Tom',
-        'skills.depthLabel': 'Profundidade',
-        'skills.contextPlaceholder': 'Contexto do projeto, público-alvo, regras, restrições, formato esperado...',
-        'skills.flowTitle': 'Fluxo inteligente',
-        'skills.flowText': 'O sistema combina skill, objetivo, tom, profundidade e contexto antes de consultar o modelo.',
-        'goal.explain': 'Explicar',
-        'goal.create': 'Criar',
-        'goal.improve': 'Melhorar',
-        'goal.analyze': 'Analisar',
-        'goal.plan': 'Planejar',
-        'goal.code': 'Programar',
-        'tone.professional': 'Profissional',
-        'tone.didactic': 'Didático',
-        'tone.commercial': 'Comercial',
-        'tone.technical': 'Técnico',
-        'tone.creative': 'Criativo',
-        'depth.short': 'Curta',
-        'depth.balanced': 'Equilibrada',
-        'depth.deep': 'Detalhada',
-        'template.brief': 'Criar briefing',
-        'template.requirements': 'Levantar requisitos',
-        'template.stepByStep': 'Passo a passo',
-        'template.critique': 'Análise crítica',
-        'mode.fast': 'GPT Mini — OpenAI',
-        'mode.advanced': 'GPT Avançado — OpenAI',
-        'mode.creative': 'Claude Criativo — Anthropic',
-        'mode.technical': 'DeepSeek Técnico',
-        'mode.research': 'Gemini Pesquisa — Google',
-        'mode.auto': 'Assistente Automático'
+        'login.badge':'Acesso exclusivo', 'login.tagline':'LLMs, criação e automação em uma única experiência.',
+        'login.subtitle':'Lyra reúne modelos avançados de LLM para criar, analisar, programar e transformar ideias em conteúdo, produtos e experiências digitais.',
+        'stats.models':'Modelos avançados', 'stats.creation':'Criação multimodal',
+        'login.formTitle':'Entrar na Lyra Lab', 'login.formSubtitle':'Informe seu código de acesso para continuar.',
+        'login.codeLabel':'Código de acesso', 'login.codePlaceholder':'Digite seu código exclusivo', 'login.button':'Acessar agora',
+        'login.note':'Plataforma de IA para produtividade, criação e prototipagem rápida.',
+        'auth.text':'Para continuar faça login com a sua conta Google.', 'auth.button':'Continuar com Google',
+        'author.short':'Desenvolvido por Daniela Rodrigues', 'location':'Salvador, Bahia, Brasil',
+        'actions.clear':'Limpar', 'actions.logout':'Sair', 'actions.send':'Enviar', 'actions.generate':'Gerar', 'actions.newChat':'Novo chat', 'actions.saveChat':'Salvar', 'history.title':'Conversas',
+        'nav.chat':'Chat', 'nav.files':'Arquivos e insights', 'nav.software':'Criar site', 'nav.social':'Redes sociais', 'nav.image':'Imagem', 'nav.video':'Vídeo', 'nav.vision':'Imagem/OCR', 'nav.audio':'Áudio', 'nav.transcription':'Transcrição', 'nav.settings':'Configurações', 'nav.about':'Sobre', 'nav.donate':'Apoiar',
+        'sidebar.note':'Lyra Lab centraliza modelos avançados, criação multimodal e prototipagem rápida.',
+        'chat.title':'Chat com modelos avançados', 'chat.subtitle':'Escolha com quem deseja conversar e envie sua solicitação.', 'chat.activePrefix':'Você está conversando com', 'chat.placeholder':'Digite sua pergunta...',
+        'skills.title':'Skills do agente', 'skills.subtitle':'Escolha uma habilidade para orientar a resposta.', 'skills.advanced':'Contexto avançado',
+        'skills.goalLabel':'Objetivo', 'skills.toneLabel':'Tom', 'skills.depthLabel':'Profundidade', 'skills.contextPlaceholder':'Contexto do projeto, público-alvo, regras, restrições, formato esperado...',
+        'skills.flowTitle':'Fluxo inteligente', 'skills.flowText':'O sistema combina skill, objetivo, tom, profundidade e contexto antes de consultar o modelo.',
+        'goal.explain':'Explicar', 'goal.create':'Criar', 'goal.improve':'Melhorar', 'goal.analyze':'Analisar', 'goal.plan':'Planejar', 'goal.code':'Programar',
+        'tone.natural':'Natural', 'tone.professional':'Profissional', 'tone.commercial':'Comercial', 'tone.technical':'Técnico', 'tone.creative':'Criativo',
+        'depth.short':'Curta', 'depth.balanced':'Equilibrada', 'depth.deep':'Detalhada',
+        'mode.qwenLocal':'Lyra IA — modelo local ilimitado', 'mode.fast':'GPT Mini — OpenAI', 'mode.advanced':'GPT Avançado — OpenAI', 'mode.creative':'Claude Criativo — Anthropic', 'mode.technical':'DeepSeek Técnico', 'mode.research':'Gemini Pesquisa — Google', 'mode.auto':'Assistente Automático',
+        'software.title':'Criador de sites com Lyra IA', 'software.subtitle':'Gere sites, dashboards, apresentações web e interfaces completas com Tailwind CDN, animações e pré-visualização responsiva.', 'software.brief':'Briefing do site', 'software.cdns':'CDNs padrão da Lyra', 'software.cdnNote':'A Lyra IA recebe uma skill especializada para gerar HTML final executável no preview, com UX responsiva e código pronto para publicar.', 'software.placeholder':'Descreva o site que deseja criar...', 'software.generate':'Gerar e visualizar', 'software.copy':'Copiar código', 'software.status':'A pré-visualização aparecerá aqui.', 'software.download':'Baixar HTML', 'software.newTab':'Nova guia', 'software.fullscreen':'Tela cheia', 'software.landing':'Landing page premium', 'software.portfolio':'Portfólio profissional', 'software.dashboard':'Dashboard SaaS', 'software.presentation':'Apresentação web',
+        'social.title':'Criador para redes sociais', 'social.subtitle':'Gere texto, roteiro, legenda e imagem de acordo com a plataforma.', 'social.placeholder':'Descreva o tema, produto ou campanha...', 'social.post':'Post', 'social.carousel':'Carrossel', 'social.reel':'Reels/Short', 'social.ad':'Anúncio', 'social.generateText':'Gerar conteúdo', 'social.generateImage':'Texto + imagem', 'social.tiktok':'Roteiro TikTok', 'social.imageBox':'A imagem aparecerá aqui.',
+        'files.title':'Análise de arquivos', 'files.subtitle':'Envie CSV/TXT para gerar tabela, gráficos e insights com a Lyra IA local ou modelos externos.', 'files.analyze':'Analisar arquivo', 'files.chart':'Gerar gráfico', 'image.socialTitle':'Texto para redes sociais', 'image.socialButton':'Gerar texto', 'image.title':'Gerador de imagens', 'image.subtitle':'Gere imagens com fallback automático de modelo.', 'image.output':'A imagem aparecerá aqui.', 'image.download':'Baixar', 'image.mode.experimental':'Lyra Imagem Experimental', 'image.mode.auto':'Imagem Automática', 'image.mode.creative':'Gemini Imagem — Google', 'image.mode.advanced':'GPT Image — OpenAI',
+        'video.title':'Gerador de vídeos', 'video.subtitle':'Crie prompts e vídeos curtos para TikTok, Reels e Shorts.', 'video.button':'Gerar vídeo', 'video.script':'Criar roteiro', 'video.output':'O vídeo aparecerá aqui.',
+        'vision.title':'Análise de imagem e OCR', 'vision.subtitle':'Envie uma imagem para extrair texto ou pedir uma análise multimodal.', 'vision.analyze':'Analisar', 'vision.ocr':'Extrair texto/OCR', 'vision.output':'Resultado aparecerá aqui.',
+        'audio.title':'Texto para áudio', 'audio.subtitle':'Transforme texto em fala natural.', 'audio.placeholder':'Digite o texto para narrar...', 'audio.langLabel':'Idioma', 'audio.voiceLabel':'Voz', 'audio.speedLabel':'Velocidade', 'audio.speedValue':'Velocidade', 'audio.customVoiceLabel':'Nome da voz personalizada', 'audio.voicePlaceholder':'Ex.: Joanna, Matthew, Nova, Alloy...', 'audio.button':'Gerar áudio', 'audio.output':'O player aparecerá aqui.',
+        'audio.lang.ptBR':'Português Brasil', 'audio.lang.enUS':'Inglês EUA', 'audio.lang.enGB':'Inglês Reino Unido', 'audio.lang.esES':'Espanhol', 'audio.lang.frFR':'Francês', 'audio.voice.auto':'Voz automática', 'audio.voice.female':'Feminina natural', 'audio.voice.male':'Masculina natural', 'audio.voice.narrator':'Narrador profissional', 'audio.voice.soft':'Suave', 'audio.voice.custom':'Voz personalizada',
+        'settings.title':'Configurações da Lyra IA Local', 'settings.subtitle':'Configure a URL pública do Cloudflare Tunnel sem precisar abrir o console do navegador.', 'settings.apiLabel':'URL da API local', 'settings.save':'Salvar API', 'settings.test':'Testar conexão', 'settings.clear':'Limpar', 'settings.identityTitle':'Identidade da plataforma', 'settings.identityText':'A Lyra IA é a assistente oficial da Lyra Lab, desenvolvida por Daniela Rodrigues.', 'settings.identityNote':'Modelos externos exigem login Google. A Lyra IA local funciona apenas com o código de acesso.',
+        'about.title':'Sobre a Lyra Lab', 'about.p1':'A Lyra Lab é uma plataforma de IA independente para criação, produtividade, software, mídia e prototipagem rápida.', 'about.p2':'A plataforma foi desenvolvida por Daniela Rodrigues, Engenheira de Software e Analista de Produto, com atuação em UX, desenvolvimento full stack, inteligência artificial, visão computacional, design de produto, automação e pesquisa aplicada à tecnologia.', 'about.p3':'A proposta da Lyra é centralizar recursos de texto, imagem, vídeo, áudio, análise de arquivos e criação de interfaces em uma experiência simples, acessível e expansível.', 'about.role':'Engenheira de Software • Produto • UX • IA', 'about.hobbies':'Interesses e hobbies: tecnologia, música, design, automação, criação de produtos e experiências imersivas.',
+        'donate.sidebarTitle':'Apoie a Lyra Lab', 'donate.sidebarText':'Contribua para manter a Lyra IA rodando em infraestrutura independente.', 'donate.button':'Contribuir', 'donate.title':'Apoie a evolução da Lyra Lab', 'donate.subtitle':'A Lyra IA está sendo aprimorada e executada em infraestrutura independente para oferecer melhores respostas, maior disponibilidade e novos recursos.', 'donate.whyTitle':'Por que contribuir?', 'donate.whyText':'Sua contribuição ajuda a manter máquina, modelos locais, testes, melhorias de interface, recursos multimodais e acesso experimental para mais pessoas.', 'donate.pixNote':'Adicione aqui sua chave PIX, QR Code ou link do Mercado Pago/Stripe.', 'donate.transparencyTitle':'Transparência', 'donate.transparencyText':'A proposta é evoluir uma IA mais independente, com menor dependência de plataformas fechadas e maior controle sobre a experiência do usuário.',
+        'transcription.title':'Transcrição de áudio', 'transcription.subtitle':'Use um arquivo local de áudio para gerar transcrição.', 'transcription.button':'Transcrever', 'transcription.output':'A transcrição aparecerá aqui.'
       },
       en: {
-        'login.badge': 'Exclusive Platform Access',
-        'login.title': 'Lyra Lab, your AI command center.',
-        'login.subtitle': 'Create texts, images, videos, audio, transcriptions and multimodal analysis in a simple, modern and browser-based experience.',
-        'stats.models': 'Smart modes',
-        'stats.web': 'Web interface',
-        'stats.file': 'Single file',
-        'author': 'Developed by Daniela Rodrigues • Salvador, Bahia, Brazil',
-        'author.short': 'Developed by Daniela Rodrigues',
-        'location': 'Salvador, Bahia, Brazil',
-        'login.formTitle': 'Access the platform',
-        'login.formSubtitle': 'Enter your access code to unlock the AI tools dashboard.',
-        'login.codeLabel': 'Access code',
-        'login.codePlaceholder': 'Enter your exclusive code',
-        'login.button': 'Access now',
-        'login.note': 'Lyra Lab is an experimental platform for productivity, content creation and AI automation. Access is restricted to authorized users.',
-        'actions.clear': 'Clear',
-        'actions.logout': 'Logout',
-        'actions.send': 'Send',
-        'actions.generate': 'Generate',
-        'nav.chat': 'AI Chat',
-        'nav.image': 'Generate image',
-        'nav.vision': 'Analyze image/OCR',
-        'nav.video': 'Generate video',
-        'nav.audio': 'Text to audio',
-        'nav.transcription': 'Transcription',
-        'sidebar.note': 'Lyra Lab centralizes creation, analysis, automation and productivity in a web environment.',
-        'chat.title': 'AI Chat',
-        'chat.subtitle': 'Choose who you want to talk to and send your request.',
-        'chat.activePrefix': 'You are talking to',
-        'chat.placeholder': 'Type your question...',
-        'image.title': 'Image Generator',
-        'image.subtitle': 'Generate images with optimized creative modes.',
-        'image.defaultModel': 'Default model',
-        'image.output': 'The image will appear here.',
-        'image.mode.auto': 'Auto Image',
-        'image.mode.creative': 'Gemini Image — Google',
-        'image.mode.advanced': 'GPT Image — OpenAI',
-        'vision.title': 'Image Analysis and OCR',
-        'vision.subtitle': 'Upload an image to extract text or request a multimodal analysis.',
-        'vision.analyze': 'Analyze with chat',
-        'vision.ocr': 'Extract text/OCR',
-        'vision.output': 'The result will appear here.',
-        'video.title': 'Text to Video',
-        'video.subtitle': 'Generate short clips from creative descriptions.',
-        'video.button': 'Generate video',
-        'video.output': 'The video will appear here.',
-        'audio.title': 'Text to Audio',
-        'audio.subtitle': 'Convert text into natural speech.',
-        'audio.placeholder': 'Type the text to narrate...',
-        'audio.langPlaceholder': 'Language: en-US',
-        'audio.voicePlaceholder': 'Optional voice',
-        'audio.button': 'Generate audio',
-        'audio.output': 'The player will appear here.',
-        'transcription.title': 'Audio Transcription',
-        'transcription.subtitle': 'Use a local audio file to generate a transcription.',
-        'transcription.button': 'Transcribe',
-        'transcription.output': 'The transcription will appear here.',
-        
-        'skills.title': 'Assistant skills',
-        'skills.subtitle': 'Choose a skill to guide the model before the answer.',
-        'skills.advanced': 'Advanced context',
-        'skills.goalLabel': 'Response goal',
-        'skills.toneLabel': 'Tone',
-        'skills.depthLabel': 'Depth',
-        'skills.contextPlaceholder': 'Project context, target audience, rules, constraints, expected format...',
-        'skills.flowTitle': 'Smart flow',
-        'skills.flowText': 'The system combines skill, goal, tone, depth and context before calling the model.',
-        'goal.explain': 'Explain',
-        'goal.create': 'Create',
-        'goal.improve': 'Improve',
-        'goal.analyze': 'Analyze',
-        'goal.plan': 'Plan',
-        'goal.code': 'Code',
-        'tone.professional': 'Professional',
-        'tone.didactic': 'Didactic',
-        'tone.commercial': 'Commercial',
-        'tone.technical': 'Technical',
-        'tone.creative': 'Creative',
-        'depth.short': 'Short',
-        'depth.balanced': 'Balanced',
-        'depth.deep': 'Detailed',
-        'template.brief': 'Create brief',
-        'template.requirements': 'Gather requirements',
-        'template.stepByStep': 'Step by step',
-        'template.critique': 'Critical analysis',
-        'mode.fast': 'GPT Mini — OpenAI',
-        'mode.advanced': 'Advanced GPT — OpenAI',
-        'mode.creative': 'Creative Claude — Anthropic',
-        'mode.technical': 'Technical DeepSeek',
-        'mode.research': 'Research Gemini — Google',
-        'mode.auto': 'Auto Assistant'
+        'login.badge':'Exclusive access', 'login.tagline':'LLMs, creation and automation in one experience.',
+        'login.subtitle':'Lyra brings advanced LLM models together to create, analyze, code and turn ideas into content, products and digital experiences.',
+        'stats.models':'Advanced models', 'stats.creation':'Multimodal creation',
+        'login.formTitle':'Enter Lyra Lab', 'login.formSubtitle':'Enter your access code to continue.',
+        'login.codeLabel':'Access code', 'login.codePlaceholder':'Enter your exclusive code', 'login.button':'Access now',
+        'login.note':'AI platform for productivity, creation and rapid prototyping.',
+        'auth.text':'To continue, sign in with your Google account.', 'auth.button':'Continue with Google',
+        'author.short':'Developed by Daniela Rodrigues', 'location':'Salvador, Bahia, Brazil',
+        'actions.clear':'Clear', 'actions.logout':'Logout', 'actions.send':'Send', 'actions.generate':'Generate', 'actions.newChat':'New chat', 'actions.saveChat':'Save', 'history.title':'Chats',
+        'nav.chat':'Chat', 'nav.files':'Files and insights', 'nav.software':'Build site', 'nav.social':'Social media', 'nav.image':'Image', 'nav.video':'Video', 'nav.vision':'Image/OCR', 'nav.audio':'Audio', 'nav.transcription':'Transcription', 'nav.settings':'Settings', 'nav.about':'About', 'nav.donate':'Support',
+        'sidebar.note':'Lyra Lab centralizes advanced models, multimodal creation and rapid prototyping.',
+        'chat.title':'Chat with advanced models', 'chat.subtitle':'Choose who you want to talk to and send your request.', 'chat.activePrefix':'You are talking to', 'chat.placeholder':'Type your question...',
+        'skills.title':'Agent skills', 'skills.subtitle':'Choose a skill to guide the answer.', 'skills.advanced':'Advanced context',
+        'skills.goalLabel':'Goal', 'skills.toneLabel':'Tone', 'skills.depthLabel':'Depth', 'skills.contextPlaceholder':'Project context, target audience, rules, constraints, expected format...',
+        'skills.flowTitle':'Smart flow', 'skills.flowText':'The system combines skill, goal, tone, depth and context before calling the model.',
+        'goal.explain':'Explain', 'goal.create':'Create', 'goal.improve':'Improve', 'goal.analyze':'Analyze', 'goal.plan':'Plan', 'goal.code':'Code',
+        'tone.natural':'Natural', 'tone.professional':'Professional', 'tone.commercial':'Commercial', 'tone.technical':'Technical', 'tone.creative':'Creative',
+        'depth.short':'Short', 'depth.balanced':'Balanced', 'depth.deep':'Detailed',
+        'mode.qwenLocal':'Lyra IA — unlimited local model', 'mode.fast':'GPT Mini — OpenAI', 'mode.advanced':'Advanced GPT — OpenAI', 'mode.creative':'Creative Claude — Anthropic', 'mode.technical':'Technical DeepSeek', 'mode.research':'Research Gemini — Google', 'mode.auto':'Auto Assistant',
+        'software.title':'Website builder with Lyra IA', 'software.subtitle':'Generate websites, dashboards, web presentations and complete interfaces with Tailwind CDN, animations and responsive preview.', 'software.brief':'Website brief', 'software.cdns':'Lyra default CDNs', 'software.cdnNote':'Lyra IA receives a specialized skill to generate final HTML executable in preview, with responsive UX and publish-ready code.', 'software.placeholder':'Describe the website you want to create...', 'software.generate':'Generate and preview', 'software.copy':'Copy code', 'software.status':'The preview will appear here.', 'software.download':'Download HTML', 'software.newTab':'New tab', 'software.fullscreen':'Fullscreen', 'software.landing':'Premium landing page', 'software.portfolio':'Professional portfolio', 'software.dashboard':'SaaS dashboard', 'software.presentation':'Web presentation',
+        'social.title':'Social media creator', 'social.subtitle':'Generate text, scripts, captions and images according to each platform.', 'social.placeholder':'Describe the topic, product or campaign...', 'social.post':'Post', 'social.carousel':'Carousel', 'social.reel':'Reels/Short', 'social.ad':'Ad', 'social.generateText':'Generate content', 'social.generateImage':'Text + image', 'social.tiktok':'TikTok script', 'social.imageBox':'The image will appear here.',
+        'files.title':'File analysis', 'files.subtitle':'Upload CSV/TXT to generate tables, charts and insights with Lyra IA local or external models.', 'files.analyze':'Analyze file', 'files.chart':'Generate chart', 'image.socialTitle':'Social media text', 'image.socialButton':'Generate text', 'image.title':'Image generator', 'image.subtitle':'Generate images with automatic model fallback.', 'image.output':'The image will appear here.', 'image.download':'Download', 'image.mode.experimental':'Lyra Experimental Image', 'image.mode.auto':'Auto Image', 'image.mode.creative':'Gemini Image — Google', 'image.mode.advanced':'GPT Image — OpenAI',
+        'video.title':'Video generator', 'video.subtitle':'Create prompts and short videos for TikTok, Reels and Shorts.', 'video.button':'Generate video', 'video.script':'Create script', 'video.output':'The video will appear here.',
+        'vision.title':'Image analysis and OCR', 'vision.subtitle':'Upload an image to extract text or request a multimodal analysis.', 'vision.analyze':'Analyze', 'vision.ocr':'Extract text/OCR', 'vision.output':'The result will appear here.',
+        'audio.title':'Text to audio', 'audio.subtitle':'Convert text into natural speech.', 'audio.placeholder':'Type the text to narrate...', 'audio.langLabel':'Language', 'audio.voiceLabel':'Voice', 'audio.speedLabel':'Speed', 'audio.speedValue':'Speed', 'audio.customVoiceLabel':'Custom voice name', 'audio.voicePlaceholder':'Ex.: Joanna, Matthew, Nova, Alloy...', 'audio.button':'Generate audio', 'audio.output':'The player will appear here.',
+        'audio.lang.ptBR':'Brazilian Portuguese', 'audio.lang.enUS':'US English', 'audio.lang.enGB':'UK English', 'audio.lang.esES':'Spanish', 'audio.lang.frFR':'French', 'audio.voice.auto':'Auto voice', 'audio.voice.female':'Natural female', 'audio.voice.male':'Natural male', 'audio.voice.narrator':'Professional narrator', 'audio.voice.soft':'Soft voice', 'audio.voice.custom':'Custom voice',
+        'settings.title':'Local Lyra IA Settings', 'settings.subtitle':'Configure the public Cloudflare Tunnel URL without opening the browser console.', 'settings.apiLabel':'Local API URL', 'settings.save':'Save API', 'settings.test':'Test connection', 'settings.clear':'Clear', 'settings.identityTitle':'Platform identity', 'settings.identityText':'Lyra IA is the official assistant of Lyra Lab, developed by Daniela Rodrigues.', 'settings.identityNote':'External models require Google login. Local Lyra IA works with access code only.',
+        'about.title':'About Lyra Lab', 'about.p1':'Lyra Lab is an independent AI platform for creation, productivity, software, media and rapid prototyping.', 'about.p2':'The platform was developed by Daniela Rodrigues, Software Engineer and Product Analyst with experience in UX, full-stack development, artificial intelligence, computer vision, product design, automation and applied technology research.', 'about.p3':'Lyra centralizes text, image, video, audio, file analysis and interface creation into a simple, accessible and extensible experience.', 'about.role':'Software Engineer • Product • UX • AI', 'about.hobbies':'Interests and hobbies: technology, music, design, automation, product creation and immersive experiences.',
+        'donate.sidebarTitle':'Support Lyra Lab', 'donate.sidebarText':'Contribute to keep Lyra IA running on independent infrastructure.', 'donate.button':'Contribute', 'donate.title':'Support Lyra Lab evolution', 'donate.subtitle':'Lyra IA is being improved and executed on independent infrastructure to offer better answers, availability and new resources.', 'donate.whyTitle':'Why contribute?', 'donate.whyText':'Your contribution helps maintain hardware, local models, tests, interface improvements, multimodal features and experimental access for more people.', 'donate.pixNote':'Add your PIX key, QR Code or Mercado Pago/Stripe link here.', 'donate.transparencyTitle':'Transparency', 'donate.transparencyText':'The goal is to evolve a more independent AI with less dependence on closed platforms and more control over user experience.',
+        'transcription.title':'Audio transcription', 'transcription.subtitle':'Use a local audio file to generate a transcription.', 'transcription.button':'Transcribe', 'transcription.output':'The transcription will appear here.'
       }
     };
 
-    function t(key) {
-      return I18N[currentLang]?.[key] || I18N.pt[key] || key;
+    function t(key) { return I18N[currentLang]?.[key] || I18N.pt[key] || key; }
+
+
+    function getChatSessions() {
+      try {
+        const raw = localStorage.getItem(CHAT_SESSIONS_KEY);
+        const sessions = raw ? JSON.parse(raw) : [];
+        return Array.isArray(sessions) ? sessions : [];
+      } catch (_) {
+        return [];
+      }
+    }
+
+    function setChatSessions(sessions) {
+      try {
+        localStorage.setItem(CHAT_SESSIONS_KEY, JSON.stringify(Array.isArray(sessions) ? sessions : []));
+      } catch (_) {}
+    }
+
+    function renderChatHistory() {
+      const select = document.getElementById('chatHistorySelect');
+      if (!select) return;
+      const sessions = getChatSessions();
+      if (!sessions.length) {
+        select.innerHTML = `<option value="">${currentLang === 'en' ? 'No saved chats' : 'Nenhuma conversa salva'}</option>`;
+        return;
+      }
+      select.innerHTML = `<option value="">${currentLang === 'en' ? 'Select a chat' : 'Selecionar conversa'}</option>` + sessions.map((session, index) => {
+        const title = escapeHtml(session.title || `${currentLang === 'en' ? 'Chat' : 'Conversa'} ${index + 1}`);
+        return `<option value="${index}">${title}</option>`;
+      }).join('');
+    }
+
+    function saveCurrentChat() {
+      const sessions = getChatSessions();
+      const firstUser = conversation.find(m => m && m.role === 'user')?.content || '';
+      const titleBase = firstUser ? firstUser.slice(0, 48) : (currentLang === 'en' ? 'New chat' : 'Nova conversa');
+      sessions.unshift({
+        title: titleBase,
+        createdAt: new Date().toISOString(),
+        messages: conversation
+      });
+      setChatSessions(sessions.slice(0, 30));
+      renderChatHistory();
+    }
+
+    function loadSelectedChat() {
+      const select = document.getElementById('chatHistorySelect');
+      const index = Number(select?.value);
+      if (!Number.isInteger(index) || index < 0) return;
+      const session = getChatSessions()[index];
+      if (!session) return;
+      conversation = Array.isArray(session.messages) ? session.messages : [];
+      const chatBox = document.getElementById('chatBox');
+      if (chatBox) chatBox.innerHTML = '';
+      conversation.forEach(m => addChatMessage(m.role === 'assistant' ? 'assistant' : 'user', m.content || ''));
     }
 
     function setLanguage(lang) {
@@ -730,55 +927,50 @@
       localStorage.setItem(LANG_KEY, currentLang);
       document.documentElement.lang = currentLang === 'en' ? 'en' : 'pt-BR';
       document.body.dataset.lang = currentLang;
-
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        el.textContent = t(el.dataset.i18n);
-      });
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        el.setAttribute('placeholder', t(el.dataset.i18nPlaceholder));
-      });
-      document.querySelectorAll('select#languageSelect, select#appLanguageSelect').forEach(select => {
-        select.value = currentLang;
-      });
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.dataset.i18n;
-        if (I18N[currentLang]?.[key]) el.textContent = t(key);
-      });
+      document.querySelectorAll('[data-i18n]').forEach(el => el.textContent = t(el.dataset.i18n));
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => el.setAttribute('placeholder', t(el.dataset.i18nPlaceholder)));
+      document.querySelectorAll('select#languageSelect, select#appLanguageSelect').forEach(select => select.value = currentLang);
       renderSkillChips();
       updateAssistantIdentity();
-
       const ttsLang = document.getElementById('ttsLang');
-      if (ttsLang && (!ttsLang.value || ['pt-BR', 'en-US'].includes(ttsLang.value))) {
-        ttsLang.value = currentLang === 'en' ? 'en-US' : 'pt-BR';
-      }
+      if (ttsLang && (!ttsLang.value || ['pt-BR','en-US'].includes(ttsLang.value))) ttsLang.value = currentLang === 'en' ? 'en-US' : 'pt-BR';
+      syncVoiceOptions();
+      updateSpeedLabel();
+      renderChatHistory();
     }
 
     window.addEventListener('load', () => {
       initCosmicBackground();
       setLanguage(currentLang);
       if (localStorage.getItem(STORAGE_KEY) === 'true') openApp();
-      document.getElementById('accessCode').addEventListener('keydown', e => {
-        if (e.key === 'Enter') login();
-      });
-      document.getElementById('chatInput').addEventListener('keydown', e => {
-        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) sendChat();
-      });
+      document.getElementById('accessCode')?.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+      document.getElementById('chatInput')?.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) sendChat(); });
       renderSkillChips();
-      addChatMessage('assistant', currentLang === 'en' ? 'Hello! Platform developed by Daniela Rodrigues — Salvador, Bahia, Brazil. Choose a skill, define the response goal and send your request.' : 'Olá! Plataforma desenvolvida por Daniela Rodrigues — Salvador, Bahia, Brasil. Escolha uma skill, defina o objetivo da resposta e envie sua solicitação.');
+      addChatMessage('assistant', currentLang === 'en' ? 'Hello. I am Lyra IA. Choose a skill and send your request.' : 'Olá. Eu sou a Lyra IA. Escolha uma skill e envie sua solicitação.');
     });
 
     async function sha256(text) {
+      if (!window.crypto || !crypto.subtle) return '';
       const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
-      return [...new Uint8Array(buffer)].map(b => b.toString(16).padStart(2, '0')).join('');
+      return [...new Uint8Array(buffer)].map(b => b.toString(16).padStart(2,'0')).join('');
     }
 
     async function login() {
-      const code = document.getElementById('accessCode').value.trim();
-      const msg = document.getElementById('loginMsg');
-      msg.classList.add('hidden');
+      const input = document.getElementById('accessCode');
+      const code = (input?.value || '').trim();
       if (!code) return showLoginError(currentLang === 'en' ? 'Enter the access code.' : 'Digite o código de acesso.');
-      const hash = await sha256(code);
-      if (ACCESS_CODE_HASHES.includes(hash)) {
+
+      let isValid = code === ACCESS_CODE;
+      if (!isValid) {
+        try {
+          const hash = await sha256(code);
+          isValid = ACCESS_CODE_HASHES.includes(hash);
+        } catch (_) {
+          isValid = false;
+        }
+      }
+
+      if (isValid) {
         localStorage.setItem(STORAGE_KEY, 'true');
         openApp();
       } else {
@@ -792,14 +984,52 @@
       msg.classList.remove('hidden');
     }
 
+    async function showAuthOrApp() {
+      document.getElementById('loginView').classList.add('hidden');
+      if (await isPuterSignedIn()) openApp();
+      else {
+        document.getElementById('authView').classList.remove('hidden');
+        document.getElementById('appView').classList.add('hidden');
+      }
+    }
+
+    async function isPuterSignedIn() {
+      try {
+        if (!window.puter || !puter.auth) return false;
+        if (typeof puter.auth.isSignedIn === 'function') return await puter.auth.isSignedIn();
+        if (typeof puter.auth.getUser === 'function') return !!(await puter.auth.getUser());
+      } catch (_) {}
+      return false;
+    }
+
+    async function connectPuterAccount() {
+      const msg = document.getElementById('authMsg');
+      msg.classList.add('hidden');
+      try {
+        if (!window.puter || !puter.auth || typeof puter.auth.signIn !== 'function') throw new Error('Serviço de autenticação não disponível.');
+        await puter.auth.signIn();
+        openApp();
+      } catch (error) {
+        msg.textContent = (currentLang === 'en' ? 'Could not complete sign in: ' : 'Não foi possível concluir o login: ') + safeError(error);
+        msg.classList.remove('hidden');
+      }
+    }
+
     function openApp() {
+      document.getElementById('authView').classList.add('hidden');
       document.getElementById('loginView').classList.add('hidden');
       document.getElementById('appView').classList.remove('hidden');
       setLanguage(currentLang);
+      updateAssistantIdentity();
+      renderChatHistory();
+      syncSettingsForm();
+      refreshApiStatus();
+      showTab(location.hash.replace('#','') || 'chat', false);
     }
 
     function logout() {
       localStorage.removeItem(STORAGE_KEY);
+      try { if (puter.auth?.signOut) puter.auth.signOut(); } catch (_) {}
       location.reload();
     }
 
@@ -811,12 +1041,134 @@
     function updateAssistantIdentity() {
       const assistant = getCurrentAssistant();
       const info = document.getElementById('activeAssistantInfo');
-      const badge = document.getElementById('brandBadge');
-      if (info) {
-        info.textContent = `${t('chat.activePrefix')} ${assistant.brand} — ${assistant.provider}.`;
+      if (info) info.textContent = `${t('chat.activePrefix')} ${assistant.brand} — ${assistant.provider}.`;
+    }
+
+
+
+    function requiresGoogleAuth(modeKey) {
+      const mode = AI_MODES[modeKey] || AI_MODES.qwen_local;
+      return !mode.local;
+    }
+
+    async function ensureExternalModelAuth(modeKey) {
+      if (!requiresGoogleAuth(modeKey)) return true;
+      const signed = await isPuterSignedIn();
+      if (signed) return true;
+      document.getElementById('appView')?.classList.add('hidden');
+      document.getElementById('authView')?.classList.remove('hidden');
+      const msg = document.getElementById('authMsg');
+      if (msg) {
+        msg.textContent = currentLang === 'en' ? 'Google login is required only for external models.' : 'Login Google é necessário apenas para usar modelos externos.';
+        msg.classList.remove('hidden');
       }
-      if (badge) {
-        badge.textContent = assistant.badge;
+      return false;
+    }
+
+    function getLyraApiBase() {
+      const configured = (localStorage.getItem('lyra_local_api') || LYRA_LOCAL_API || '').trim();
+      return configured.replace(/\/api\/lyra\/chat$/,'').replace(/\/api\/chat$/,'').replace(/\/chat$/,'').replace(/\/api\/generate$/,'').replace(/\/+$/,'');
+    }
+
+    function syncSettingsForm() {
+      const input = document.getElementById('localApiInput');
+      if (input) input.value = localStorage.getItem('lyra_local_api') || LYRA_LOCAL_API;
+    }
+
+    function saveLyraApiUrl() {
+      const input = document.getElementById('localApiInput');
+      const value = (input?.value || '').trim();
+      const status = document.getElementById('settingsStatus');
+      if (!value) return status.textContent = currentLang === 'en' ? 'Enter the API URL first.' : 'Informe a URL da API primeiro.';
+      localStorage.setItem('lyra_local_api', value);
+      status.textContent = currentLang === 'en' ? 'API URL saved.' : 'URL da API salva.';
+      refreshApiStatus();
+    }
+
+    function clearLyraApiUrl() {
+      localStorage.removeItem('lyra_local_api');
+      syncSettingsForm();
+      document.getElementById('settingsStatus').textContent = currentLang === 'en' ? 'Custom API cleared.' : 'API personalizada limpa.';
+      refreshApiStatus();
+    }
+
+    async function testLyraApi() {
+      const status = document.getElementById('settingsStatus');
+      setLoading(status, currentLang === 'en' ? 'Testing Lyra IA' : 'Testando Lyra IA');
+      try {
+        const base = getLyraApiBase();
+        const response = await fetch(`${base}/health`, { method:'GET', mode:'cors' });
+        const data = await response.json().catch(() => ({}));
+        status.textContent = `Online • ${data.service || 'Lyra Local API'} • ${data.ollama || 'status disponível'}`;
+        refreshApiStatus();
+      } catch (error) {
+        status.textContent = (currentLang === 'en' ? 'Connection failed: ' : 'Falha na conexão: ') + safeError(error);
+        refreshApiStatus(false);
+      }
+    }
+
+    async function refreshApiStatus(forceOk) {
+      const badge = document.getElementById('apiStatusBadge');
+      if (!badge) return;
+      if (forceOk === false) { badge.textContent = 'Lyra IA: offline'; badge.classList.remove('status-pill'); badge.classList.add('bg-red-500/10','text-red-200','border','border-red-500/30'); return; }
+      try {
+        const base = getLyraApiBase();
+        const response = await fetch(`${base}/health`, { method:'GET', mode:'cors' });
+        if (!response.ok) throw new Error('offline');
+        badge.textContent = 'Lyra IA: online';
+        badge.classList.add('status-pill');
+      } catch (_) {
+        badge.textContent = 'Lyra IA: verificar API';
+      }
+    }
+
+    function getGeneratedHtml() { return document.getElementById('generatedCode')?.value || document.getElementById('sitePreview')?.srcdoc || ''; }
+
+    function openPreviewInNewTab() {
+      const html = getGeneratedHtml();
+      if (!html) return document.getElementById('softwareStatus').textContent = currentLang === 'en' ? 'Generate a site first.' : 'Gere um site primeiro.';
+      const blob = new Blob([html], { type:'text/html' });
+      const url = URL.createObjectURL(blob);
+      window.open(url, '_blank');
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
+    }
+
+    function downloadGeneratedHtml() {
+      const html = getGeneratedHtml();
+      if (!html) return document.getElementById('softwareStatus').textContent = currentLang === 'en' ? 'Generate a site first.' : 'Gere um site primeiro.';
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([html], { type:'text/html' }));
+      a.download = `site-lyra-lab-${Date.now()}.html`;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    }
+
+    function togglePreviewFullscreen() {
+      const shell = document.getElementById('sitePreview')?.parentElement;
+      if (!shell) return;
+      shell.classList.toggle('preview-fullscreen');
+    }
+
+    async function downloadGeneratedImage() {
+      const source = window.lastGeneratedImageUrl || document.querySelector('#imageOutput img')?.src || document.querySelector('#socialImageOutput img')?.src;
+      if (!source) return;
+
+      try {
+        const response = await fetch(source, { mode: 'cors' });
+        const blob = await response.blob();
+        const objectUrl = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = objectUrl;
+        a.download = `lyra-imagem-${Date.now()}.png`;
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+      } catch (_) {
+        const a = document.createElement('a');
+        a.href = source;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.download = `lyra-imagem-${Date.now()}.png`;
+        document.body.appendChild(a); a.click(); a.remove();
       }
     }
 
@@ -830,71 +1182,54 @@
       }).join('');
     }
 
-    function selectSkill(key) {
-      selectedSkill = SKILLS[key] ? key : 'general';
-      renderSkillChips();
-    }
-
+    function selectSkill(key) { selectedSkill = SKILLS[key] ? key : 'general'; renderSkillChips(); }
     function toggleAdvancedContext() {
       advancedContextOpen = !advancedContextOpen;
-      const box = document.getElementById('advancedContextBox');
-      if (box) box.classList.toggle('hidden', !advancedContextOpen);
-    }
-
-    function usePromptTemplate(type) {
-      const input = document.getElementById('chatInput');
-      const templates = {
-        pt: {
-          brief: 'Crie um briefing estruturado para este projeto considerando objetivo, público-alvo, funcionalidades, diferenciais, riscos e próximos passos: ',
-          requirements: 'Levante os requisitos funcionais, não funcionais, regras de negócio, prioridades e critérios de aceite para: ',
-          stepByStep: 'Explique em um passo a passo claro, prático e executável como fazer: ',
-          critique: 'Faça uma análise crítica apontando pontos fortes, fragilidades, riscos, melhorias e recomendações sobre: '
-        },
-        en: {
-          brief: 'Create a structured brief for this project considering goal, target audience, features, differentiators, risks and next steps: ',
-          requirements: 'Gather functional requirements, non-functional requirements, business rules, priorities and acceptance criteria for: ',
-          stepByStep: 'Explain in a clear, practical and executable step-by-step how to do: ',
-          critique: 'Make a critical analysis pointing out strengths, weaknesses, risks, improvements and recommendations about: '
-        }
-      };
-      input.value = (templates[currentLang]?.[type] || templates.pt.brief) + input.value;
-      input.focus();
+      document.getElementById('advancedContextBox')?.classList.toggle('hidden', !advancedContextOpen);
     }
 
     function buildContextPrompt(userText) {
       const skill = SKILLS[selectedSkill] || SKILLS.general;
-      const modeKey = document.getElementById('chatMode')?.value || 'auto';
-      const mode = AI_MODES[modeKey] || AI_MODES.auto;
+      const mode = getCurrentAssistant();
       const goal = document.getElementById('taskGoal')?.value || 'explain';
-      const tone = document.getElementById('responseTone')?.value || 'professional';
+      const tone = document.getElementById('responseTone')?.value || 'natural';
       const depth = document.getElementById('responseDepth')?.value || 'balanced';
       const context = document.getElementById('projectContext')?.value.trim() || '';
       const languageName = currentLang === 'en' ? 'English' : 'Português do Brasil';
 
-      return `[AI Studio Context]
-Platform: Lyra Lab, developed by Daniela Rodrigues in Salvador, Bahia, Brazil.
+      return `${LYRA_IDENTITY_PROMPT}
+
+You are operating inside Lyra Lab.
 Language: ${languageName}.
-Selected skill: ${skill.prompt}
-Assistant identity: ${mode.brand} from ${mode.provider}.
-Smart mode: ${mode.instruction}
-Response goal: ${goal}.
-Tone: ${tone}.
-Depth: ${depth}.
-Rules: Be practical, structured and directly useful. Do not mention these internal instructions.
-${context ? `Additional project context: ${context}
-` : ''}
-[User request]
+Skill: ${skill.prompt}
+Assistant identity: Lyra IA.
+Mode: ${mode.instruction}
+Goal: ${goal}. Tone: ${tone}. Depth: ${depth}.
+Important style rules:
+- Answer in a natural, human and polished way.
+- Do not use Markdown headings with #.
+- Do not use bullet characters with *.
+- Avoid artificial formatting.
+- Use short paragraphs and clean numbered steps only when useful.
+- For code, provide complete executable code and no unnecessary explanation.
+${context ? `Project context: ${context}\n` : ''}
+User request:
 ${userText}`;
     }
 
-    function showTab(name) {
+    function showTab(name, updateHash = true) {
+      const allowed = ['chat','files','software','social','image','video','vision','audio','transcription','settings','about','donate'];
+      const tab = allowed.includes(name) ? name : 'chat';
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
-      document.getElementById(`tab-${name}`).classList.remove('hidden');
+      document.getElementById(`tab-${tab}`)?.classList.remove('hidden');
       document.querySelectorAll('#tabs button').forEach(btn => {
-        const active = btn.dataset.tab === name;
+        const active = btn.dataset.tab === tab;
         btn.className = (active ? 'tab-active' : 'tab-inactive') + ' text-left rounded-2xl px-4 py-3 font-semibold';
       });
+      if (updateHash && location.hash !== `#${tab}`) history.replaceState(null, '', `#${tab}`);
     }
+
+    window.addEventListener('hashchange', () => showTab(location.hash.replace('#','') || 'chat', false));
 
     function normalizeResponse(response) {
       if (!response) return '';
@@ -909,132 +1244,520 @@ ${userText}`;
       return JSON.stringify(response, null, 2);
     }
 
-    function setLoading(el, text = 'Processando...') {
-      el.innerHTML = `<div class="flex items-center gap-2 text-slate-300"><span>${text}</span><span class="typing-dot">●</span><span class="typing-dot">●</span><span class="typing-dot">●</span></div>`;
+    function cleanAssistantText(text) {
+      return String(text || '')
+        .replace(/^#{1,6}\s*/gm, '')
+        .replace(/^\s*[*]\s+/gm, '• ')
+        .replace(/\*\*(.*?)\*\*/g, '$1')
+        .replace(/__(.*?)__/g, '$1')
+        .trim();
     }
 
-    function safeError(error) {
-      console.error(error);
-      return error?.message || String(error) || 'Erro desconhecido.';
+    function setLoading(el, text='Processando') {
+      el.innerHTML = `<div class="flex items-center gap-2 text-slate-300"><span>${escapeHtml(text)}</span><span class="typing-dot">●</span><span class="typing-dot">●</span><span class="typing-dot">●</span></div>`;
     }
 
-    // =========================================================
-    // CHAT
-    // =========================================================
+    function safeError(error) { console.error(error); return error?.message || String(error) || 'Erro desconhecido.'; }
+
     function addChatMessage(role, text) {
       const chatBox = document.getElementById('chatBox');
+      if (!chatBox) return document.createElement('div');
       const wrap = document.createElement('div');
       const isUser = role === 'user';
-      const assistant = getCurrentAssistant();
-      const assistantName = assistant?.brand || 'IA';
+      const assistantName = getCurrentAssistant()?.brand || 'Lyra';
       const userLabel = currentLang === 'en' ? 'You' : 'Você';
       wrap.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
       wrap.innerHTML = `
-        <div class="max-w-[88%] rounded-3xl px-4 py-3 ${isUser ? 'bg-blue-600 text-white' : 'bg-slate-900 border border-slate-800 text-slate-200'}">
+        <div class="max-w-[92%] sm:max-w-[88%] rounded-3xl px-4 py-3 ${isUser ? 'bg-blue-600 text-white' : 'bg-slate-900 border border-slate-800 text-slate-200'}">
           <div class="text-[11px] uppercase tracking-wide opacity-70 mb-1">${isUser ? userLabel : assistantName}</div>
-          <div class="whitespace-pre-wrap leading-relaxed"></div>
+          <div class="plain-answer whitespace-pre-wrap leading-relaxed"></div>
         </div>`;
-      wrap.querySelector('.whitespace-pre-wrap').textContent = text;
+      wrap.querySelector('.plain-answer').textContent = text;
       chatBox.appendChild(wrap);
       chatBox.scrollTop = chatBox.scrollHeight;
-      return wrap.querySelector('.whitespace-pre-wrap');
+      return wrap.querySelector('.plain-answer');
     }
 
     async function sendChat() {
       const input = document.getElementById('chatInput');
       const text = input.value.trim();
       if (!text) return;
-
-      if (!window.puter || !puter.ai || !puter.ai.chat) {
-        addChatMessage('assistant', currentLang === 'en' ? 'The AI service did not load. Check your internet connection and reload the page.' : 'O serviço de IA não carregou. Verifique a internet e recarregue a página.');
-        return;
-      }
-
-      updateAssistantIdentity();
-      const modeKey = document.getElementById('chatMode')?.value || 'auto';
-      const selectedModel = AI_MODES[modeKey]?.model || '';
-      const temperature = Number(document.getElementById('temperature').value || 0.7);
-      const stream = document.getElementById('streamMode').checked;
+      const modeKey = document.getElementById('chatMode')?.value || 'qwen_local';
+      if (!(await ensureExternalModelAuth(modeKey))) return;
+      const assistantMode = AI_MODES[modeKey] || AI_MODES.qwen_local;
+      const selectedModel = assistantMode.model || '';
+      const temperature = Number(document.getElementById('temperature')?.value || 0.7);
+      const stream = document.getElementById('streamMode')?.checked;
 
       input.value = '';
       addChatMessage('user', text);
       const outputEl = addChatMessage('assistant', currentLang === 'en' ? 'Thinking...' : 'Pensando...');
 
       const contextualUserText = buildContextPrompt(text);
-      const messages = [
-        ...conversation,
-        { role: 'user', content: contextualUserText }
-      ];
+      const messages = [...conversation, { role:'user', content: contextualUserText }];
+      conversation.push({ role:'user', content:text });
 
-      conversation.push({ role: 'user', content: text });
+      if (assistantMode.local) {
+        try {
+          const localText = await callLocalLyra(messages, { model:selectedModel, temperature, num_predict: 1500 });
+          outputEl.textContent = cleanAssistantText(localText) || (currentLang === 'en' ? 'Empty local response.' : 'Resposta local vazia.');
+          conversation.push({ role:'assistant', content: localText });
+        } catch (error) {
+          outputEl.textContent = (currentLang === 'en' ? 'Local Lyra IA failed: ' : 'Erro na Lyra IA local: ') + safeError(error);
+        }
+        return;
+      }
 
-      const callOptions = selectedModel ? { model: selectedModel, temperature } : { temperature };
+      if (!window.puter?.ai?.chat) return outputEl.textContent = currentLang === 'en' ? 'The AI service did not load. Reload the page.' : 'O serviço de IA não carregou. Recarregue a página.';
+      const callOptions = selectedModel ? { model:selectedModel, temperature } : { temperature };
 
       try {
+        let final = '';
         if (stream) {
-          let full = '';
-          const response = await puter.ai.chat(messages, { ...callOptions, stream: true });
-
+          const response = await puter.ai.chat(messages, { ...callOptions, stream:true });
           for await (const part of response) {
             const chunk = part?.text || part?.message?.content || part?.content || '';
             if (chunk) {
-              full += chunk;
-              outputEl.textContent = full;
-              document.getElementById('chatBox').scrollTop = document.getElementById('chatBox').scrollHeight;
+              final += chunk;
+              outputEl.textContent = cleanAssistantText(final);
             }
           }
-
-          if (!full.trim()) {
-            const fallback = await puter.ai.chat(contextualUserText, callOptions);
-            full = normalizeResponse(fallback);
-            outputEl.textContent = full || (currentLang === 'en' ? 'The model returned an empty response.' : 'O modelo retornou uma resposta vazia.');
-          }
-
-          conversation.push({ role: 'assistant', content: full });
         } else {
-          const response = await puter.ai.chat(messages, callOptions);
-          const finalText = normalizeResponse(response);
-          outputEl.textContent = finalText || (currentLang === 'en' ? 'The model returned an empty response.' : 'O modelo retornou uma resposta vazia.');
-          conversation.push({ role: 'assistant', content: finalText });
+          final = normalizeResponse(await puter.ai.chat(messages, callOptions));
         }
+        if (!final.trim()) final = normalizeResponse(await puter.ai.chat(contextualUserText, callOptions));
+        outputEl.textContent = cleanAssistantText(final) || (currentLang === 'en' ? 'Empty response.' : 'Resposta vazia.');
+        conversation.push({ role:'assistant', content: final });
       } catch (error) {
-        console.warn('Primary Lyra Lab mode failed. Trying automatic mode...', error);
         try {
-          const fallback = await puter.ai.chat(contextualUserText);
-          const fallbackText = normalizeResponse(fallback);
-          outputEl.textContent = fallbackText || (currentLang === 'en' ? 'The fallback model returned an empty response.' : 'O modelo de fallback retornou uma resposta vazia.');
-          conversation.push({ role: 'assistant', content: fallbackText });
+          const fallbackText = normalizeResponse(await puter.ai.chat(contextualUserText));
+          outputEl.textContent = cleanAssistantText(fallbackText);
+          conversation.push({ role:'assistant', content: fallbackText });
         } catch (fallbackError) {
           outputEl.textContent = (currentLang === 'en' ? 'AI request failed: ' : 'Erro ao consultar IA: ') + safeError(fallbackError);
         }
       }
     }
 
-    // =========================================================
-    // IMAGEM
-    // =========================================================
+
+    function getLyraApiCandidates() {
+      const configured = (localStorage.getItem('lyra_local_api') || LYRA_LOCAL_API || '').trim();
+      const currentBase = configured ? configured.replace(/\/+$/, '').replace(/\/api\/lyra\/chat$/,'').replace(/\/api\/chat$/,'').replace(/\/chat$/,'') : '';
+      const candidates = [
+        configured,
+        currentBase ? `${currentBase}/api/lyra/chat` : '',
+        currentBase ? `${currentBase}/api/chat` : '',
+        currentBase ? `${currentBase}/chat` : '',
+        currentBase ? `${currentBase}/api/generate` : ''
+      ].filter(Boolean);
+      return [...new Set(candidates)];
+    }
+
+    function getLastUserContent(messages) {
+      if (typeof messages === 'string') return messages;
+      if (!Array.isArray(messages)) return String(messages || '');
+      const lastUser = [...messages].reverse().find(m => m && m.role === 'user');
+      return lastUser?.content || messages.map(m => m?.content || '').join('\n');
+    }
+
+    function normalizeLocalLyraResponse(data) {
+      if (!data) return '';
+      if (typeof data === 'string') return data;
+      if (data.answer) return data.answer;
+      if (data.response) return data.response;
+      if (data.output) return data.output;
+      if (data.text) return data.text;
+      if (data.result) return typeof data.result === 'string' ? data.result : normalizeLocalLyraResponse(data.result);
+      if (data.message) {
+        if (typeof data.message === 'string') return data.message;
+        if (data.message.content) return data.message.content;
+      }
+      if (Array.isArray(data.choices) && data.choices[0]) {
+        return data.choices[0].message?.content || data.choices[0].text || '';
+      }
+      return '';
+    }
+
+    async function callLocalLyra(messages, options = {}) {
+      const model = options.model || LYRA_LOCAL_MODEL;
+      const prompt = getLastUserContent(messages);
+      const payload = {
+        model,
+        messages: Array.isArray(messages) ? messages : [{ role: 'user', content: prompt }],
+        message: prompt,
+        prompt,
+        system: LYRA_IDENTITY_PROMPT,
+        temperature: Number(options.temperature ?? 0.7),
+        num_predict: Number(options.num_predict ?? 1500),
+        stream: false,
+        options: {
+          temperature: Number(options.temperature ?? 0.7),
+          num_predict: Number(options.num_predict ?? 1500)
+        }
+      };
+
+      const endpoints = getLyraApiCandidates();
+      let lastError = null;
+
+      for (const endpoint of endpoints) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 90000);
+
+        try {
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            mode: 'cors',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json, text/plain, */*' },
+            body: JSON.stringify(payload),
+            signal: controller.signal
+          });
+
+          const raw = await response.text();
+          clearTimeout(timeoutId);
+
+          if (!response.ok) {
+            throw new Error(`${endpoint} returned HTTP ${response.status}: ${raw.slice(0, 220)}`);
+          }
+
+          let data = raw;
+          try { data = JSON.parse(raw); } catch (_) {}
+
+          const finalText = normalizeLocalLyraResponse(data).trim();
+          if (finalText) return finalText;
+
+          throw new Error(`${endpoint} returned an empty response.`);
+        } catch (error) {
+          clearTimeout(timeoutId);
+          lastError = error;
+          console.warn('Lyra local endpoint failed:', endpoint, error);
+        }
+      }
+
+      throw new Error(lastError?.message || 'No local Lyra endpoint responded. Check Cloudflare Tunnel, server.js and CORS.');
+    }
+
+    window.callLocalLyra = callLocalLyra;
+
+    async function tryChat(prompt, model='gpt-4o-mini') {
+      if (model === LYRA_LOCAL_MODEL || model === 'qwen_local') {
+        return await callLocalLyra([{ role:'user', content: prompt }], { model: LYRA_LOCAL_MODEL, temperature: 0.28, num_predict: 2200 });
+      }
+      if (model && model !== LYRA_LOCAL_MODEL && !(await ensureExternalModelAuth(model))) throw new Error(currentLang === 'en' ? 'Google login required for external models.' : 'Login Google necessário para modelos externos.');
+      const options = model ? { model } : undefined;
+      const response = options ? await puter.ai.chat(prompt, options) : await puter.ai.chat(prompt);
+      return normalizeResponse(response);
+    }
+
+    function extractHtml(text) {
+      const raw = String(text || '');
+      const fenced = raw.match(/```html([\s\S]*?)```/i) || raw.match(/```([\s\S]*?)```/i);
+      const candidate = fenced ? fenced[1].trim() : raw.trim();
+      const docStart = candidate.search(/<!DOCTYPE html|<html/i);
+      return docStart >= 0 ? candidate.slice(docStart) : candidate;
+    }
+
+    function setPreviewMode(mode) {
+      const frame = document.getElementById('sitePreview');
+      if (!frame) return;
+      frame.classList.remove('preview-desktop','preview-tablet','preview-mobile');
+      frame.classList.add(mode === 'mobile' ? 'preview-mobile' : mode === 'tablet' ? 'preview-tablet' : 'preview-desktop');
+      ['Desktop','Tablet','Mobile'].forEach(label => {
+        const btn = document.getElementById(`previewBtn${label}`);
+        if (btn) btn.className = 'rounded-2xl px-4 py-2 text-sm font-bold ' + ((mode === label.toLowerCase()) ? 'bg-blue-600' : 'bg-slate-800');
+      });
+    }
+
+    async function generateWebsite() {
+      const prompt = document.getElementById('softwarePrompt').value.trim();
+      const preset = document.getElementById('softwarePreset').value;
+      const codeBox = document.getElementById('generatedCode');
+      const frame = document.getElementById('sitePreview');
+      const status = document.getElementById('softwareStatus');
+      if (!prompt) return status.textContent = currentLang === 'en' ? 'Describe the website first.' : 'Descreva o site primeiro.';
+      setLoading(status, currentLang === 'en' ? 'Generating website' : 'Gerando site');
+      selectedSkill = 'web';
+      renderSkillChips();
+
+      const instruction = `Create a complete single-file HTML website.
+Type: ${preset}.
+Use Tailwind CDN, plain JavaScript if needed, responsive mobile-first design, polished copy, premium visual hierarchy, accessibility and modern sections.
+Return only the final HTML code. No markdown. No explanations.
+Request: ${prompt}`;
+
+      try {
+        let html;
+        try { html = extractHtml(await tryChat(instruction, LYRA_LOCAL_MODEL)); }
+        catch (localError) { html = extractHtml(await tryChat(instruction, 'gpt-4o')); }
+        if (!/tailwindcss\.com/.test(html)) {
+          html = html.replace('</head>', '<script src="https://cdn.tailwindcss.com"><\/script></head>');
+        }
+        codeBox.value = html;
+        frame.srcdoc = html;
+        status.textContent = currentLang === 'en' ? 'Preview generated.' : 'Pré-visualização gerada.';
+      } catch (error) {
+        status.textContent = (currentLang === 'en' ? 'Could not generate website: ' : 'Não foi possível gerar o site: ') + safeError(error);
+      }
+    }
+
+    async function copyGeneratedCode() {
+      const code = document.getElementById('generatedCode').value;
+      if (!code) return;
+      await navigator.clipboard.writeText(code);
+      document.getElementById('softwareStatus').textContent = currentLang === 'en' ? 'Code copied.' : 'Código copiado.';
+    }
+
+    async function generateImageWithPollinations(prompt, options = {}) {
+      const width = options.width || 1024;
+      const height = options.height || 1024;
+      const seed = options.seed || Date.now();
+      const enhancedPrompt = `${prompt}, high quality, detailed, professional digital art`;
+      const encodedPrompt = encodeURIComponent(enhancedPrompt);
+      return `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true`;
+    }
+
+    async function renderGeneratedImage(url, output, caption='') {
+      window.lastGeneratedImageUrl = url;
+      output.innerHTML = '';
+      const wrap = document.createElement('div');
+      wrap.className = 'w-full space-y-3';
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = currentLang === 'en' ? 'Image generated by Lyra IA' : 'Imagem gerada pela Lyra IA';
+      img.className = 'max-w-full rounded-2xl shadow-2xl mx-auto';
+      wrap.appendChild(img);
+      if (caption) {
+        const note = document.createElement('p');
+        note.className = 'text-xs text-slate-500 text-center';
+        note.textContent = caption;
+        wrap.appendChild(note);
+      }
+      output.appendChild(wrap);
+      document.getElementById('downloadImageBtn')?.classList.remove('hidden');
+      return img;
+    }
+
+    async function callTxt2Img(prompt, output, testMode=false, preferredModel='', imageMode='auto') {
+      const experimentalCaption = currentLang === 'en'
+        ? 'Image generated by Lyra Experimental Image.'
+        : 'Imagem gerada pela Lyra Imagem Experimental.';
+
+      if (imageMode === 'pollinations' || imageMode === 'auto' || !window.puter?.ai?.txt2img) {
+        const imageUrl = await generateImageWithPollinations(prompt);
+        return renderGeneratedImage(imageUrl, output, experimentalCaption);
+      }
+
+      const attempts = [
+        () => preferredModel ? puter.ai.txt2img(prompt, testMode, { model: preferredModel }) : puter.ai.txt2img(prompt, testMode),
+        () => preferredModel ? puter.ai.txt2img(prompt, { model: preferredModel, testMode }) : puter.ai.txt2img(prompt, { testMode }),
+        () => puter.ai.txt2img(prompt),
+        () => puter.ai.image?.generate?.(prompt)
+      ];
+      let lastError;
+      for (const attempt of attempts) {
+        try {
+          const result = await attempt();
+          const img = await normalizeImageResult(result);
+          if (img) {
+            window.lastGeneratedImageUrl = img.src;
+            output.innerHTML = '';
+            img.className = 'max-w-full rounded-2xl shadow-2xl mx-auto';
+            output.appendChild(img);
+            document.getElementById('downloadImageBtn')?.classList.remove('hidden');
+            return img;
+          }
+        } catch (e) { lastError = e; }
+      }
+
+      const fallbackUrl = await generateImageWithPollinations(prompt);
+      return renderGeneratedImage(fallbackUrl, output, experimentalCaption);
+    }
+
+    async function normalizeImageResult(result) {
+      if (!result) return null;
+      if (result instanceof HTMLImageElement) return result;
+      const img = document.createElement('img');
+      if (typeof result === 'string') img.src = result;
+      else if (result.url) img.src = result.url;
+      else if (result.src) img.src = result.src;
+      else if (result.data) img.src = result.data;
+      else if (Array.isArray(result) && result[0]) return normalizeImageResult(result[0]);
+      else return null;
+      return img;
+    }
+
     async function generateImage() {
       const prompt = document.getElementById('imagePrompt').value.trim();
       const imageMode = document.getElementById('imageMode').value;
       const model = imageMode === 'advanced' ? 'gpt-image-1.5' : imageMode === 'creative' ? 'gemini-2.5-flash-image' : '';
       const testMode = document.getElementById('imgTestMode').checked;
       const output = document.getElementById('imageOutput');
-      if (!prompt) return output.textContent = 'Digite um prompt para gerar a imagem.';
-      setLoading(output, 'Gerando imagem');
+      if (!prompt) return output.textContent = currentLang === 'en' ? 'Type a prompt first.' : 'Digite um prompt primeiro.';
+      document.getElementById('downloadImageBtn')?.classList.add('hidden');
+      setLoading(output, currentLang === 'en' ? 'Generating image' : 'Gerando imagem');
+      try { await callTxt2Img(prompt, output, testMode, model, imageMode); }
+      catch (error) { output.textContent = (currentLang === 'en' ? 'Image generation failed: ' : 'Erro ao gerar imagem: ') + safeError(error); }
+    }
+
+    async function generateSocialContent(withImage=false) {
+      const platform = document.getElementById('socialPlatform').value;
+      const format = document.getElementById('socialFormat').value;
+      const tone = document.getElementById('socialTone').value;
+      const topic = document.getElementById('socialPrompt').value.trim();
+      const output = document.getElementById('socialOutput');
+      const imageOutput = document.getElementById('socialImageOutput');
+      if (!topic) return output.textContent = currentLang === 'en' ? 'Describe the content first.' : 'Descreva o conteúdo primeiro.';
+      setLoading(output, currentLang === 'en' ? 'Creating content' : 'Criando conteúdo');
+
+      const prompt = `Create social media content for ${platform}.
+Format: ${format}. Tone: ${tone}. Language: ${currentLang === 'en' ? 'English' : 'Brazilian Portuguese'}.
+Return: hook, main copy, caption, CTA, hashtags, image prompt, and if video format include short scene sequence.
+Avoid markdown # and *.
+Topic: ${topic}`;
       try {
-        const options = model ? { model } : undefined;
-        const img = options ? await puter.ai.txt2img(prompt, testMode, options) : await puter.ai.txt2img(prompt, testMode);
-        output.innerHTML = '';
-        img.className = 'max-w-full rounded-2xl shadow-2xl';
-        output.appendChild(img);
+        let text;
+        try { text = cleanAssistantText(await callLocalLyra([{ role:'user', content: `${LYRA_IDENTITY_PROMPT}\n\n${prompt}` }], { model: LYRA_LOCAL_MODEL, temperature: 0.45, num_predict: 1200 })); }
+        catch (_) { text = cleanAssistantText(await tryChat(prompt, 'gpt-4o-mini')); }
+        output.textContent = text;
+        if (withImage) {
+          const imagePrompt = `High-quality social media visual for ${platform}. ${topic}. Premium composition, modern, clean, engaging.`;
+          setLoading(imageOutput, currentLang === 'en' ? 'Generating image' : 'Gerando imagem');
+          await callTxt2Img(imagePrompt, imageOutput, false, '', 'auto');
+        }
       } catch (error) {
-        output.textContent = 'Erro ao gerar imagem: ' + safeError(error);
+        output.textContent = (currentLang === 'en' ? 'Could not generate content: ' : 'Não foi possível gerar o conteúdo: ') + safeError(error);
       }
     }
 
-    // =========================================================
-    // VISÃO / OCR
-    // =========================================================
+    async function generateTikTokVideoPlan() {
+      document.getElementById('socialFormat').value = 'reel';
+      document.getElementById('socialPlatform').value = 'TikTok';
+      await generateSocialContent(false);
+    }
+
+    async function generateVideoScript() {
+      const prompt = document.getElementById('videoPrompt').value.trim();
+      const platform = document.getElementById('videoPlatform').value;
+      const output = document.getElementById('videoOutput');
+      if (!prompt) return output.textContent = currentLang === 'en' ? 'Describe the video first.' : 'Descreva o vídeo primeiro.';
+      setLoading(output, currentLang === 'en' ? 'Creating script' : 'Criando roteiro');
+      const instruction = `Create a vertical video plan for ${platform}. Include hook, duration, scenes, visual direction, subtitles, voiceover, CTA and a generation prompt. Avoid markdown # and *. Topic: ${prompt}`;
+      try { output.textContent = cleanAssistantText(await tryChat(instruction, 'gpt-4o-mini')); }
+      catch (error) { output.textContent = safeError(error); }
+    }
+
+    async function generateVideo() {
+      const prompt = document.getElementById('videoPrompt').value.trim();
+      const platform = document.getElementById('videoPlatform').value;
+      const testMode = document.getElementById('vidTestMode').checked;
+      const output = document.getElementById('videoOutput');
+      if (!prompt) return output.textContent = currentLang === 'en' ? 'Type a prompt first.' : 'Digite um prompt primeiro.';
+      setLoading(output, currentLang === 'en' ? 'Generating video' : 'Gerando vídeo');
+      try {
+        if (!puter.ai?.txt2vid) throw new Error('Video generation is not available in this session.');
+        const videoPrompt = `${platform} vertical short video. ${prompt}`;
+        const video = await puter.ai.txt2vid(videoPrompt, testMode);
+        output.innerHTML = '';
+        video.controls = true;
+        video.className = 'max-w-full rounded-2xl shadow-2xl';
+        output.appendChild(video);
+      } catch (error) {
+        output.textContent = (currentLang === 'en' ? 'Video generation is unavailable. I created a production script instead.\n\n' : 'A geração de vídeo não está disponível nesta sessão. Criei um roteiro de produção no lugar.\n\n');
+        const script = await tryChat(`Create a production-ready vertical video script for ${platform}: ${prompt}`, 'gpt-4o-mini').catch(e => safeError(e));
+        output.textContent += cleanAssistantText(script);
+      }
+    }
+
+    let currentDataRows = [];
+    let currentChart = null;
+
+    function parseDelimitedText(text) {
+      const lines = text.trim().split(/\r?\n/).filter(Boolean);
+      if (!lines.length) return [];
+      const delimiter = lines[0].includes(';') ? ';' : ',';
+      return lines.map(line => line.split(delimiter).map(cell => cell.trim().replace(/^"|"$/g, '')));
+    }
+
+    function renderDataTable(rows) {
+      const table = document.getElementById('dataTable');
+      if (!table) return;
+      if (!rows.length) { table.innerHTML = ''; return; }
+      const [head, ...body] = rows;
+      table.innerHTML = `<thead><tr>${head.map(h => `<th class="border-b border-slate-700 p-2 text-slate-200">${escapeHtml(h)}</th>`).join('')}</tr></thead><tbody>${body.slice(0, 40).map(r => `<tr>${r.map(c => `<td class="border-b border-slate-800 p-2 text-slate-300">${escapeHtml(c)}</td>`).join('')}</tr>`).join('')}</tbody>`;
+    }
+
+    async function readDataFile() {
+      const file = getSelectedFile('dataFile');
+      if (!file) throw new Error(currentLang === 'en' ? 'Select a file first.' : 'Selecione um arquivo primeiro.');
+      const text = await file.text();
+      if (file.name.endsWith('.json')) {
+        const parsed = JSON.parse(text);
+        const arr = Array.isArray(parsed) ? parsed : [parsed];
+        const keys = [...new Set(arr.flatMap(o => Object.keys(o || {})))];
+        return [keys, ...arr.map(o => keys.map(k => String(o?.[k] ?? '')))];
+      }
+      return parseDelimitedText(text);
+    }
+
+    async function analyzeDataFile() {
+      const out = document.getElementById('dataInsights');
+      const summary = document.getElementById('fileSummary');
+      try {
+        setLoading(out, currentLang === 'en' ? 'Analyzing data' : 'Analisando dados');
+        currentDataRows = await readDataFile();
+        renderDataTable(currentDataRows);
+        const rows = currentDataRows.length - 1;
+        const cols = currentDataRows[0]?.length || 0;
+        summary.textContent = `${rows} linhas • ${cols} colunas`;
+        const sample = currentDataRows.slice(0, 25).map(r => r.join(' | ')).join('\n');
+        const question = document.getElementById('dataQuestion')?.value.trim() || (currentLang === 'en' ? 'Generate insights, risks, patterns and recommendations.' : 'Gere insights, riscos, padrões e recomendações.');
+        const prompt = `Analyze this dataset sample and answer in ${currentLang === 'en' ? 'English' : 'Portuguese'}.
+Rows: ${rows}. Columns: ${cols}.
+User question: ${question}
+Sample:
+${sample}`;
+        let insight;
+        try { insight = await callLocalLyra([{ role:'user', content: `${LYRA_IDENTITY_PROMPT}\n\n${prompt}` }], { model: LYRA_LOCAL_MODEL, temperature: 0.25, num_predict: 1200 }); }
+        catch (_) { insight = await tryChat(prompt, 'gpt-4o-mini'); }
+        out.textContent = cleanAssistantText(insight);
+      } catch (error) {
+        out.textContent = safeError(error);
+      }
+    }
+
+    async function renderDataChart() {
+      const summary = document.getElementById('fileSummary');
+      try {
+        if (!currentDataRows.length) currentDataRows = await readDataFile();
+        renderDataTable(currentDataRows);
+        const [head, ...body] = currentDataRows;
+        const numericIndex = head.findIndex((_, i) => body.some(r => !Number.isNaN(parseFloat(String(r[i]).replace(',', '.')))));
+        const labelIndex = numericIndex === 0 ? 1 : 0;
+        if (numericIndex < 0) throw new Error(currentLang === 'en' ? 'No numeric column found.' : 'Nenhuma coluna numérica encontrada.');
+        const labels = body.slice(0, 12).map((r, i) => r[labelIndex] || `Item ${i+1}`);
+        const values = body.slice(0, 12).map(r => parseFloat(String(r[numericIndex]).replace(',', '.')) || 0);
+        const ctx = document.getElementById('dataChart');
+        if (currentChart) currentChart.destroy();
+        currentChart = new Chart(ctx, { type:'bar', data:{ labels, datasets:[{ label: head[numericIndex], data: values }] }, options:{ responsive:true, plugins:{ legend:{ labels:{ color:'#cbd5e1' } } }, scales:{ x:{ ticks:{ color:'#cbd5e1' } }, y:{ ticks:{ color:'#cbd5e1' } } } } });
+        summary.textContent = currentLang === 'en' ? 'Chart generated.' : 'Gráfico gerado.';
+      } catch (error) { summary.textContent = safeError(error); }
+    }
+
+    async function generateImageSocialText() {
+      const platform = document.getElementById('imageSocialPlatform')?.value || 'Instagram';
+      const format = document.getElementById('imageSocialFormat')?.value || 'post';
+      const topic = document.getElementById('imageSocialTopic')?.value.trim() || document.getElementById('imagePrompt')?.value.trim();
+      const out = document.getElementById('imageSocialOutput');
+      if (!topic) return out.textContent = currentLang === 'en' ? 'Describe the topic first.' : 'Descreva o tema primeiro.';
+      setLoading(out, currentLang === 'en' ? 'Generating copy' : 'Gerando texto');
+      const prompt = `Create ${platform} ${format} content in ${currentLang === 'en' ? 'English' : 'Portuguese'} for: ${topic}. Return hook, caption, CTA, hashtags and image prompt.`;
+      try {
+        let text;
+        try { text = await callLocalLyra([{ role:'user', content: `${LYRA_IDENTITY_PROMPT}\n\n${prompt}` }], { model: LYRA_LOCAL_MODEL, temperature: 0.45, num_predict: 900 }); }
+        catch (_) { text = await tryChat(prompt, 'gpt-4o-mini'); }
+        out.textContent = cleanAssistantText(text);
+      } catch (error) { out.textContent = safeError(error); }
+    }
+
     function getSelectedFile(inputId) {
       const input = document.getElementById(inputId);
       return input.files && input.files[0] ? input.files[0] : null;
@@ -1044,61 +1767,69 @@ ${userText}`;
       const file = getSelectedFile('visionFile');
       const prompt = document.getElementById('visionPrompt').value.trim() || 'Descreva esta imagem.';
       const output = document.getElementById('visionOutput');
-      if (!file) return output.textContent = 'Selecione uma imagem primeiro.';
-      setLoading(output, 'Analisando imagem');
+      if (!file) return output.textContent = currentLang === 'en' ? 'Select an image first.' : 'Selecione uma imagem primeiro.';
+      setLoading(output, currentLang === 'en' ? 'Analyzing image' : 'Analisando imagem');
       try {
-        const modeKey = document.getElementById('chatMode')?.value || 'auto';
-        const model = AI_MODES[modeKey]?.model || '';
+        const model = getCurrentAssistant().model;
         const response = model ? await puter.ai.chat(prompt, file, false, { model }) : await puter.ai.chat(prompt, file);
-        output.textContent = normalizeResponse(response);
-      } catch (error) {
-        output.textContent = 'Erro na análise: ' + safeError(error);
-      }
+        output.textContent = cleanAssistantText(normalizeResponse(response));
+      } catch (error) { output.textContent = safeError(error); }
     }
 
     async function ocrImage() {
       const file = getSelectedFile('visionFile');
       const output = document.getElementById('visionOutput');
-      if (!file) return output.textContent = 'Selecione uma imagem primeiro.';
-      setLoading(output, 'Extraindo texto');
-      try {
-        const response = await puter.ai.img2txt(file);
-        output.textContent = normalizeResponse(response);
-      } catch (error) {
-        output.textContent = 'Erro no OCR: ' + safeError(error);
-      }
+      if (!file) return output.textContent = currentLang === 'en' ? 'Select an image first.' : 'Selecione uma imagem primeiro.';
+      setLoading(output, currentLang === 'en' ? 'Extracting text' : 'Extraindo texto');
+      try { output.textContent = normalizeResponse(await puter.ai.img2txt(file)); }
+      catch (error) { output.textContent = safeError(error); }
     }
 
-    // =========================================================
-    // VÍDEO
-    // =========================================================
-    async function generateVideo() {
-      const prompt = document.getElementById('videoPrompt').value.trim();
-      const testMode = document.getElementById('vidTestMode').checked;
-      const output = document.getElementById('videoOutput');
-      if (!prompt) return output.textContent = 'Digite um prompt para gerar o vídeo.';
-      setLoading(output, 'Gerando vídeo');
-      try {
-        const video = await puter.ai.txt2vid(prompt, testMode);
-        output.innerHTML = '';
-        video.controls = true;
-        video.className = 'max-w-full rounded-2xl shadow-2xl';
-        output.appendChild(video);
-      } catch (error) {
-        output.textContent = 'Erro ao gerar vídeo: ' + safeError(error);
-      }
+    const VOICE_PRESETS = {
+      'pt-BR': { female:'Luciana', male:'Ricardo', narrator:'Narrador', soft:'Camila' },
+      'en-US': { female:'Joanna', male:'Matthew', narrator:'Brian', soft:'Nova' },
+      'en-GB': { female:'Amy', male:'Brian', narrator:'Arthur', soft:'Emma' },
+      'es-ES': { female:'Lucia', male:'Enrique', narrator:'Narrador', soft:'Elena' },
+      'fr-FR': { female:'Lea', male:'Mathieu', narrator:'Narrateur', soft:'Celine' }
+    };
+
+    function updateSpeedLabel() {
+      const speed = Number(document.getElementById('ttsSpeed')?.value || 1);
+      const label = document.getElementById('ttsSpeedValue');
+      if (label) label.textContent = `${speed.toFixed(2)}x`;
     }
 
-    // =========================================================
-    // TEXTO PARA FALA
-    // =========================================================
+    function toggleCustomVoice() {
+      const preset = document.getElementById('ttsVoicePreset')?.value || '';
+      document.getElementById('customVoiceBox')?.classList.toggle('hidden', preset !== 'custom');
+    }
+
+    function syncVoiceOptions() {
+      const lang = document.getElementById('ttsLang')?.value || 'pt-BR';
+      const preset = document.getElementById('ttsVoicePreset');
+      if (!preset) return;
+      [...preset.options].forEach(option => {
+        if (['female','male','narrator','soft'].includes(option.value)) option.disabled = !VOICE_PRESETS[lang]?.[option.value];
+      });
+      toggleCustomVoice();
+    }
+
+    function resolveVoice(language) {
+      const preset = document.getElementById('ttsVoicePreset')?.value || '';
+      const customVoice = document.getElementById('ttsVoice')?.value.trim() || '';
+      if (!preset) return '';
+      if (preset === 'custom') return customVoice;
+      return VOICE_PRESETS[language]?.[preset] || '';
+    }
+
     async function generateSpeech() {
       const text = document.getElementById('ttsText').value.trim();
       const language = document.getElementById('ttsLang').value.trim();
-      const voice = document.getElementById('ttsVoice').value.trim();
+      const voice = resolveVoice(language);
+      const speed = Number(document.getElementById('ttsSpeed')?.value || 1);
       const output = document.getElementById('audioOutput');
-      if (!text) return output.textContent = 'Digite o texto para gerar o áudio.';
-      setLoading(output, 'Gerando áudio');
+      if (!text) return output.textContent = currentLang === 'en' ? 'Type the text first.' : 'Digite o texto primeiro.';
+      setLoading(output, currentLang === 'en' ? 'Generating audio' : 'Gerando áudio');
       try {
         let audio;
         if (voice && language) audio = await puter.ai.txt2speech(text, language, voice);
@@ -1106,62 +1837,38 @@ ${userText}`;
         else audio = await puter.ai.txt2speech(text);
         audio.controls = true;
         audio.className = 'w-full';
-        output.innerHTML = '';
-        output.appendChild(audio);
+        audio.playbackRate = speed;
+        audio.preservesPitch = true;
+        audio.addEventListener('loadedmetadata', () => { audio.playbackRate = speed; audio.preservesPitch = true; });
+        output.innerHTML = `<div class="space-y-3"><div class="text-xs text-slate-400">${currentLang === 'en' ? 'Language' : 'Idioma'}: <strong class="text-slate-200">${escapeHtml(language)}</strong> • ${currentLang === 'en' ? 'Voice' : 'Voz'}: <strong class="text-slate-200">${escapeHtml(voice || (currentLang === 'en' ? 'Auto' : 'Automática'))}</strong> • ${currentLang === 'en' ? 'Speed' : 'Velocidade'}: <strong class="text-slate-200">${speed.toFixed(2)}x</strong></div></div>`;
+        output.querySelector('.space-y-3').appendChild(audio);
         await audio.play().catch(() => null);
-      } catch (error) {
-        output.textContent = 'Erro ao gerar áudio: ' + safeError(error);
-      }
+      } catch (error) { output.textContent = safeError(error); }
     }
 
-    // =========================================================
-    // TRANSCRIÇÃO
-    // =========================================================
     async function transcribeAudio() {
       const file = getSelectedFile('audioFile');
       const output = document.getElementById('transcriptionOutput');
-      if (!file) return output.textContent = 'Selecione um arquivo de áudio ou vídeo.';
-      setLoading(output, 'Transcrevendo');
-      try {
-        const response = await puter.ai.speech2txt(file);
-        output.textContent = response?.text || normalizeResponse(response);
-      } catch (error) {
-        output.textContent = 'Erro na transcrição: ' + safeError(error);
-      }
+      if (!file) return output.textContent = currentLang === 'en' ? 'Select an audio or video file.' : 'Selecione um arquivo de áudio ou vídeo.';
+      setLoading(output, currentLang === 'en' ? 'Transcribing' : 'Transcrevendo');
+      try { const response = await puter.ai.speech2txt(file); output.textContent = response?.text || normalizeResponse(response); }
+      catch (error) { output.textContent = safeError(error); }
     }
 
-    // =========================================================
-    // UTILITÁRIOS
-    // =========================================================
-    function escapeHtml(str) {
-      return String(str).replace(/[&<>'"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[c]));
-    }
+    function escapeHtml(str) { return String(str).replace(/[&<>'"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' }[c])); }
 
     function clearAll() {
       conversation = [];
       document.getElementById('chatBox').innerHTML = '';
-      addChatMessage('assistant', currentLang === 'en' ? 'History cleared. You can start a new conversation.' : 'Histórico limpo. Pode começar uma nova conversa.');
+      addChatMessage('assistant', currentLang === 'en' ? 'History cleared. Start a new conversation.' : 'Histórico limpo. Pode começar uma nova conversa.');
     }
 
-    // =========================================================
-    // BACKGROUND CÓSMICO LYRA LAB
-    // =========================================================
     function initCosmicBackground() {
       const canvas = document.getElementById('starfield');
       if (!canvas) return;
-
       const ctx = canvas.getContext('2d');
       const layers = document.querySelectorAll('.parallax-layer');
-
-      let cx = 0;
-      let cy = 0;
-      let stars = [];
-      let pointerX = 0;
-      let pointerY = 0;
-      let currentX = 0;
-      let currentY = 0;
-      let initialized = false;
-
+      let cx=0, cy=0, stars=[], pointerX=0, pointerY=0, currentX=0, currentY=0;
       const STAR_COUNT = 180;
 
       function resizeCanvas() {
@@ -1170,10 +1877,8 @@ ${userText}`;
         canvas.height = window.innerHeight * ratio;
         canvas.style.width = window.innerWidth + 'px';
         canvas.style.height = window.innerHeight + 'px';
-
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.setTransform(1,0,0,1,0,0);
         ctx.scale(ratio, ratio);
-
         cx = window.innerWidth / 2;
         cy = window.innerHeight / 2;
         createStars();
@@ -1182,95 +1887,55 @@ ${userText}`;
       function createStars() {
         stars = Array.from({ length: STAR_COUNT }, () => {
           const angle = Math.random() * Math.PI * 2;
-          const radius = Math.random() * Math.min(window.innerWidth, window.innerHeight) * 0.45;
-          return {
-            x: cx + Math.cos(angle) * radius,
-            y: cy + Math.sin(angle) * radius,
-            z: Math.random() * 0.9 + 0.1,
-            size: Math.random() * 1.8 + 0.4,
-            alpha: Math.random() * 0.7 + 0.2,
-            speed: Math.random() * 0.08 + 0.015
-          };
+          const radius = Math.random() * Math.min(window.innerWidth, window.innerHeight) * .45;
+          return { x:cx+Math.cos(angle)*radius, y:cy+Math.sin(angle)*radius, z:Math.random()*.9+.1, size:Math.random()*1.8+.4, alpha:Math.random()*.7+.2, speed:Math.random()*.08+.015 };
         });
       }
 
       function drawStars() {
-        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-        const glow = ctx.createRadialGradient(
-          cx, cy, 0,
-          cx, cy, Math.min(window.innerWidth, window.innerHeight) * 0.35
-        );
-        glow.addColorStop(0, 'rgba(96,165,250,0.06)');
-        glow.addColorStop(0.35, 'rgba(139,92,246,0.05)');
-        glow.addColorStop(1, 'rgba(2,6,23,0)');
+        ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
+        const glow = ctx.createRadialGradient(cx,cy,0,cx,cy,Math.min(window.innerWidth,window.innerHeight)*.35);
+        glow.addColorStop(0,'rgba(96,165,250,0.06)');
+        glow.addColorStop(.35,'rgba(139,92,246,0.05)');
+        glow.addColorStop(1,'rgba(2,6,23,0)');
         ctx.fillStyle = glow;
-        ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+        ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
 
         for (const star of stars) {
-          const dx = star.x - cx;
-          const dy = star.y - cy;
-          const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-
-          star.x += (dx / dist) * star.speed * (1 + star.z * 2);
-          star.y += (dy / dist) * star.speed * (1 + star.z * 2);
-
-          if (star.x < -50 || star.x > window.innerWidth + 50 || star.y < -50 || star.y > window.innerHeight + 50) {
-            const angle = Math.random() * Math.PI * 2;
-            const r = Math.random() * 40;
-            star.x = cx + Math.cos(angle) * r;
-            star.y = cy + Math.sin(angle) * r;
+          const dx = star.x - cx, dy = star.y - cy, dist = Math.sqrt(dx*dx+dy*dy) || 1;
+          star.x += (dx/dist) * star.speed * (1 + star.z*2);
+          star.y += (dy/dist) * star.speed * (1 + star.z*2);
+          if (star.x < -50 || star.x > window.innerWidth+50 || star.y < -50 || star.y > window.innerHeight+50) {
+            const angle = Math.random()*Math.PI*2, r = Math.random()*40;
+            star.x = cx + Math.cos(angle)*r; star.y = cy + Math.sin(angle)*r;
           }
-
-          const trailX = star.x - (dx / dist) * (8 * star.z);
-          const trailY = star.y - (dy / dist) * (8 * star.z);
-
-          ctx.beginPath();
-          ctx.moveTo(trailX, trailY);
-          ctx.lineTo(star.x, star.y);
-          ctx.strokeStyle = `rgba(180,220,255,${0.08 + star.alpha * 0.25})`;
-          ctx.lineWidth = star.size * 0.7;
-          ctx.stroke();
-
-          ctx.beginPath();
-          ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255,255,255,${star.alpha})`;
-          ctx.fill();
+          const trailX = star.x - (dx/dist)*(8*star.z), trailY = star.y - (dy/dist)*(8*star.z);
+          ctx.beginPath(); ctx.moveTo(trailX, trailY); ctx.lineTo(star.x, star.y);
+          ctx.strokeStyle = `rgba(180,220,255,${0.08 + star.alpha*.25})`;
+          ctx.lineWidth = star.size*.7; ctx.stroke();
+          ctx.beginPath(); ctx.arc(star.x, star.y, star.size, 0, Math.PI*2);
+          ctx.fillStyle = `rgba(255,255,255,${star.alpha})`; ctx.fill();
         }
       }
 
       function animate() {
-        currentX += (pointerX - currentX) * 0.06;
-        currentY += (pointerY - currentY) * 0.06;
-
+        currentX += (pointerX-currentX)*.06; currentY += (pointerY-currentY)*.06;
         layers.forEach(layer => {
-          const depth = parseFloat(layer.dataset.depth || '0.05');
-          layer.style.transform = `translate3d(${currentX * depth}px, ${currentY * depth}px, 0)`;
+          const depth = parseFloat(layer.dataset.depth || '.05');
+          layer.style.transform = `translate3d(${currentX*depth}px, ${currentY*depth}px, 0)`;
         });
-
         drawStars();
         requestAnimationFrame(animate);
       }
 
-      if (!initialized) {
-        window.addEventListener('mousemove', (e) => {
-          const x = e.clientX / window.innerWidth - 0.5;
-          const y = e.clientY / window.innerHeight - 0.5;
-          pointerX = x * -40;
-          pointerY = y * -40;
-        });
-
-        window.addEventListener('deviceorientation', (e) => {
-          const gamma = (e.gamma || 0) / 45;
-          const beta = (e.beta || 0) / 45;
-          pointerX = gamma * 20;
-          pointerY = beta * 20;
-        });
-
-        window.addEventListener('resize', resizeCanvas);
-        initialized = true;
-      }
-
+      window.addEventListener('mousemove', e => {
+        const x = e.clientX / window.innerWidth - .5, y = e.clientY / window.innerHeight - .5;
+        pointerX = x * -40; pointerY = y * -40;
+      });
+      window.addEventListener('deviceorientation', e => {
+        pointerX = ((e.gamma || 0)/45) * 20; pointerY = ((e.beta || 0)/45) * 20;
+      });
+      window.addEventListener('resize', resizeCanvas);
       resizeCanvas();
       animate();
     }
