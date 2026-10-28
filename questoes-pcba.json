@@ -1,0 +1,2657 @@
+{
+  "schemaVersion": 1,
+  "title": "PCBA · Escrivão 2026",
+  "updatedAt": "2026-10-28",
+  "questions": [
+    {
+      "id": "q1",
+      "subject": "pt",
+      "text": "Assinale a alternativa em que o uso da crase está incorreto:",
+      "options": [
+        "Entregarei o relatório à autoridade competente.",
+        "O escrivão dedicou-se à elaboração do termo circunstanciado.",
+        "Cheguei à delegacia às pressas.",
+        "Pretendo assistir à audiência de custódia.",
+        "Ele começou à trabalhar cedo na polícia."
+      ],
+      "answer": "e",
+      "explanation": "Comentário: A alternativa E está incorreta pois não há crase antes de verbo no infinitivo ('trabalhar'). O correto seria 'Ele começou a trabalhar cedo na polícia'. As demais alternativas estão corretas.",
+      "revision": "",
+      "original": {
+        "text": "Assinale a alternativa em que o uso da crase está incorreto:",
+        "options": [
+          "Entregarei o relatório à autoridade competente.",
+          "O escrivão dedicou-se à elaboração do termo circunstanciado.",
+          "Cheguei à delegacia às pressas.",
+          "Pretendo assistir à audiência de custódia.",
+          "Ele começou à trabalhar cedo na polícia."
+        ],
+        "answer": "e"
+      }
+    },
+    {
+      "id": "q2",
+      "subject": "pt",
+      "text": "No período: \"O delegado determinou que os policiais realizassem as diligências, porém o tempo era curto.\", a conjunção destacada introduz uma ideia de:",
+      "options": [
+        "Adição.",
+        "Oposição.",
+        "Alternância.",
+        "Conclusão.",
+        "Explicação."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: A conjunção 'porém' é uma conjunção coordenativa adversativa, que introduz uma ideia de oposição, contraste ou compensação.",
+      "revision": "",
+      "original": {
+        "text": "No período: \"O delegado determinou que os policiais realizassem as diligências, porém o tempo era curto.\", a conjunção destacada introduz uma ideia de:",
+        "options": [
+          "Adição.",
+          "Oposição.",
+          "Alternância.",
+          "Conclusão.",
+          "Explicação."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q3",
+      "subject": "pt",
+      "text": "Assinale a alternativa em que a concordância verbal está correta:",
+      "options": [
+        "Faz dois anos que ele ingressou na carreira policial.",
+        "Haviam muitos suspeitos no local do crime.",
+        "Existe fortes indícios de que ele é o autor do delito.",
+        "Aconteceu, naquela tarde, diversas abordagens policiais.",
+        "Deverão haver novas diretrizes para a investigação."
+      ],
+      "answer": "a",
+      "explanation": "Fazer com sentido de tempo decorrido é impessoal: “Faz dois anos”. Haver existencial também é impessoal (“Havia”, “Deverá haver”). Existir e acontecer concordam com seus sujeitos (“Existem indícios”, “Aconteceram abordagens”).",
+      "revision": "A questão original não tinha alternativa correta. A alternativa A foi corrigida.",
+      "original": {
+        "text": "Assinale a alternativa em que a concordância verbal está correta:",
+        "options": [
+          "Fazem dois anos que ele ingressou na carreira policial.",
+          "Haviam muitos suspeitos no local do crime.",
+          "Existe fortes indícios de que ele é o autor do delito.",
+          "Aconteceu, naquela tarde, diversas abordagens policiais.",
+          "Deverão haver novas diretrizes para a investigação."
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q4",
+      "subject": "pt",
+      "text": "No que tange à colocação pronominal, assinale a alternativa correta:",
+      "options": [
+        "Me disseram que o inquérito foi concluído.",
+        "Ninguém comprometeu-se com a investigação.",
+        "Em se tratando de provas ilícitas, o juiz deve rejeitá-las.",
+        "O escrivão não atentou-se aos detalhes.",
+        "Tudo passou-se conforme o planejado."
+      ],
+      "answer": "c",
+      "explanation": "Em “Em se tratando”, o gerúndio precedido de “em” exige próclise. Ninguém, não e tudo também atraem o pronome nas frases apresentadas; as respectivas formas das alternativas B, D e E violam a norma formal. Evita-se pronome átono no início de período na redação formal.",
+      "revision": "Havia duas alternativas corretas. A alternativa E foi reformulada para tornar C única.",
+      "original": {
+        "text": "No que tange à colocação pronominal, assinale a alternativa correta:",
+        "options": [
+          "Me disseram que o inquérito foi concluído.",
+          "Ninguém comprometeu-se com a investigação.",
+          "Em se tratando de provas ilícitas, o juiz deve rejeitá-las.",
+          "O escrivão não atentou-se aos detalhes.",
+          "Tudo se passou conforme o planejado."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q5",
+      "subject": "pt",
+      "text": "Segundo o Manual de Redação da Presidência da República, qual fecho é usado em comunicação dirigida a autoridade de hierarquia superior?",
+      "options": [
+        "Cordialmente.",
+        "Sem mais.",
+        "Abraços.",
+        "Respeitosamente.",
+        "Saudações pessoais."
+      ],
+      "answer": "d",
+      "explanation": "O Manual orienta “Respeitosamente” para autoridades de hierarquia superior e “Atenciosamente” nos demais casos previstos. Vocativo é parte da estrutura do padrão ofício, diferentemente do comentário do arquivo original.",
+      "revision": "O vocativo integra o padrão ofício. O item foi reescrito para eliminar premissa incorreta.",
+      "original": {
+        "text": "De acordo com o Manual de Redação da Presidência da República, o padrão ofício deve conter os seguintes elementos, EXCETO:",
+        "options": [
+          "Local e data.",
+          "Endereçamento.",
+          "Assunto.",
+          "Vocativo (para todas as autoridades).",
+          "Fecho."
+        ],
+        "answer": "d"
+      }
+    },
+    {
+      "id": "q6",
+      "subject": "pt",
+      "text": "Assinale a alternativa em que todas as palavras estão grafadas corretamente:",
+      "options": [
+        "Excesso, previlégio, admissão.",
+        "Exceção, privilégio, admissão.",
+        "Excessão, privilégio, adimição.",
+        "Exceção, previlégio, admissão.",
+        "Excesso, privilégio, admição."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: As formas corretas são: 'exceção' (com 'ç'), 'privilégio' (com 'i' e 'é' fechado) e 'admissão' (com 'ss'). As demais alternativas contêm erros ortográficos (previlégio, excessão, adimição, admição).",
+      "revision": "",
+      "original": {
+        "text": "Assinale a alternativa em que todas as palavras estão grafadas corretamente:",
+        "options": [
+          "Excesso, previlégio, admissão.",
+          "Exceção, privilégio, admissão.",
+          "Excessão, privilégio, adimição.",
+          "Exceção, previlégio, admissão.",
+          "Excesso, privilégio, admição."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q7",
+      "subject": "pt",
+      "text": "A figura de linguagem presente na frase \"A polícia é o escudo da sociedade\" é:",
+      "options": [
+        "Metonímia.",
+        "Metáfora.",
+        "Hipérbole.",
+        "Eufemismo.",
+        "Antítese."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: A metáfora é uma figura de linguagem que consiste em uma comparação implícita, atribuindo a um termo o sentido de outro em virtude de uma semelhança. 'A polícia é o escudo' é uma metáfora.",
+      "revision": "",
+      "original": {
+        "text": "A figura de linguagem presente na frase \"A polícia é o escudo da sociedade\" é:",
+        "options": [
+          "Metonímia.",
+          "Metáfora.",
+          "Hipérbole.",
+          "Eufemismo.",
+          "Antítese."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q8",
+      "subject": "pt",
+      "text": "Em “O escrivão, que é um servidor público, deve zelar pelo sigilo”, a oração entre vírgulas classifica-se como:",
+      "options": [
+        "Subordinada adjetiva restritiva.",
+        "Subordinada adjetiva explicativa.",
+        "Subordinada substantiva subjetiva.",
+        "Coordenada conclusiva.",
+        "Subordinada adverbial causal."
+      ],
+      "answer": "b",
+      "explanation": "A oração “que é um servidor público” retoma escrivão e acrescenta explicação, isolada por vírgulas. “Que” é pronome relativo; explicativa é a classificação da oração.",
+      "revision": "A classificação é da oração, e não uma espécie autônoma de pronome.",
+      "original": {
+        "text": "Na frase: \"O escrivão, que é um servidor público, deve zelar pelo sigilo.\", o termo destacado é:",
+        "options": [
+          "Pronome relativo restritivo.",
+          "Pronome relativo explicativo.",
+          "Conjunção integrante.",
+          "Pronome pessoal.",
+          "Conjunção causal."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q9",
+      "subject": "pt",
+      "text": "Assinale a alternativa que segue a regência nominal da norma formal:",
+      "options": [
+        "O servidor está apto com o exercício do cargo.",
+        "O servidor está apto ao exercício do cargo.",
+        "O servidor está apto do exercício do cargo.",
+        "O servidor está apto pelo exercício do cargo.",
+        "O servidor está apto em o exercício do cargo."
+      ],
+      "answer": "b",
+      "explanation": "“Apto” rege “a” ou “para”. A alternativa B apresenta “apto a” mais artigo: “ao exercício”. As demais preposições não atendem à construção proposta.",
+      "revision": "Regência substituída por construção inequívoca para evitar disputa sobre usos de “obcecado”.",
+      "original": {
+        "text": "Assinale a alternativa em que a regência nominal está correta:",
+        "options": [
+          "Ele é obcecado com justiça.",
+          "Ele é obcecado por justiça.",
+          "Ele é obcecado em justiça.",
+          "Ele é obcecado a justiça.",
+          "Ele é obcecado de justiça."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q10",
+      "subject": "pt",
+      "text": "A pontuação correta da frase \"O suspeito confessou o crime no entanto negou a participação dos comparsas\" é:",
+      "options": [
+        "O suspeito confessou o crime no entanto, negou a participação dos comparsas.",
+        "O suspeito confessou o crime; no entanto, negou a participação dos comparsas.",
+        "O suspeito confessou o crime, no entanto negou, a participação dos comparsas.",
+        "O suspeito, confessou o crime no entanto negou a participação dos comparsas.",
+        "O suspeito confessou, o crime no entanto, negou a participação dos comparsas."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: O uso do ponto e vírgula antes de 'no entanto' é correto para separar orações coordenadas adversativas longas. Além disso, 'no entanto' é um conectivo que deve ser isolado por vírgula.",
+      "revision": "",
+      "original": {
+        "text": "A pontuação correta da frase \"O suspeito confessou o crime no entanto negou a participação dos comparsas\" é:",
+        "options": [
+          "O suspeito confessou o crime no entanto, negou a participação dos comparsas.",
+          "O suspeito confessou o crime; no entanto, negou a participação dos comparsas.",
+          "O suspeito confessou o crime, no entanto negou, a participação dos comparsas.",
+          "O suspeito, confessou o crime no entanto negou a participação dos comparsas.",
+          "O suspeito confessou, o crime no entanto, negou a participação dos comparsas."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q11",
+      "subject": "rl",
+      "text": "A negação da proposição \"Todos os policiais são honestos\" é:",
+      "options": [
+        "Nenhum policial é honesto.",
+        "Algum policial não é honesto.",
+        "Todos os policiais são desonestos.",
+        "Algum policial é honesto.",
+        "Nenhum policial é desonesto."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: A negação de uma proposição universal afirmativa ('Todos') é uma particular negativa ('Algum... não'). Portanto, a negação de 'Todos os policiais são honestos' é 'Algum policial não é honesto'.",
+      "revision": "",
+      "original": {
+        "text": "A negação da proposição \"Todos os policiais são honestos\" é:",
+        "options": [
+          "Nenhum policial é honesto.",
+          "Algum policial não é honesto.",
+          "Todos os policiais são desonestos.",
+          "Algum policial é honesto.",
+          "Nenhum policial é desonesto."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q12",
+      "subject": "rl",
+      "text": "Se A é verdadeiro e B é falso, qual o valor lógico da proposição composta A → B (A implica B)?",
+      "options": [
+        "Verdadeiro.",
+        "Falso.",
+        "Indeterminado.",
+        "Varia conforme o contexto.",
+        "Tautologia."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: Na tabela-verdade do condicional (A → B), a proposição é falsa apenas quando o antecedente (A) é verdadeiro e o consequente (B) é falso. Portanto, V → F = Falso.",
+      "revision": "",
+      "original": {
+        "text": "Se A é verdadeiro e B é falso, qual o valor lógico da proposição composta A → B (A implica B)?",
+        "options": [
+          "Verdadeiro.",
+          "Falso.",
+          "Indeterminado.",
+          "Varia conforme o contexto.",
+          "Tautologia."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q13",
+      "subject": "rl",
+      "text": "De acordo com as Leis de Morgan, a equivalência da proposição \"Não (P e Q)\" é:",
+      "options": [
+        "Não P e Não Q.",
+        "P ou Q.",
+        "Não P ou Não Q.",
+        "P e Não Q.",
+        "Não P e Q."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: As Leis de Morgan estabelecem que a negação de uma conjunção é a disjunção das negações. Portanto, ~(P ∧ Q) ≡ ~P ∨ ~Q.",
+      "revision": "",
+      "original": {
+        "text": "De acordo com as Leis de Morgan, a equivalência da proposição \"Não (P e Q)\" é:",
+        "options": [
+          "Não P e Não Q.",
+          "P ou Q.",
+          "Não P ou Não Q.",
+          "P e Não Q.",
+          "Não P e Q."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q14",
+      "subject": "rl",
+      "text": "Em uma urna há 5 bolas vermelhas e 3 bolas azuis. Retirando-se uma bola ao acaso, qual a probabilidade de ser vermelha?",
+      "options": [
+        "3/8",
+        "5/8",
+        "1/2",
+        "5/3",
+        "3/5"
+      ],
+      "answer": "b",
+      "explanation": "Comentário: A probabilidade é o número de casos favoráveis (5 bolas vermelhas) dividido pelo número total de casos possíveis (5 vermelhas + 3 azuis = 8). Logo, P = 5/8.",
+      "revision": "",
+      "original": {
+        "text": "Em uma urna há 5 bolas vermelhas e 3 bolas azuis. Retirando-se uma bola ao acaso, qual a probabilidade de ser vermelha?",
+        "options": [
+          "3/8",
+          "5/8",
+          "1/2",
+          "5/3",
+          "3/5"
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q15",
+      "subject": "rl",
+      "text": "Quantos anagramas podem ser formados com a palavra \"POLÍCIA\"? (Desconsidere o acento)",
+      "options": [
+        "5040",
+        "720",
+        "120",
+        "2520",
+        "40320"
+      ],
+      "answer": "d",
+      "explanation": "POLICIA tem sete letras, com I repetido duas vezes. Permutações com repetição: 7!/2!=5.040/2=2.520. O gabarito A do arquivo enviado era incompatível com o cálculo. Não foi identificada prova oficial que autorizasse tratá-lo como gabarito da AOCP.",
+      "revision": "O próprio comentário original calculava 2.520, mas marcava 5.040. Gabarito corrigido.",
+      "original": {
+        "text": "Quantos anagramas podem ser formados com a palavra \"POLÍCIA\"? (Desconsidere o acento)",
+        "options": [
+          "5040",
+          "720",
+          "120",
+          "2520",
+          "40320"
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q16",
+      "subject": "rl",
+      "text": "Se uma proposição \"Se chove, então a rua fica molhada\" é verdadeira, e sabemos que a rua não ficou molhada, podemos concluir que:",
+      "options": [
+        "Choveu.",
+        "Não choveu.",
+        "Pode ter chovido.",
+        "A rua secou rápido.",
+        "Nada se pode concluir."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: A regra do Modus Tollens afirma que: se P → Q é verdadeiro e Q é falso, então P é falso. No caso, se 'chove → rua molhada' e 'rua não molhada', conclui-se 'não choveu'.",
+      "revision": "",
+      "original": {
+        "text": "Se uma proposição \"Se chove, então a rua fica molhada\" é verdadeira, e sabemos que a rua não ficou molhada, podemos concluir que:",
+        "options": [
+          "Choveu.",
+          "Não choveu.",
+          "Pode ter chovido.",
+          "A rua secou rápido.",
+          "Nada se pode concluir."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q17",
+      "subject": "rl",
+      "text": "Em uma progressão aritmética, o primeiro termo é 3 e a razão é 4. Qual é o décimo termo?",
+      "options": [
+        "39",
+        "40",
+        "42",
+        "43",
+        "36"
+      ],
+      "answer": "a",
+      "explanation": "Comentário: O termo geral da PA é aₙ = a₁ + (n-1)r. Para a₁ = 3, r = 4 e n = 10: a₁₀ = 3 + (10-1)*4 = 3 + 36 = 39.",
+      "revision": "",
+      "original": {
+        "text": "Em uma progressão aritmética, o primeiro termo é 3 e a razão é 4. Qual é o décimo termo?",
+        "options": [
+          "39",
+          "40",
+          "42",
+          "43",
+          "36"
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q18",
+      "subject": "rl",
+      "text": "A contrapositiva da proposição \"Se é policial, então é concursado\" é:",
+      "options": [
+        "Se é concursado, então é policial.",
+        "Se não é policial, então não é concursado.",
+        "Se não é concursado, então não é policial.",
+        "É policial ou é concursado.",
+        "Não é policial e não é concursado."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: A contrapositiva de 'P → Q' é '~Q → ~P'. Portanto, 'Se é policial, então é concursado' tem como contrapositiva 'Se não é concursado, então não é policial'.",
+      "revision": "",
+      "original": {
+        "text": "A contrapositiva da proposição \"Se é policial, então é concursado\" é:",
+        "options": [
+          "Se é concursado, então é policial.",
+          "Se não é policial, então não é concursado.",
+          "Se não é concursado, então não é policial.",
+          "É policial ou é concursado.",
+          "Não é policial e não é concursado."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q19",
+      "subject": "rl",
+      "text": "Um conjunto A tem 10 elementos e um conjunto B tem 15 elementos. Se a interseção entre eles tem 5 elementos, quantos elementos tem a união A U B?",
+      "options": [
+        "20",
+        "25",
+        "15",
+        "30",
+        "10"
+      ],
+      "answer": "a",
+      "explanation": "Comentário: A união de dois conjuntos é dada por n(A U B) = n(A) + n(B) - n(A ∩ B). Logo, n(A U B) = 10 + 15 - 5 = 20.",
+      "revision": "",
+      "original": {
+        "text": "Um conjunto A tem 10 elementos e um conjunto B tem 15 elementos. Se a interseção entre eles tem 5 elementos, quantos elementos tem a união A U B?",
+        "options": [
+          "20",
+          "25",
+          "15",
+          "30",
+          "10"
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q20",
+      "subject": "rl",
+      "text": "A sequência 2, 6, 18, 54... é uma:",
+      "options": [
+        "Progressão Aritmética de razão 4.",
+        "Progressão Geométrica de razão 3.",
+        "Progressão Aritmética de razão 3.",
+        "Progressão Geométrica de razão 4.",
+        "Sequência de Fibonacci."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: A sequência 2, 6, 18, 54... tem cada termo multiplicado por 3. Isso caracteriza uma Progressão Geométrica de razão 3.",
+      "revision": "",
+      "original": {
+        "text": "A sequência 2, 6, 18, 54... é uma:",
+        "options": [
+          "Progressão Aritmética de razão 4.",
+          "Progressão Geométrica de razão 3.",
+          "Progressão Aritmética de razão 3.",
+          "Progressão Geométrica de razão 4.",
+          "Sequência de Fibonacci."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q21",
+      "subject": "info",
+      "text": "No Windows 11, a combinação de teclas \"Ctrl + C\" e \"Ctrl + V\" são utilizadas, respectivamente, para:",
+      "options": [
+        "Colar e Copiar.",
+        "Copiar e Colar.",
+        "Recortar e Colar.",
+        "Desfazer e Refazer.",
+        "Salvar e Imprimir."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: Ctrl+C é o atalho para Copiar e Ctrl+V é o atalho para Colar.",
+      "revision": "",
+      "original": {
+        "text": "No Windows 11, a combinação de teclas \"Ctrl + C\" e \"Ctrl + V\" são utilizadas, respectivamente, para:",
+        "options": [
+          "Colar e Copiar.",
+          "Copiar e Colar.",
+          "Recortar e Colar.",
+          "Desfazer e Refazer.",
+          "Salvar e Imprimir."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q22",
+      "subject": "info",
+      "text": "No Microsoft Excel (Office 365), a fórmula =SOMA(A1:A5) retorna:",
+      "options": [
+        "O valor da célula A5.",
+        "A média dos valores de A1 a A5.",
+        "A soma dos valores de A1 até A5.",
+        "A multiplicação dos valores de A1 a A5.",
+        "O maior valor entre A1 e A5."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: A função =SOMA(A1:A5) soma todos os valores contidos no intervalo de células de A1 até A5.",
+      "revision": "",
+      "original": {
+        "text": "No Microsoft Excel (Office 365), a fórmula =SOMA(A1:A5) retorna:",
+        "options": [
+          "O valor da célula A5.",
+          "A média dos valores de A1 a A5.",
+          "A soma dos valores de A1 até A5.",
+          "A multiplicação dos valores de A1 a A5.",
+          "O maior valor entre A1 e A5."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q23",
+      "subject": "info",
+      "text": "Sobre os malwares, o tipo de software malicioso que se disfarça de programa legítimo para enganar o usuário e obter vantagens é chamado de:",
+      "options": [
+        "Vírus.",
+        "Worm.",
+        "Trojan (Cavalo de Troia).",
+        "Spyware.",
+        "Ransomware."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: O Trojan (Cavalo de Troia) é um malware que se disfarça de programa legítimo para enganar o usuário e obter vantagens, como acesso remoto ou roubo de dados.",
+      "revision": "",
+      "original": {
+        "text": "Sobre os malwares, o tipo de software malicioso que se disfarça de programa legítimo para enganar o usuário e obter vantagens é chamado de:",
+        "options": [
+          "Vírus.",
+          "Worm.",
+          "Trojan (Cavalo de Troia).",
+          "Spyware.",
+          "Ransomware."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q24",
+      "subject": "info",
+      "text": "No navegador Google Chrome, a navegação no modo \"Anônimo\" ou \"Privado\" garante que:",
+      "options": [
+        "O histórico de navegação não será salvo no computador.",
+        "O provedor de internet não saiba quem você é.",
+        "O IP do usuário fique oculto.",
+        "Nenhum vírus possa ser baixado.",
+        "O site acessado não identifique o visitante."
+      ],
+      "answer": "a",
+      "explanation": "Comentário: O modo anônimo do Chrome impede que o navegador salve o histórico de navegação, cookies e dados de formulários no computador. No entanto, o provedor de internet e os sites ainda podem rastrear a atividade.",
+      "revision": "",
+      "original": {
+        "text": "No navegador Google Chrome, a navegação no modo \"Anônimo\" ou \"Privado\" garante que:",
+        "options": [
+          "O histórico de navegação não será salvo no computador.",
+          "O provedor de internet não saiba quem você é.",
+          "O IP do usuário fique oculto.",
+          "Nenhum vírus possa ser baixado.",
+          "O site acessado não identifique o visitante."
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q25",
+      "subject": "info",
+      "text": "O protocolo de transferência de arquivos utilizado para enviar e receber arquivos entre computadores em uma rede é o:",
+      "options": [
+        "HTTP.",
+        "FTP.",
+        "SMTP.",
+        "POP3.",
+        "DNS."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: O FTP (File Transfer Protocol) é o protocolo padrão para transferência de arquivos entre computadores em uma rede.",
+      "revision": "",
+      "original": {
+        "text": "O protocolo de transferência de arquivos utilizado para enviar e receber arquivos entre computadores em uma rede é o:",
+        "options": [
+          "HTTP.",
+          "FTP.",
+          "SMTP.",
+          "POP3.",
+          "DNS."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q26",
+      "subject": "info",
+      "text": "A Deep Web e a Dark Web são termos frequentemente confundidos. A principal diferença é que:",
+      "options": [
+        "A Dark Web é acessível por qualquer navegador comum, enquanto a Deep Web exige softwares específicos.",
+        "A Deep Web é indexada pelos buscadores, a Dark Web não.",
+        "A Dark Web exige softwares específicos (como o Tor) para ser acessada e possui conteúdo intencionalmente oculto.",
+        "Ambas são idênticas, apenas com nomes diferentes.",
+        "A Deep Web é exclusivamente usada para crimes."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: A Dark Web é uma parte da Deep Web que exige softwares específicos (como o Tor) para ser acessada e contém conteúdo intencionalmente oculto. A Deep Web é todo o conteúdo não indexado pelos buscadores.",
+      "revision": "",
+      "original": {
+        "text": "A Deep Web e a Dark Web são termos frequentemente confundidos. A principal diferença é que:",
+        "options": [
+          "A Dark Web é acessível por qualquer navegador comum, enquanto a Deep Web exige softwares específicos.",
+          "A Deep Web é indexada pelos buscadores, a Dark Web não.",
+          "A Dark Web exige softwares específicos (como o Tor) para ser acessada e possui conteúdo intencionalmente oculto.",
+          "Ambas são idênticas, apenas com nomes diferentes.",
+          "A Deep Web é exclusivamente usada para crimes."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q27",
+      "subject": "info",
+      "text": "No Microsoft Word, o recurso que permite que um texto apareça no topo de todas as páginas do documento é chamado de:",
+      "options": [
+        "Margem.",
+        "Rodapé.",
+        "Nota de rodapé.",
+        "Cabeçalho.",
+        "Seção."
+      ],
+      "answer": "d",
+      "explanation": "Comentário: O cabeçalho é o recurso do Word que permite inserir textos ou imagens no topo de todas as páginas do documento.",
+      "revision": "",
+      "original": {
+        "text": "No Microsoft Word, o recurso que permite que um texto apareça no topo de todas as páginas do documento é chamado de:",
+        "options": [
+          "Margem.",
+          "Rodapé.",
+          "Nota de rodapé.",
+          "Cabeçalho.",
+          "Seção."
+        ],
+        "answer": "d"
+      }
+    },
+    {
+      "id": "q28",
+      "subject": "info",
+      "text": "Em relação aos procedimentos de backup, o tipo de backup que copia apenas os arquivos que foram criados ou alterados desde o último backup (completo ou incremental) é o:",
+      "options": [
+        "Backup completo.",
+        "Backup diferencial.",
+        "Backup incremental.",
+        "Backup em nuvem.",
+        "Backup espelhado."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: O backup incremental copia apenas os arquivos criados ou alterados desde o último backup (seja completo ou incremental). O backup diferencial copia desde o último backup completo.",
+      "revision": "",
+      "original": {
+        "text": "Em relação aos procedimentos de backup, o tipo de backup que copia apenas os arquivos que foram criados ou alterados desde o último backup (completo ou incremental) é o:",
+        "options": [
+          "Backup completo.",
+          "Backup diferencial.",
+          "Backup incremental.",
+          "Backup em nuvem.",
+          "Backup espelhado."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q29",
+      "subject": "info",
+      "text": "A computação em nuvem (Cloud Computing) permite o armazenamento e processamento de dados em servidores remotos. O modelo onde o usuário aluga infraestrutura (servidores, armazenamento) para rodar sistemas operacionais e aplicativos de sua escolha é denominado:",
+      "options": [
+        "SaaS (Software as a Service).",
+        "PaaS (Platform as a Service).",
+        "IaaS (Infrastructure as a Service).",
+        "DaaS (Desktop as a Service).",
+        "CaaS (Container as a Service)."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: O IaaS (Infrastructure as a Service) fornece infraestrutura de TI (servidores, armazenamento, redes) sob demanda, permitindo que o usuário gerencie sistemas operacionais e aplicativos.",
+      "revision": "",
+      "original": {
+        "text": "A computação em nuvem (Cloud Computing) permite o armazenamento e processamento de dados em servidores remotos. O modelo onde o usuário aluga infraestrutura (servidores, armazenamento) para rodar sistemas operacionais e aplicativos de sua escolha é denominado:",
+        "options": [
+          "SaaS (Software as a Service).",
+          "PaaS (Platform as a Service).",
+          "IaaS (Infrastructure as a Service).",
+          "DaaS (Desktop as a Service).",
+          "CaaS (Container as a Service)."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q30",
+      "subject": "info",
+      "text": "No correio eletrônico (e-mail), o campo \"Cco\" (ou BCC) é utilizado para:",
+      "options": [
+        "Enviar cópia para destinatários visíveis a todos.",
+        "Enviar cópia oculta para destinatários não visíveis aos demais.",
+        "Anexar arquivos.",
+        "Definir prioridade da mensagem.",
+        "Fazer backup da mensagem."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: O campo Cco (Cópia Oculta) ou BCC (Blind Carbon Copy) permite enviar uma cópia da mensagem para destinatários sem que os outros destinatários saibam.",
+      "revision": "",
+      "original": {
+        "text": "No correio eletrônico (e-mail), o campo \"Cco\" (ou BCC) é utilizado para:",
+        "options": [
+          "Enviar cópia para destinatários visíveis a todos.",
+          "Enviar cópia oculta para destinatários não visíveis aos demais.",
+          "Anexar arquivos.",
+          "Definir prioridade da mensagem.",
+          "Fazer backup da mensagem."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q31",
+      "subject": "ig",
+      "text": "De acordo com a Lei nº 12.288/2010 (Estatuto da Igualdade Racial), a discriminação racial é definida como:",
+      "options": [
+        "Toda distinção, exclusão, restrição ou preferência baseada em raça, cor, descendência ou origem nacional ou étnica que tenha por objeto anular ou restringir o reconhecimento, gozo ou exercício, em igualdade de condições, de direitos humanos e liberdades fundamentais nos campos político, econômico, social, cultural ou em qualquer outro campo da vida pública ou privada.",
+        "Apenas a exclusão social de pessoas negras.",
+        "Ações afirmativas de promoção de igualdade.",
+        "Apenas a injúria racial.",
+        "A violência física exclusivamente."
+      ],
+      "answer": "a",
+      "explanation": "Comentário: O Estatuto da Igualdade Racial (Lei 12.288/2010) define discriminação racial de forma ampla, abrangendo distinção, exclusão, restrição ou preferência baseada em raça, cor, descendência ou origem nacional ou étnica.",
+      "revision": "",
+      "original": {
+        "text": "De acordo com a Lei nº 12.288/2010 (Estatuto da Igualdade Racial), a discriminação racial é definida como:",
+        "options": [
+          "Toda distinção, exclusão, restrição ou preferência baseada em raça, cor, descendência ou origem nacional ou étnica que tenha por objeto anular ou restringir o reconhecimento, gozo ou exercício, em igualdade de condições, de direitos humanos e liberdades fundamentais nos campos político, econômico, social, cultural ou em qualquer outro campo da vida pública ou privada.",
+          "Apenas a exclusão social de pessoas negras.",
+          "Ações afirmativas de promoção de igualdade.",
+          "Apenas a injúria racial.",
+          "A violência física exclusivamente."
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q32",
+      "subject": "ig",
+      "text": "A Lei nº 7.716/1989 (Lei do Racismo) tipifica como crime:",
+      "options": [
+        "Apenas a injúria racial.",
+        "Apenas a difamação racial.",
+        "Os crimes resultantes de discriminação ou preconceito de raça, cor, etnia, religião ou procedência nacional.",
+        "Apenas os crimes contra a honra.",
+        "Apenas a discriminação no ambiente de trabalho."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: A Lei 7.716/1989 tipifica os crimes resultantes de discriminação ou preconceito de raça, cor, etnia, religião ou procedência nacional.",
+      "revision": "",
+      "original": {
+        "text": "A Lei nº 7.716/1989 (Lei do Racismo) tipifica como crime:",
+        "options": [
+          "Apenas a injúria racial.",
+          "Apenas a difamação racial.",
+          "Os crimes resultantes de discriminação ou preconceito de raça, cor, etnia, religião ou procedência nacional.",
+          "Apenas os crimes contra a honra.",
+          "Apenas a discriminação no ambiente de trabalho."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q33",
+      "subject": "ig",
+      "text": "A Lei Maria da Penha (Lei nº 11.340/2006) criou mecanismos para coibir a violência doméstica e familiar contra a mulher. Sobre as medidas protetivas de urgência, é correto afirmar que:",
+      "options": [
+        "Só podem ser concedidas pelo juiz após a oitiva obrigatória do agressor.",
+        "Podem ser concedidas pelo juiz sem oitiva prévia do agressor, observados os requisitos legais.",
+        "Apenas a vítima pode solicitar as medidas.",
+        "Têm prazo de validade de 30 dias.",
+        "Restringem-se a afastar o agressor do lar."
+      ],
+      "answer": "b",
+      "explanation": "A proteção urgente admite decisão judicial imediata, independentemente de audiência das partes e manifestação prévia do MP, que deve ser prontamente comunicado. A possibilidade excepcional de afastamento do agressor pela autoridade policial depende dos requisitos legais e de controle judicial; não permite conceder indistintamente todas as medidas.",
+      "revision": "A atuação do delegado é excepcional e condicionada, não uma autorização genérica.",
+      "original": {
+        "text": "A Lei Maria da Penha (Lei nº 11.340/2006) criou mecanismos para coibir a violência doméstica e familiar contra a mulher. Sobre as medidas protetivas de urgência, é correto afirmar que:",
+        "options": [
+          "Só podem ser concedidas pelo juiz após a oitiva obrigatória do agressor.",
+          "Podem ser concedidas de imediato, inclusive pelo delegado de polícia, em casos de urgência.",
+          "Apenas a vítima pode solicitar as medidas.",
+          "Têm prazo de validade de 30 dias.",
+          "Restringem-se a afastar o agressor do lar."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q34",
+      "subject": "ig",
+      "text": "A Constituição do Estado da Bahia possui um capítulo específico denominado \"Do Negro\". O objetivo desse capítulo é:",
+      "options": [
+        "Criar leis penais específicas para a população negra.",
+        "Garantir a promoção da igualdade racial e o combate à discriminação no âmbito estadual.",
+        "Estabelecer cotas apenas para cargos comissionados.",
+        "Definir a cultura afro-brasileira como a única oficial do estado.",
+        "Regular apenas a educação quilombola."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: O capítulo 'Do Negro' da Constituição Baiana tem como objetivo garantir a promoção da igualdade racial e o combate à discriminação no âmbito do Estado da Bahia.",
+      "revision": "",
+      "original": {
+        "text": "A Constituição do Estado da Bahia possui um capítulo específico denominado \"Do Negro\". O objetivo desse capítulo é:",
+        "options": [
+          "Criar leis penais específicas para a população negra.",
+          "Garantir a promoção da igualdade racial e o combate à discriminação no âmbito estadual.",
+          "Estabelecer cotas apenas para cargos comissionados.",
+          "Definir a cultura afro-brasileira como a única oficial do estado.",
+          "Regular apenas a educação quilombola."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q35",
+      "subject": "ig",
+      "text": "Após a Lei 14.532/2023, sobre a injúria por raça, cor, etnia ou procedência nacional, é correto afirmar:",
+      "options": [
+        "Foi descriminalizada.",
+        "Passou a ser apenas infração administrativa.",
+        "Está tipificada no art. 2º-A da Lei 7.716/1989 e integra o tratamento jurídico do racismo.",
+        "É sempre crime de menor potencial ofensivo.",
+        "Depende de ofensa a todo um grupo para ser típica."
+      ],
+      "answer": "c",
+      "explanation": "A Lei 14.532/2023 inseriu essa injúria racial no art. 2º-A da Lei 7.716/1989. A Constituição trata o racismo como inafiançável e imprescritível. O comentário original que afirmava a prescritibilidade não deve orientar o estudo.",
+      "revision": "A formulação original estava desatualizada quanto à injúria racial.",
+      "original": {
+        "text": "Conforme entendimento consolidado do Superior Tribunal de Justiça (STJ) e do Supremo Tribunal Federal (STF), a injúria racial (art. 140, §3º do CP) e o racismo (Lei 7.716/89) possuem naturezas distintas, sendo que:",
+        "options": [
+          "A injúria racial é imprescritível, mas o racismo prescreve em 10 anos.",
+          "Ambos são afiançáveis.",
+          "O racismo é inafiançável e imprescritível, enquanto a injúria racial, embora seja crime de racismo para alguns fins, é afiançável e prescritível.",
+          "A injúria racial foi revogada pelo STF.",
+          "Ambos são crimes de menor potencial ofensivo."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q36",
+      "subject": "ml",
+      "text": "Os documentos médico-legais são divididos em atos e relatórios. O documento que descreve minuciosamente um fato médico e suas consequências, sendo a base de muitas decisões judiciais, é o:",
+      "options": [
+        "Atestado médico.",
+        "Laudo médico.",
+        "Parecer médico.",
+        "Receituário.",
+        "Relatório de alta."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: O laudo médico é o documento que descreve minuciosamente um fato médico e suas consequências, sendo a base de muitas decisões judiciais.",
+      "revision": "",
+      "original": {
+        "text": "Os documentos médico-legais são divididos em atos e relatórios. O documento que descreve minuciosamente um fato médico e suas consequências, sendo a base de muitas decisões judiciais, é o:",
+        "options": [
+          "Atestado médico.",
+          "Laudo médico.",
+          "Parecer médico.",
+          "Receituário.",
+          "Relatório de alta."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q37",
+      "subject": "ml",
+      "text": "Na Tanatologia Forense, o fenômeno cadavérico que se caracteriza pela rigidez muscular, iniciando-se pela face e mandíbula (músculos mastigadores) e se estendendo ao resto do corpo, é denominado:",
+      "options": [
+        "Algor mortis (frio cadavérico).",
+        "Livor mortis (hipóstases).",
+        "Rigor mortis (rigidez cadavérica).",
+        "Putrefação.",
+        "Mumificação."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: O Rigor mortis é o fenômeno cadavérico caracterizado pela rigidez muscular, que se inicia pela face e mandíbula e se estende ao resto do corpo.",
+      "revision": "",
+      "original": {
+        "text": "Na Tanatologia Forense, o fenômeno cadavérico que se caracteriza pela rigidez muscular, iniciando-se pela face e mandíbula (músculos mastigadores) e se estendendo ao resto do corpo, é denominado:",
+        "options": [
+          "Algor mortis (frio cadavérico).",
+          "Livor mortis (hipóstases).",
+          "Rigor mortis (rigidez cadavérica).",
+          "Putrefação.",
+          "Mumificação."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q38",
+      "subject": "ml",
+      "text": "Em relação às lesões por ação contundente (instrumentos que atuam por pressão, tração ou torção), o ferimento que se caracteriza por uma solução de continuidade da pele, geralmente acompanhada de equimose, e que não tem forma regular (podendo assumir a forma do objeto que a produziu), é chamado de:",
+      "options": [
+        "Ferida incisa.",
+        "Ferida contusa.",
+        "Ferida perfurante.",
+        "Ferida cortante.",
+        "Ferida pérfuro-contusa."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: A ferida contusa é causada por instrumento contundente, tem forma irregular e é geralmente acompanhada de equimose.",
+      "revision": "",
+      "original": {
+        "text": "Em relação às lesões por ação contundente (instrumentos que atuam por pressão, tração ou torção), o ferimento que se caracteriza por uma solução de continuidade da pele, geralmente acompanhada de equimose, e que não tem forma regular (podendo assumir a forma do objeto que a produziu), é chamado de:",
+        "options": [
+          "Ferida incisa.",
+          "Ferida contusa.",
+          "Ferida perfurante.",
+          "Ferida cortante.",
+          "Ferida pérfuro-contusa."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q39",
+      "subject": "ml",
+      "text": "A morte por asfixia, causada pela obstrução das vias aéreas superiores, frequentemente associada à inalação de corpos estranhos, é classificada como asfixia por:",
+      "options": [
+        "Enforcamento.",
+        "Estrangulamento.",
+        "Sufocação.",
+        "Afogamento.",
+        "Confinamento."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: A sufocação é a asfixia causada pela obstrução das vias aéreas superiores, frequentemente por inalação de corpos estranhos.",
+      "revision": "",
+      "original": {
+        "text": "A morte por asfixia, causada pela obstrução das vias aéreas superiores, frequentemente associada à inalação de corpos estranhos, é classificada como asfixia por:",
+        "options": [
+          "Enforcamento.",
+          "Estrangulamento.",
+          "Sufocação.",
+          "Afogamento.",
+          "Confinamento."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q40",
+      "subject": "ml",
+      "text": "De acordo com o Código Penal e a Medicina Legal, o exame de corpo de delito no crime de estupro busca verificar a existência de:",
+      "options": [
+        "Conjunção carnal.",
+        "Violência ou grave ameaça.",
+        "Vestígios de material biológico, lesões corporais e sinais de violência física ou psicológica.",
+        "Apenas a virgindade da vítima.",
+        "Apenas a presença de sêmen."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: O exame de corpo de delito no crime de estupro busca verificar a existência de vestígios de material biológico, lesões corporais e sinais de violência física ou psicológica.",
+      "revision": "",
+      "original": {
+        "text": "De acordo com o Código Penal e a Medicina Legal, o exame de corpo de delito no crime de estupro busca verificar a existência de:",
+        "options": [
+          "Conjunção carnal.",
+          "Violência ou grave ameaça.",
+          "Vestígios de material biológico, lesões corporais e sinais de violência física ou psicológica.",
+          "Apenas a virgindade da vítima.",
+          "Apenas a presença de sêmen."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q41",
+      "subject": "adm",
+      "text": "Sobre os princípios da Administração Pública, o princípio que impõe ao gestor a transparência de seus atos, sendo o sigilo a exceção, é o da:",
+      "options": [
+        "Moralidade.",
+        "Publicidade.",
+        "Eficiência.",
+        "Legalidade.",
+        "Impessoalidade."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: O princípio da publicidade impõe à Administração Pública o dever de transparência, sendo o sigilo a exceção.",
+      "revision": "",
+      "original": {
+        "text": "Sobre os princípios da Administração Pública, o princípio que impõe ao gestor a transparência de seus atos, sendo o sigilo a exceção, é o da:",
+        "options": [
+          "Moralidade.",
+          "Publicidade.",
+          "Eficiência.",
+          "Legalidade.",
+          "Impessoalidade."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q42",
+      "subject": "adm",
+      "text": "O atributo do ato administrativo que permite à Administração executar diretamente suas decisões, sem a necessidade de recorrer previamente ao Poder Judiciário, é denominado:",
+      "options": [
+        "Presunção de legitimidade.",
+        "Imperatividade.",
+        "Autoexecutoriedade.",
+        "Tipicidade.",
+        "Exigibilidade."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: A autoexecutoriedade é o atributo que permite à Administração executar diretamente suas decisões, sem a necessidade de recorrer previamente ao Poder Judiciário.",
+      "revision": "",
+      "original": {
+        "text": "O atributo do ato administrativo que permite à Administração executar diretamente suas decisões, sem a necessidade de recorrer previamente ao Poder Judiciário, é denominado:",
+        "options": [
+          "Presunção de legitimidade.",
+          "Imperatividade.",
+          "Autoexecutoriedade.",
+          "Tipicidade.",
+          "Exigibilidade."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q43",
+      "subject": "adm",
+      "text": "A respeito dos poderes administrativos, o poder de aplicar sanções a servidores públicos que cometem infrações funcionais, bem como de apurar tais faltas, é o Poder:",
+      "options": [
+        "Regulamentar.",
+        "Hierárquico.",
+        "Disciplinar.",
+        "De polícia.",
+        "Vinculado."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: O poder disciplinar é o poder de aplicar sanções a servidores públicos que cometem infrações funcionais, bem como de apurar tais faltas.",
+      "revision": "",
+      "original": {
+        "text": "A respeito dos poderes administrativos, o poder de aplicar sanções a servidores públicos que cometem infrações funcionais, bem como de apurar tais faltas, é o Poder:",
+        "options": [
+          "Regulamentar.",
+          "Hierárquico.",
+          "Disciplinar.",
+          "De polícia.",
+          "Vinculado."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q44",
+      "subject": "adm",
+      "text": "A Lei nº 8.429/1992 (Lei de Improbidade Administrativa), alterada pela Lei nº 14.230/2021, exige para a configuração do ato de improbidade administrativa:",
+      "options": [
+        "A culpa em qualquer grau.",
+        "O dolo específico (vontade livre e consciente de alcançar o resultado ilícito).",
+        "Apenas a má-fé presumida.",
+        "A culpa grave ou erro grosseiro.",
+        "A independência entre as esferas penal e administrativa, sem necessidade de dolo."
+      ],
+      "answer": "b",
+      "explanation": "A Lei 8.429/1992, após a Lei 14.230/2021, exige dolo: vontade livre e consciente de alcançar o resultado ilícito tipificado, sem bastar a voluntariedade. O exame deve verificar também os demais requisitos de cada ato. Não há improbidade por mera culpa ou presunção de má-fé.",
+      "revision": "Precisão do comentário sobre o elemento subjetivo.",
+      "original": {
+        "text": "A Lei nº 8.429/1992 (Lei de Improbidade Administrativa), alterada pela Lei nº 14.230/2021, exige para a configuração do ato de improbidade administrativa:",
+        "options": [
+          "A culpa em qualquer grau.",
+          "O dolo específico (vontade livre e consciente de alcançar o resultado ilícito).",
+          "Apenas a má-fé presumida.",
+          "A culpa grave ou erro grosseiro.",
+          "A independência entre as esferas penal e administrativa, sem necessidade de dolo."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q45",
+      "subject": "adm",
+      "text": "De acordo com a Lei nº 14.133/2021 (Nova Lei de Licitações), a modalidade de licitação destinada à alienação de bens imóveis ou de bens móveis inservíveis ou legalmente apreendidos é o:",
+      "options": [
+        "Pregão.",
+        "Concorrência.",
+        "Leilão.",
+        "Diálogo Competitivo.",
+        "Dispensa."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: O leilão é a modalidade de licitação destinada à alienação de bens imóveis ou de bens móveis inservíveis ou legalmente apreendidos.",
+      "revision": "",
+      "original": {
+        "text": "De acordo com a Lei nº 14.133/2021 (Nova Lei de Licitações), a modalidade de licitação destinada à alienação de bens imóveis ou de bens móveis inservíveis ou legalmente apreendidos é o:",
+        "options": [
+          "Pregão.",
+          "Concorrência.",
+          "Leilão.",
+          "Diálogo Competitivo.",
+          "Dispensa."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q46",
+      "subject": "adm",
+      "text": "A responsabilidade civil do Estado, prevista no art. 37, §6º da CF/88, consagra a teoria da:",
+      "options": [
+        "Culpa administrativa.",
+        "Responsabilidade subjetiva.",
+        "Responsabilidade objetiva (risco administrativo).",
+        "Irresponsabilidade do Estado.",
+        "Culpa exclusiva da vítima."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: A responsabilidade civil do Estado, prevista no art. 37, §6º da CF/88, consagra a teoria da responsabilidade objetiva (risco administrativo).",
+      "revision": "",
+      "original": {
+        "text": "A responsabilidade civil do Estado, prevista no art. 37, §6º da CF/88, consagra a teoria da:",
+        "options": [
+          "Culpa administrativa.",
+          "Responsabilidade subjetiva.",
+          "Responsabilidade objetiva (risco administrativo).",
+          "Irresponsabilidade do Estado.",
+          "Culpa exclusiva da vítima."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q47",
+      "subject": "adm",
+      "text": "A criação de autarquias, fundações públicas, empresas públicas e sociedades de economia mista faz parte da:",
+      "options": [
+        "Descentralização administrativa.",
+        "Desconcentração administrativa.",
+        "Centralização administrativa.",
+        "Hierarquização.",
+        "Delegação de serviço público."
+      ],
+      "answer": "a",
+      "explanation": "Comentário: A criação de autarquias, fundações públicas, empresas públicas e sociedades de economia mista faz parte da descentralização administrativa.",
+      "revision": "",
+      "original": {
+        "text": "A criação de autarquias, fundações públicas, empresas públicas e sociedades de economia mista faz parte da:",
+        "options": [
+          "Descentralização administrativa.",
+          "Desconcentração administrativa.",
+          "Centralização administrativa.",
+          "Hierarquização.",
+          "Delegação de serviço público."
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q48",
+      "subject": "adm",
+      "text": "A Lei Orgânica da Polícia Civil do Estado da Bahia (Lei Estadual nº 11.370/2009) dispõe que a Polícia Civil é dirigida por:",
+      "options": [
+        "Oficial da Polícia Militar.",
+        "Delegado de Polícia de carreira.",
+        "Escrivão de Polícia de carreira.",
+        "Secretário de Segurança Pública.",
+        "Investigador de Polícia."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: A Lei Orgânica da Polícia Civil do Estado da Bahia (Lei Estadual nº 11.370/2009) dispõe que a Polícia Civil é dirigida por Delegado de Polícia de carreira.",
+      "revision": "",
+      "original": {
+        "text": "A Lei Orgânica da Polícia Civil do Estado da Bahia (Lei Estadual nº 11.370/2009) dispõe que a Polícia Civil é dirigida por:",
+        "options": [
+          "Oficial da Polícia Militar.",
+          "Delegado de Polícia de carreira.",
+          "Escrivão de Polícia de carreira.",
+          "Secretário de Segurança Pública.",
+          "Investigador de Polícia."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q49",
+      "subject": "adm",
+      "text": "De acordo com o Estatuto dos Servidores Públicos do Estado da Bahia (Lei nº 6.677/1994), o servidor que toma posse no cargo público tem o prazo de quantos dias para entrar em exercício?",
+      "options": [
+        "15 dias.",
+        "30 dias.",
+        "45 dias.",
+        "60 dias.",
+        "90 dias."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: De acordo com o Estatuto dos Servidores Públicos do Estado da Bahia (Lei nº 6.677/1994), o servidor que toma posse no cargo público tem o prazo de 30 dias para entrar em exercício.",
+      "revision": "",
+      "original": {
+        "text": "De acordo com o Estatuto dos Servidores Públicos do Estado da Bahia (Lei nº 6.677/1994), o servidor que toma posse no cargo público tem o prazo de quantos dias para entrar em exercício?",
+        "options": [
+          "15 dias.",
+          "30 dias.",
+          "45 dias.",
+          "60 dias.",
+          "90 dias."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q50",
+      "subject": "adm",
+      "text": "Conforme a tese do STF no Tema 897, são imprescritíveis as ações de ressarcimento ao erário fundadas:",
+      "options": [
+        "Em qualquer irregularidade administrativa.",
+        "Na prática de ato doloso tipificado na Lei de Improbidade Administrativa.",
+        "Em qualquer débito contratual.",
+        "Em toda decisão de tribunal de contas, sem distinção.",
+        "Exclusivamente em crime com condenação penal prévia."
+      ],
+      "answer": "b",
+      "explanation": "O Tema 897 limita a tese à prática de ato doloso tipificado na LIA. Não se pode generalizar a imprescritibilidade a toda dívida, ilícito civil ou dano ao erário.",
+      "revision": "A imprescritibilidade não abrange toda pretensão de ressarcimento.",
+      "original": {
+        "text": "Sobre a improbidade administrativa, é correto afirmar que as ações de ressarcimento ao erário são:",
+        "options": [
+          "Prescritíveis em 5 anos.",
+          "Imprescritíveis.",
+          "Prescritíveis em 10 anos.",
+          "Prescritíveis em 20 anos.",
+          "Dependentes de ação penal prévia."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q51",
+      "subject": "con",
+      "text": "São direitos sociais previstos no art. 6º da CF/88:",
+      "options": [
+        "Apenas educação e saúde.",
+        "Educação, saúde, alimentação, trabalho, moradia, transporte, lazer, segurança, previdência social, proteção à maternidade e à infância, e assistência aos desamparados.",
+        "Apenas trabalho e moradia.",
+        "Apenas segurança pública e previdência.",
+        "Apenas a educação."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: O art. 6º da CF/88 elenca como direitos sociais a educação, a saúde, a alimentação, o trabalho, a moradia, o transporte, o lazer, a segurança, a previdência social, a proteção à maternidade e à infância, e a assistência aos desamparados.",
+      "revision": "",
+      "original": {
+        "text": "São direitos sociais previstos no art. 6º da CF/88:",
+        "options": [
+          "Apenas educação e saúde.",
+          "Educação, saúde, alimentação, trabalho, moradia, transporte, lazer, segurança, previdência social, proteção à maternidade e à infância, e assistência aos desamparados.",
+          "Apenas trabalho e moradia.",
+          "Apenas segurança pública e previdência.",
+          "Apenas a educação."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q52",
+      "subject": "con",
+      "text": "Qual remédio constitucional tutela a liberdade de locomoção ameaçada ou restringida por ilegalidade ou abuso de poder?",
+      "options": [
+        "Mandado de Segurança.",
+        "Habeas Data.",
+        "Habeas Corpus.",
+        "Mandado de Injunção.",
+        "Ação Popular."
+      ],
+      "answer": "c",
+      "explanation": "Habeas corpus protege a liberdade de ir e vir. É ação constitucional judicial, mesmo quando a coação deriva de autoridade administrativa. Habeas data protege dados pessoais nos pressupostos constitucionais; mandado de segurança tem objeto diverso.",
+      "revision": "HC é garantia jurisdicional, inclusive contra prisão determinada por autoridade administrativa.",
+      "original": {
+        "text": "O remédio constitucional que protege o direito de locomoção, sendo cabível tanto na esfera judicial quanto administrativa (prisão ilegal), é o:",
+        "options": [
+          "Mandado de Segurança.",
+          "Habeas Data.",
+          "Habeas Corpus.",
+          "Mandado de Injunção.",
+          "Ação Popular."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q53",
+      "subject": "con",
+      "text": "A segurança pública, dever do Estado, direito e responsabilidade de todos, é exercida para a preservação da ordem pública e da incolumidade das pessoas e do patrimônio, através dos seguintes órgãos:",
+      "options": [
+        "Polícia Federal, Polícia Rodoviária Federal, Polícia Ferroviária Federal, Polícias Civis, Polícias Militares e Corpos de Bombeiros Militares, e polícias penais federal, estaduais e distrital.",
+        "Polícia Federal, Polícias Civis e Polícias Militares.",
+        "Apenas Polícia Civil e Polícia Militar.",
+        "Polícia Militar, Guarda Municipal e Polícia Civil.",
+        "Polícia Civil, Polícia Militar e Exército."
+      ],
+      "answer": "a",
+      "explanation": "O art. 144 inclui PF, PRF, PFF, polícias civis, polícias militares e corpos de bombeiros militares, além das polícias penais federal, estaduais e distrital. Estas últimas foram incluídas pela EC 104/2019. A questão trata do rol do caput, sem esgotar o debate constitucional sobre outras instituições.",
+      "revision": "O rol original omitia as polícias penais incluídas pela EC 104/2019.",
+      "original": {
+        "text": "A segurança pública, dever do Estado, direito e responsabilidade de todos, é exercida para a preservação da ordem pública e da incolumidade das pessoas e do patrimônio, através dos seguintes órgãos:",
+        "options": [
+          "Polícia Federal, Polícia Rodoviária Federal, Polícia Ferroviária Federal, Polícias Civis, Polícias Militares e Corpos de Bombeiros Militares.",
+          "Polícia Federal, Polícias Civis e Polícias Militares.",
+          "Apenas Polícia Civil e Polícia Militar.",
+          "Polícia Militar, Guarda Municipal e Polícia Civil.",
+          "Polícia Civil, Polícia Militar e Exército."
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q54",
+      "subject": "con",
+      "text": "No que tange à Administração Pública, a investidura em cargo ou emprego público depende de aprovação prévia em concurso público de provas ou de provas e títulos, ressalvadas as nomeações para:",
+      "options": [
+        "Cargo efetivo.",
+        "Cargo em comissão declarado em lei de livre nomeação e exoneração.",
+        "Emprego público.",
+        "Função temporária.",
+        "Cargos de direção sindical."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: A investidura em cargo ou emprego público depende de aprovação prévia em concurso público, ressalvadas as nomeações para cargo em comissão declarado em lei de livre nomeação e exoneração.",
+      "revision": "",
+      "original": {
+        "text": "No que tange à Administração Pública, a investidura em cargo ou emprego público depende de aprovação prévia em concurso público de provas ou de provas e títulos, ressalvadas as nomeações para:",
+        "options": [
+          "Cargo efetivo.",
+          "Cargo em comissão declarado em lei de livre nomeação e exoneração.",
+          "Emprego público.",
+          "Função temporária.",
+          "Cargos de direção sindical."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q55",
+      "subject": "con",
+      "text": "A Constituição Federal garante que a casa é asilo inviolável do indivíduo, ninguém nela podendo penetrar sem consentimento do morador, salvo em caso de:",
+      "options": [
+        "Flagrante delito, desastre, para prestar socorro ou, durante o dia, por determinação judicial.",
+        "Apenas flagrante delito.",
+        "Apenas com mandado judicial, a qualquer hora.",
+        "Apenas em caso de desastre.",
+        "Apenas durante a noite, por determinação judicial."
+      ],
+      "answer": "a",
+      "explanation": "Comentário: A CF/88 garante que a casa é asilo inviolável, ninguém nela podendo penetrar sem consentimento do morador, salvo em caso de flagrante delito, desastre, para prestar socorro ou, durante o dia, por determinação judicial.",
+      "revision": "",
+      "original": {
+        "text": "A Constituição Federal garante que a casa é asilo inviolável do indivíduo, ninguém nela podendo penetrar sem consentimento do morador, salvo em caso de:",
+        "options": [
+          "Flagrante delito, desastre, para prestar socorro ou, durante o dia, por determinação judicial.",
+          "Apenas flagrante delito.",
+          "Apenas com mandado judicial, a qualquer hora.",
+          "Apenas em caso de desastre.",
+          "Apenas durante a noite, por determinação judicial."
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q56",
+      "subject": "con",
+      "text": "De acordo com a CF/88, a competência para processar e julgar originariamente o Presidente da República nos crimes de responsabilidade é do:",
+      "options": [
+        "Supremo Tribunal Federal.",
+        "Superior Tribunal de Justiça.",
+        "Senado Federal.",
+        "Câmara dos Deputados.",
+        "Tribunal de Justiça."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: Compete ao Senado Federal processar e julgar o Presidente da República nos crimes de responsabilidade (art. 52, I, da CF/88).",
+      "revision": "",
+      "original": {
+        "text": "De acordo com a CF/88, a competência para processar e julgar originariamente o Presidente da República nos crimes de responsabilidade é do:",
+        "options": [
+          "Supremo Tribunal Federal.",
+          "Superior Tribunal de Justiça.",
+          "Senado Federal.",
+          "Câmara dos Deputados.",
+          "Tribunal de Justiça."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q57",
+      "subject": "con",
+      "text": "O controle de constitucionalidade que é exercido no caso concreto, de forma incidental, por qualquer juiz ou tribunal, é chamado de:",
+      "options": [
+        "Controle concentrado.",
+        "Controle difuso.",
+        "Ação Direta de Inconstitucionalidade (ADI).",
+        "Arguição de Descumprimento de Preceito Fundamental (ADPF).",
+        "Ação Declaratória de Constitucionalidade (ADC)."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: O controle difuso é exercido no caso concreto, de forma incidental, por qualquer juiz ou tribunal.",
+      "revision": "",
+      "original": {
+        "text": "O controle de constitucionalidade que é exercido no caso concreto, de forma incidental, por qualquer juiz ou tribunal, é chamado de:",
+        "options": [
+          "Controle concentrado.",
+          "Controle difuso.",
+          "Ação Direta de Inconstitucionalidade (ADI).",
+          "Arguição de Descumprimento de Preceito Fundamental (ADPF).",
+          "Ação Declaratória de Constitucionalidade (ADC)."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q58",
+      "subject": "con",
+      "text": "São órgãos do Poder Judiciário, EXCETO:",
+      "options": [
+        "Supremo Tribunal Federal.",
+        "Conselho Nacional de Justiça.",
+        "Tribunais Regionais Federais.",
+        "Tribunais de Justiça dos Estados.",
+        "Ministério Público."
+      ],
+      "answer": "e",
+      "explanation": "Comentário: O Ministério Público não é órgão do Poder Judiciário, mas sim uma instituição permanente, essencial à função jurisdicional do Estado (art. 127 da CF/88).",
+      "revision": "",
+      "original": {
+        "text": "São órgãos do Poder Judiciário, EXCETO:",
+        "options": [
+          "Supremo Tribunal Federal.",
+          "Conselho Nacional de Justiça.",
+          "Tribunais Regionais Federais.",
+          "Tribunais de Justiça dos Estados.",
+          "Ministério Público."
+        ],
+        "answer": "e"
+      }
+    },
+    {
+      "id": "q59",
+      "subject": "con",
+      "text": "O Ministério Público é instituição permanente, essencial à função jurisdicional do Estado, incumbindo-lhe a defesa da ordem jurídica, do regime democrático e dos interesses sociais e individuais indisponíveis. São princípios institucionais do MP:",
+      "options": [
+        "Unidade, indivisibilidade e independência funcional.",
+        "Hierarquia, subordinação e unidade.",
+        "Autonomia, vinculação e indivisibilidade.",
+        "Unidade, hierarquia e disciplina.",
+        "Legalidade, impessoalidade e moralidade."
+      ],
+      "answer": "a",
+      "explanation": "Comentário: São princípios institucionais do Ministério Público a unidade, a indivisibilidade e a independência funcional (art. 127, §1º, da CF/88).",
+      "revision": "",
+      "original": {
+        "text": "O Ministério Público é instituição permanente, essencial à função jurisdicional do Estado, incumbindo-lhe a defesa da ordem jurídica, do regime democrático e dos interesses sociais e individuais indisponíveis. São princípios institucionais do MP:",
+        "options": [
+          "Unidade, indivisibilidade e independência funcional.",
+          "Hierarquia, subordinação e unidade.",
+          "Autonomia, vinculação e indivisibilidade.",
+          "Unidade, hierarquia e disciplina.",
+          "Legalidade, impessoalidade e moralidade."
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q60",
+      "subject": "con",
+      "text": "É hipótese constitucional de naturalização extraordinária, mediante requerimento e preenchidos os requisitos:",
+      "options": [
+        "O nascido no estrangeiro de pai brasileiro ou mãe brasileira, desde que venha a residir no Brasil e opte, em qualquer tempo, pela nacionalidade brasileira.",
+        "O nascido no estrangeiro de pai brasileiro ou mãe brasileira, desde que seja registrado em repartição brasileira competente.",
+        "Aquisição automática da nacionalidade pelo casamento.",
+        "Residência no Brasil por mais de 15 anos ininterruptos, sem condenação penal, desde que requeira a nacionalidade brasileira.",
+        "Nascimento em território brasileiro em qualquer hipótese."
+      ],
+      "answer": "d",
+      "explanation": "O art. 12, II, b, prevê a naturalização de estrangeiros de qualquer nacionalidade residentes no Brasil há mais de 15 anos ininterruptos e sem condenação penal, desde que a requeiram. As hipóteses de filiação e registro no exterior apresentadas pertencem à nacionalidade originária, observados seus requisitos.",
+      "revision": "A alternativa original descrevia hipótese de nacionalidade originária, e não naturalização.",
+      "original": {
+        "text": "É brasileiro naturalizado:",
+        "options": [
+          "O nascido no estrangeiro de pai brasileiro ou mãe brasileira, desde que venha a residir no Brasil e opte, em qualquer tempo, pela nacionalidade brasileira.",
+          "O nascido no estrangeiro de pai brasileiro ou mãe brasileira, desde que seja registrado em repartição brasileira competente.",
+          "O que adquire a nacionalidade por casamento.",
+          "O que reside no Brasil por mais de 15 anos ininterruptos.",
+          "Apenas aquele que nasce em território brasileiro."
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q61",
+      "subject": "pen",
+      "text": "A lei penal mais benéfica ao réu, mesmo após o trânsito em julgado da sentença condenatória, aplica-se retroativamente. Esse instituto é conhecido como:",
+      "options": [
+        "Abolitio criminis.",
+        "Retroatividade da lei penal mais gravosa.",
+        "Retroatividade da lei penal mais benéfica.",
+        "Anistia.",
+        "Graça."
+      ],
+      "answer": "c",
+      "explanation": "Lei penal posterior mais favorável retroage, inclusive após trânsito em julgado, conforme o CP e a Constituição. Abolitio criminis é uma hipótese específica de retirada da incriminação, não sinônimo de toda lei benéfica.",
+      "revision": "O nome técnico do fenômeno foi tornado direto.",
+      "original": {
+        "text": "A lei penal mais benéfica ao réu, mesmo após o trânsito em julgado da sentença condenatória, aplica-se retroativamente. Esse instituto é conhecido como:",
+        "options": [
+          "Abolitio criminis.",
+          "Retroatividade da lei penal mais gravosa.",
+          "Extratividade da lei penal (ultratividade e retroatividade benéfica).",
+          "Anistia.",
+          "Graça."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q62",
+      "subject": "pen",
+      "text": "Nos termos do art. 23 do Código Penal, não há crime quando o agente pratica o fato:",
+      "options": [
+        "Em estado de necessidade, em legítima defesa, em estrito cumprimento de dever legal ou no exercício regular de direito.",
+        "Apenas em legítima defesa.",
+        "Apenas em estrito cumprimento do dever legal.",
+        "Em caso de embriaguez voluntária.",
+        "Apenas por determinação de superior hierárquico."
+      ],
+      "answer": "a",
+      "explanation": "Comentário: O art. 23 do CP elenca as causas de exclusão da ilicitude: estado de necessidade, legítima defesa, estrito cumprimento de dever legal ou exercício regular de direito.",
+      "revision": "",
+      "original": {
+        "text": "Nos termos do art. 23 do Código Penal, não há crime quando o agente pratica o fato:",
+        "options": [
+          "Em estado de necessidade, em legítima defesa, em estrito cumprimento de dever legal ou no exercício regular de direito.",
+          "Apenas em legítima defesa.",
+          "Apenas em estrito cumprimento do dever legal.",
+          "Em caso de embriaguez voluntária.",
+          "Apenas por determinação de superior hierárquico."
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q63",
+      "subject": "pen",
+      "text": "É isento de pena o agente que, por doença mental ou desenvolvimento mental incompleto ou retardado, era, ao tempo da ação ou da omissão, inteiramente incapaz de entender o caráter ilícito do fato ou de determinar-se de acordo com ele. Esta é a definição de:",
+      "options": [
+        "Semi-imputabilidade.",
+        "Inimputabilidade.",
+        "Emoção e paixão.",
+        "Embriaguez.",
+        "Erro de proibição."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: A inimputabilidade é a incapacidade de entender o caráter ilícito do fato ou de determinar-se de acordo com ele, em razão de doença mental ou desenvolvimento mental incompleto ou retardado (art. 26 do CP).",
+      "revision": "",
+      "original": {
+        "text": "É isento de pena o agente que, por doença mental ou desenvolvimento mental incompleto ou retardado, era, ao tempo da ação ou da omissão, inteiramente incapaz de entender o caráter ilícito do fato ou de determinar-se de acordo com ele. Esta é a definição de:",
+        "options": [
+          "Semi-imputabilidade.",
+          "Inimputabilidade.",
+          "Emoção e paixão.",
+          "Embriaguez.",
+          "Erro de proibição."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q64",
+      "subject": "pen",
+      "text": "Sobre o concurso de pessoas, quem, de qualquer modo, concorre para o crime incide nas penas a este cominadas, na medida de sua culpabilidade. Se a participação for de menor importância, a pena pode ser diminuída de:",
+      "options": [
+        "1/6 a 1/3.",
+        "1/3 a 1/2.",
+        "1/2 a 2/3.",
+        "1/10 a 1/6.",
+        "1/6 a 1/2."
+      ],
+      "answer": "a",
+      "explanation": "Comentário: Se a participação for de menor importância, a pena pode ser diminuída de 1/6 a 1/3 (art. 29, §1º, do CP).",
+      "revision": "",
+      "original": {
+        "text": "Sobre o concurso de pessoas, quem, de qualquer modo, concorre para o crime incide nas penas a este cominadas, na medida de sua culpabilidade. Se a participação for de menor importância, a pena pode ser diminuída de:",
+        "options": [
+          "1/6 a 1/3.",
+          "1/3 a 1/2.",
+          "1/2 a 2/3.",
+          "1/10 a 1/6.",
+          "1/6 a 1/2."
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q65",
+      "subject": "pen",
+      "text": "O regime inicial de cumprimento de pena para o condenado a pena superior a 8 anos, que não seja reincidente, será:",
+      "options": [
+        "Aberto.",
+        "Semiaberto.",
+        "Fechado.",
+        "Domiciliar.",
+        "Livramento condicional."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: O condenado a pena superior a 8 anos, que não seja reincidente, deve iniciar o cumprimento da pena em regime fechado (art. 33, §2º, 'a', do CP).",
+      "revision": "",
+      "original": {
+        "text": "O regime inicial de cumprimento de pena para o condenado a pena superior a 8 anos, que não seja reincidente, será:",
+        "options": [
+          "Aberto.",
+          "Semiaberto.",
+          "Fechado.",
+          "Domiciliar.",
+          "Livramento condicional."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q66",
+      "subject": "pen",
+      "text": "A prescrição da pretensão punitiva (antes do trânsito em julgado) é regulada pelo máximo da pena privativa de liberdade cominada ao crime. Para um crime cuja pena máxima é de 6 anos, a prescrição ocorre em:",
+      "options": [
+        "4 anos.",
+        "8 anos.",
+        "12 anos.",
+        "16 anos.",
+        "20 anos."
+      ],
+      "answer": "c",
+      "explanation": "Pelo art. 109, III, do CP, se o máximo da pena é superior a 4 anos e não excede 8, a prescrição ocorre em 12 anos. O item considera a regra geral, sem causas modificadoras, suspensivas ou interruptivas.",
+      "revision": "Para pena máxima de 6 anos, a tabela do art. 109 prevê 12, e não 8 anos.",
+      "original": {
+        "text": "A prescrição da pretensão punitiva (antes do trânsito em julgado) é regulada pelo máximo da pena privativa de liberdade cominada ao crime. Para um crime cuja pena máxima é de 6 anos, a prescrição ocorre em:",
+        "options": [
+          "4 anos.",
+          "8 anos.",
+          "12 anos.",
+          "16 anos.",
+          "20 anos."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q67",
+      "subject": "pen",
+      "text": "No crime de homicídio simples (art. 121 do CP), a pena é de reclusão de 6 a 20 anos. Se o crime é cometido por motivo fútil ou mediante paga ou promessa de recompensa, estamos diante de:",
+      "options": [
+        "Homicídio culposo.",
+        "Homicídio privilegiado.",
+        "Homicídio qualificado.",
+        "Homicídio tentado.",
+        "Homicídio simples."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: O homicídio cometido por motivo fútil ou mediante paga ou promessa de recompensa é uma das formas de homicídio qualificado (art. 121, §2º, do CP).",
+      "revision": "",
+      "original": {
+        "text": "No crime de homicídio simples (art. 121 do CP), a pena é de reclusão de 6 a 20 anos. Se o crime é cometido por motivo fútil ou mediante paga ou promessa de recompensa, estamos diante de:",
+        "options": [
+          "Homicídio culposo.",
+          "Homicídio privilegiado.",
+          "Homicídio qualificado.",
+          "Homicídio tentado.",
+          "Homicídio simples."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q68",
+      "subject": "pen",
+      "text": "O crime de roubo (art. 157 do CP) se consuma no momento em que o agente:",
+      "options": [
+        "Inicia a violência ou grave ameaça.",
+        "Obtém a inversão da posse mediante violência ou grave ameaça, ainda que por breve tempo e sem posse mansa e pacífica.",
+        "Apenas toca na coisa alheia.",
+        "Sai do local do crime.",
+        "É preso em flagrante."
+      ],
+      "answer": "b",
+      "explanation": "Segundo a jurisprudência consolidada, o roubo se consuma com inversão da posse mediante violência ou grave ameaça, ainda que breve e seguida de perseguição. Não se exige posse mansa, pacífica ou desvigiada.",
+      "revision": "Correção de expressão truncada na alternativa B.",
+      "original": {
+        "text": "O crime de roubo (art. 157 do CP) se consuma no momento em que o agente:",
+        "options": [
+          "Inicia a violência ou grave ameaça.",
+          "Subtrai a coisa e a tem consigo, ainda que não a tenha em poder mudo (teoria da apprehensio).",
+          "Apenas toca na coisa alheia.",
+          "Sai do local do crime.",
+          "É preso em flagrante."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q69",
+      "subject": "pen",
+      "text": "O crime de concussão (art. 316 do CP) consiste em:",
+      "options": [
+        "Solicitar vantagem indevida.",
+        "Receber vantagem indevida.",
+        "Exigir, para si ou para outrem, direta ou indiretamente, ainda que fora da função ou antes de assumi-la, mas em razão dela, vantagem indevida.",
+        "Deixar de praticar ato de ofício para satisfazer interesse pessoal.",
+        "Apropriar-se de dinheiro público."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: O crime de concussão consiste em exigir, para si ou para outrem, direta ou indiretamente, ainda que fora da função ou antes de assumi-la, mas em razão dela, vantagem indevida (art. 316 do CP).",
+      "revision": "",
+      "original": {
+        "text": "O crime de concussão (art. 316 do CP) consiste em:",
+        "options": [
+          "Solicitar vantagem indevida.",
+          "Receber vantagem indevida.",
+          "Exigir, para si ou para outrem, direta ou indiretamente, ainda que fora da função ou antes de assumi-la, mas em razão dela, vantagem indevida.",
+          "Deixar de praticar ato de ofício para satisfazer interesse pessoal.",
+          "Apropriar-se de dinheiro público."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q70",
+      "subject": "pen",
+      "text": "A falsificação de documento público (art. 297 do CP) configura crime contra:",
+      "options": [
+        "A Administração Pública.",
+        "A Fé Pública.",
+        "O Patrimônio.",
+        "A Pessoa.",
+        "A Dignidade Sexual."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: A falsificação de documento público (art. 297 do CP) é um crime contra a Fé Pública.",
+      "revision": "",
+      "original": {
+        "text": "A falsificação de documento público (art. 297 do CP) configura crime contra:",
+        "options": [
+          "A Administração Pública.",
+          "A Fé Pública.",
+          "O Patrimônio.",
+          "A Pessoa.",
+          "A Dignidade Sexual."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q71",
+      "subject": "cpp",
+      "text": "O inquérito policial, de acordo com o CPP, é um procedimento:",
+      "options": [
+        "Escrito, inquisitivo, sigiloso e dispensável.",
+        "Oral, contraditório e indispensável.",
+        "Escrito, acusatório e de competência do MP.",
+        "Público, contraditório e judicial.",
+        "Sumário, administrativo e vinculante."
+      ],
+      "answer": "a",
+      "explanation": "Comentário: O inquérito policial é um procedimento escrito, inquisitivo, sigiloso e dispensável (art. 4º, 9º e 12 do CPP).",
+      "revision": "",
+      "original": {
+        "text": "O inquérito policial, de acordo com o CPP, é um procedimento:",
+        "options": [
+          "Escrito, inquisitivo, sigiloso e dispensável.",
+          "Oral, contraditório e indispensável.",
+          "Escrito, acusatório e de competência do MP.",
+          "Público, contraditório e judicial.",
+          "Sumário, administrativo e vinculante."
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q72",
+      "subject": "cpp",
+      "text": "Considerando apenas a regra geral do art. 10 do CPP e sem hipóteses especiais, qual o prazo para conclusão do inquérito com indiciado preso em flagrante?",
+      "options": [
+        "5 dias.",
+        "10 dias.",
+        "15 dias.",
+        "30 dias.",
+        "90 dias."
+      ],
+      "answer": "b",
+      "explanation": "A regra geral do art. 10 estabelece 10 dias com indiciado preso e 30 dias se solto. O item delimita expressamente esse dispositivo, pois há leis especiais e questões jurisprudenciais que exigem análise própria.",
+      "revision": "Delimitação à regra geral do CPP, sem ignorar leis especiais.",
+      "original": {
+        "text": "O prazo para conclusão do inquérito policial, no caso de indiciado preso em flagrante, é de:",
+        "options": [
+          "5 dias.",
+          "10 dias.",
+          "15 dias.",
+          "30 dias.",
+          "90 dias."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q73",
+      "subject": "cpp",
+      "text": "Segundo o art. 306, §1º, do CPP, em até quanto tempo após a prisão será encaminhado o auto de prisão em flagrante ao juiz competente?",
+      "options": [
+        "12 horas.",
+        "24 horas.",
+        "48 horas.",
+        "72 horas.",
+        "5 dias."
+      ],
+      "answer": "b",
+      "explanation": "O auto é encaminhado ao juiz em até 24 horas. A comunicação da prisão e do local de custódia ao juiz, MP e família ou pessoa indicada é imediata. Sem advogado informado, remete-se cópia à Defensoria no prazo legal. Não são obrigações idênticas.",
+      "revision": "Comunicação imediata, remessa do auto e custódia eram indevidamente misturadas.",
+      "original": {
+        "text": "A prisão em flagrante delito deve ser comunicada imediatamente ao juiz competente, ao Ministério Público e à Defensoria Pública, e a entrega do preso ao juiz deve ocorrer no prazo máximo de:",
+        "options": [
+          "12 horas.",
+          "24 horas.",
+          "48 horas.",
+          "72 horas.",
+          "5 dias."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q74",
+      "subject": "cpp",
+      "text": "Além de provocação legítima e admissibilidade legal, a prisão preventiva exige fundamentação concreta que demonstre:",
+      "options": [
+        "Apenas prova da materialidade do crime.",
+        "Prova da existência do crime, indícios suficientes de autoria e perigo gerado pela liberdade, nos fundamentos do art. 312 do CPP.",
+        "Apenas sentença condenatória transitada em julgado.",
+        "Apenas pedido da vítima.",
+        "Apenas confissão do acusado."
+      ],
+      "answer": "b",
+      "explanation": "A preventiva exige pressupostos probatórios, perigo concreto e fundamento cautelar do art. 312, em conjunto com as hipóteses de admissibilidade, necessidade e adequação. O art. 311 disciplina a provocação. Gravidade abstrata ou confissão isolada não suprem tudo isso.",
+      "revision": "O fundamento material está no art. 312 e deve ser combinado com admissibilidade e provocação.",
+      "original": {
+        "text": "De acordo com o art. 311 do CPP, a prisão preventiva pode ser decretada pelo juiz, a requerimento do Ministério Público, do querelante ou do assistente, ou por representação da autoridade policial, quando houver:",
+        "options": [
+          "Apenas prova da materialidade do crime.",
+          "Indícios suficientes de autoria e prova da existência do crime, e houver risco à ordem pública, econômica, por conveniência da instrução criminal ou para assegurar a aplicação da lei penal.",
+          "Apenas sentença condenatória transitada em julgado.",
+          "Apenas pedido da vítima.",
+          "Apenas confissão do acusado."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q75",
+      "subject": "cpp",
+      "text": "São consideradas provas ilícitas, que não podem ser utilizadas no processo, aquelas obtidas:",
+      "options": [
+        "Por meio de testemunhas.",
+        "Com violação de normas constitucionais ou legais (ex: tortura, interceptação telefônica sem autorização judicial).",
+        "Por meio de documentos públicos.",
+        "Por meio de perícia oficial.",
+        "Por meio de busca e apreensão com mandado judicial."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: São consideradas provas ilícitas aquelas obtidas com violação de normas constitucionais ou legais, como tortura, interceptação telefônica sem autorização judicial, etc. (art. 157 do CPP).",
+      "revision": "",
+      "original": {
+        "text": "São consideradas provas ilícitas, que não podem ser utilizadas no processo, aquelas obtidas:",
+        "options": [
+          "Por meio de testemunhas.",
+          "Com violação de normas constitucionais ou legais (ex: tortura, interceptação telefônica sem autorização judicial).",
+          "Por meio de documentos públicos.",
+          "Por meio de perícia oficial.",
+          "Por meio de busca e apreensão com mandado judicial."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q76",
+      "subject": "cpp",
+      "text": "A cadeia de custódia, instituída pelo Pacote Anticrime, tem como objetivo:",
+      "options": [
+        "Garantir a guarda e a integridade dos vestígios coletados no local do crime, desde o reconhecimento até o descarte.",
+        "Acelerar o processo penal.",
+        "Substituir a perícia oficial.",
+        "Definir a competência do juiz.",
+        "Permitir a destruição de provas."
+      ],
+      "answer": "a",
+      "explanation": "Comentário: A cadeia de custódia tem como objetivo garantir a guarda e a integridade dos vestígios coletados no local do crime, desde o reconhecimento até o descarte (art. 158-A a 158-F do CPP).",
+      "revision": "",
+      "original": {
+        "text": "A cadeia de custódia, instituída pelo Pacote Anticrime, tem como objetivo:",
+        "options": [
+          "Garantir a guarda e a integridade dos vestígios coletados no local do crime, desde o reconhecimento até o descarte.",
+          "Acelerar o processo penal.",
+          "Substituir a perícia oficial.",
+          "Definir a competência do juiz.",
+          "Permitir a destruição de provas."
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q77",
+      "subject": "cpp",
+      "text": "A busca e apreensão domiciliar, conforme o CPP, deve ser realizada:",
+      "options": [
+        "A qualquer hora do dia ou da noite, desde que haja mandado.",
+        "Durante o dia, e exige mandado judicial, salvo flagrante delito, desastre, para prestar socorro ou consentimento do morador.",
+        "Apenas com autorização do delegado.",
+        "Apenas durante a noite.",
+        "Sempre que houver suspeita, sem necessidade de mandado."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: A busca e apreensão domiciliar deve ser realizada durante o dia, e exige mandado judicial, salvo flagrante delito, desastre, para prestar socorro ou consentimento do morador (art. 240 do CPP e art. 5º, XI, da CF/88).",
+      "revision": "",
+      "original": {
+        "text": "A busca e apreensão domiciliar, conforme o CPP, deve ser realizada:",
+        "options": [
+          "A qualquer hora do dia ou da noite, desde que haja mandado.",
+          "Durante o dia, e exige mandado judicial, salvo flagrante delito, desastre, para prestar socorro ou consentimento do morador.",
+          "Apenas com autorização do delegado.",
+          "Apenas durante a noite.",
+          "Sempre que houver suspeita, sem necessidade de mandado."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q78",
+      "subject": "cpp",
+      "text": "A competência para julgar o crime de homicídio doloso (crime doloso contra a vida) é do:",
+      "options": [
+        "Tribunal do Júri, ressalvadas as competências constitucionais especiais.",
+        "Juiz Federal.",
+        "Tribunal de Justiça.",
+        "Superior Tribunal de Justiça.",
+        "Juizado Especial Criminal."
+      ],
+      "answer": "a",
+      "explanation": "A Constituição assegura ao júri competência para crimes dolosos contra a vida. O julgamento envolve juiz presidente e jurados, não deve ser reduzido à expressão “juiz de direito”. Competências constitucionais especiais exigem análise própria.",
+      "revision": "Distinção entre juiz presidente e conselho de sentença.",
+      "original": {
+        "text": "A competência para julgar o crime de homicídio doloso (crime doloso contra a vida) é do:",
+        "options": [
+          "Juiz de Direito (Tribunal do Júri).",
+          "Juiz Federal.",
+          "Tribunal de Justiça.",
+          "Superior Tribunal de Justiça.",
+          "Juizado Especial Criminal."
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q79",
+      "subject": "cpp",
+      "text": "Na jurisprudência sintetizada pela Súmula 523 do STF, a falta de defesa no processo penal constitui:",
+      "options": [
+        "Mera irregularidade sem consequência.",
+        "Nulidade absoluta; a deficiência de defesa só anula com prova de prejuízo.",
+        "Presunção de culpa.",
+        "Condição para transação penal.",
+        "Motivo automático para condenação."
+      ],
+      "answer": "b",
+      "explanation": "A Súmula 523 diferencia ausência de defesa, nulidade absoluta, de deficiência de defesa, que exige demonstração de prejuízo. A extensão da invalidação e seus efeitos devem ser analisados conforme o caso.",
+      "revision": "Eliminada afirmação absoluta sobre invalidação e saneamento.",
+      "original": {
+        "text": "O vício processual que, por sua gravidade, pode causar a nulidade absoluta do processo, não podendo ser sanada, é a:",
+        "options": [
+          "Nulidade relativa.",
+          "Nulidade absoluta (ex: ausência de defesa, incompetência absoluta do juiz).",
+          "Irregularidade.",
+          "Preclusão.",
+          "Litispendência."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q80",
+      "subject": "cpp",
+      "text": "O Habeas Corpus é cabível sempre que alguém sofrer ou se achar ameaçado de sofrer violência ou coação em sua liberdade de locomoção, por ilegalidade ou abuso de poder. Ele pode ser impetrado:",
+      "options": [
+        "Apenas por advogado.",
+        "Apenas pelo Ministério Público.",
+        "Por qualquer pessoa física ou jurídica, nacional ou estrangeira, independentemente de capacidade postulatória.",
+        "Apenas pelo próprio preso.",
+        "Apenas pela Defensoria Pública."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: O Habeas Corpus pode ser impetrado por qualquer pessoa física ou jurídica, nacional ou estrangeira, independentemente de capacidade postulatória (art. 647 do CPP).",
+      "revision": "",
+      "original": {
+        "text": "O Habeas Corpus é cabível sempre que alguém sofrer ou se achar ameaçado de sofrer violência ou coação em sua liberdade de locomoção, por ilegalidade ou abuso de poder. Ele pode ser impetrado:",
+        "options": [
+          "Apenas por advogado.",
+          "Apenas pelo Ministério Público.",
+          "Por qualquer pessoa física ou jurídica, nacional ou estrangeira, independentemente de capacidade postulatória.",
+          "Apenas pelo próprio preso.",
+          "Apenas pela Defensoria Pública."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q81",
+      "subject": "ext",
+      "text": "Na literalidade do art. 28 da Lei 11.343/2006, ressalvado o tratamento da cannabis para uso pessoal pelo STF no Tema 506, quais medidas estão previstas?",
+      "options": [
+        "Pena de reclusão de 5 a 15 anos.",
+        "Pena de detenção de 1 a 3 anos.",
+        "Advertência, prestação de serviços à comunidade e medida educativa.",
+        "Pagamento de cesta básica apenas.",
+        "Prisão em flagrante inafiançável."
+      ],
+      "answer": "c",
+      "explanation": "O texto do art. 28 prevê advertência, serviços à comunidade e medida educativa, observadas suas regras. Para cannabis para uso pessoal, o Tema 506 afasta os efeitos penais; não se deve aplicar automaticamente a mesma resposta a todas as substâncias e contextos.",
+      "revision": "A literalidade foi delimitada e recebeu a ressalva obrigatória sobre cannabis.",
+      "original": {
+        "text": "De acordo com a Lei nº 11.343/2006 (Lei de Drogas), aquele que adquirir, guardar, tiver em depósito, transportar ou trouxer consigo, para consumo pessoal, drogas sem autorização ou em desacordo com determinação legal ou regulamentar, estará sujeito a:",
+        "options": [
+          "Pena de reclusão de 5 a 15 anos.",
+          "Pena de detenção de 1 a 3 anos.",
+          "Advertência, prestação de serviços à comunidade e medida educativa.",
+          "Pagamento de cesta básica apenas.",
+          "Prisão em flagrante inafiançável."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q82",
+      "subject": "ext",
+      "text": "A Lei Maria da Penha (Lei nº 11.340/2006) tipifica o crime de descumprimento de decisão judicial que defere medidas protetivas de urgência. A pena para este crime é de:",
+      "options": [
+        "Detenção de 1 a 2 anos.",
+        "Detenção de 3 meses a 2 anos.",
+        "Reclusão de 1 a 3 anos.",
+        "Reclusão de 2 a 5 anos e multa.",
+        "Apenas multa."
+      ],
+      "answer": "d",
+      "explanation": "O art. 24-A passou a prever reclusão de 2 a 5 anos e multa com a Lei 14.994/2024. O gabarito original B utilizava a pena anterior.",
+      "revision": "Pena atualizada pela Lei 14.994/2024.",
+      "original": {
+        "text": "A Lei Maria da Penha (Lei nº 11.340/2006) tipifica o crime de descumprimento de decisão judicial que defere medidas protetivas de urgência. A pena para este crime é de:",
+        "options": [
+          "Detenção de 1 a 2 anos.",
+          "Detenção de 3 meses a 2 anos.",
+          "Reclusão de 1 a 3 anos.",
+          "Reclusão de 2 a 5 anos.",
+          "Apenas multa."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q83",
+      "subject": "ext",
+      "text": "O Estatuto do Desarmamento (Lei nº 10.826/2003) tipifica o crime de posse irregular de arma de fogo de uso permitido. Este crime consiste em possuir ou manter sob sua guarda arma de fogo, acessório ou munição, de uso permitido, em desacordo com determinação legal ou regulamentar, no interior de sua residência ou dependência desta, ou, ainda no seu local de trabalho, desde que seja o titular ou o responsável legal do estabelecimento ou empresa. A pena é de:",
+      "options": [
+        "Reclusão de 1 a 3 anos.",
+        "Detenção de 1 a 3 anos.",
+        "Reclusão de 2 a 4 anos.",
+        "Detenção de 6 meses a 1 ano.",
+        "Reclusão de 3 a 6 anos."
+      ],
+      "answer": "b",
+      "explanation": "O art. 12 da Lei 10.826/2003 prevê detenção de 1 a 3 anos e multa para posse irregular de arma de fogo de uso permitido nos locais e condições descritos. O arquivo marcava reclusão indevidamente.",
+      "revision": "A pena é detenção, e não reclusão.",
+      "original": {
+        "text": "O Estatuto do Desarmamento (Lei nº 10.826/2003) tipifica o crime de posse irregular de arma de fogo de uso permitido. Este crime consiste em possuir ou manter sob sua guarda arma de fogo, acessório ou munição, de uso permitido, em desacordo com determinação legal ou regulamentar, no interior de sua residência ou dependência desta, ou, ainda no seu local de trabalho, desde que seja o titular ou o responsável legal do estabelecimento ou empresa. A pena é de:",
+        "options": [
+          "Reclusão de 1 a 3 anos.",
+          "Detenção de 1 a 3 anos.",
+          "Reclusão de 2 a 4 anos.",
+          "Detenção de 6 meses a 1 ano.",
+          "Reclusão de 3 a 6 anos."
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q84",
+      "subject": "ext",
+      "text": "A Lei nº 13.869/2019 (Lei de Abuso de Autoridade) estabelece que a divergência na interpretação de lei ou na avaliação de fatos e provas:",
+      "options": [
+        "Configura abuso de autoridade.",
+        "Não configura abuso de autoridade.",
+        "Configura crime hediondo.",
+        "Configura improbidade administrativa.",
+        "É crime inafiançável."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: A Lei de Abuso de Autoridade (Lei 13.869/2019) estabelece que a divergência na interpretação de lei ou na avaliação de fatos e provas não configura abuso de autoridade (art. 1º, §2º).",
+      "revision": "",
+      "original": {
+        "text": "A Lei nº 13.869/2019 (Lei de Abuso de Autoridade) estabelece que a divergência na interpretação de lei ou na avaliação de fatos e provas:",
+        "options": [
+          "Configura abuso de autoridade.",
+          "Não configura abuso de autoridade.",
+          "Configura crime hediondo.",
+          "Configura improbidade administrativa.",
+          "É crime inafiançável."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q85",
+      "subject": "ext",
+      "text": "Na definição do art. 1º, §1º, da Lei 12.850/2013, além dos demais requisitos, as infrações podem ter caráter transnacional ou penas máximas superiores a:",
+      "options": [
+        "2 anos.",
+        "4 anos.",
+        "6 anos.",
+        "8 anos.",
+        "10 anos."
+      ],
+      "answer": "b",
+      "explanation": "A definição exige 4 ou mais pessoas, ordenação estrutural, divisão de tarefas e objetivo de vantagem por infrações com pena máxima superior a 4 anos OU de caráter transnacional. Não basta somar quatro pessoas sem os demais elementos.",
+      "revision": "Definição completada para incluir a alternativa de transnacionalidade.",
+      "original": {
+        "text": "A Lei nº 12.850/2013 define organização criminosa como a associação de 4 (quatro) ou mais pessoas estruturalmente ordenada e caracterizada pela divisão de tarefas, ainda que informalmente, com objetivo de obter, direta ou indiretamente, vantagem de qualquer natureza, mediante a prática de infrações penais cujas penas máximas sejam superiores a:",
+        "options": [
+          "2 anos.",
+          "4 anos.",
+          "6 anos.",
+          "8 anos.",
+          "10 anos."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q86",
+      "subject": "ext",
+      "text": "Nos termos da Lei nº 8.072/1990 (Lei de Crimes Hediondos), são considerados hediondos, entre outros, os crimes de:",
+      "options": [
+        "Homicídio simples, roubo e furto.",
+        "Homicídio qualificado, estupro e latrocínio, nos termos da lei.",
+        "Apenas o estupro.",
+        "Apenas o terrorismo.",
+        "Apenas o latrocínio."
+      ],
+      "answer": "b",
+      "explanation": "Homicídio qualificado, estupro e latrocínio integram as hipóteses legais de hediondez. Tortura, tráfico e terrorismo recebem tratamento equiparado, distinção que o comentário original não fazia com precisão. Consulte o rol legal aplicável ao recorte do edital.",
+      "revision": "O arquivo confundia crimes hediondos com os equiparados.",
+      "original": {
+        "text": "Nos termos da Lei nº 8.072/1990 (Lei de Crimes Hediondos), são considerados hediondos, entre outros, os crimes de:",
+        "options": [
+          "Homicídio simples, roubo e furto.",
+          "Homicídio doloso qualificado, estupro, latrocínio, genocídio, tráfico de drogas (em algumas modalidades) e terrorismo.",
+          "Apenas o estupro.",
+          "Apenas o terrorismo.",
+          "Apenas o latrocínio."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q87",
+      "subject": "ext",
+      "text": "Na modalidade de tortura-prova do art. 1º, I, a, da Lei 9.455/1997, o constrangimento com violência ou grave ameaça, causando sofrimento físico ou mental, visa:",
+      "options": [
+        "Com o fim de obter informação, declaração ou confissão da vítima ou de terceira pessoa.",
+        "Apenas por preconceito racial.",
+        "Apenas para punir a vítima por ato que cometeu.",
+        "Apenas em ambiente prisional.",
+        "Apenas por agentes públicos."
+      ],
+      "answer": "a",
+      "explanation": "A tortura-prova tem finalidade de obter informação, declaração ou confissão da vítima ou de terceiro. A lei prevê outras modalidades; nem todas se limitam a agentes públicos ou ambiente prisional.",
+      "revision": "A pergunta descreve modalidade específica, não todas as formas de tortura.",
+      "original": {
+        "text": "O crime de tortura (Lei nº 9.455/1997) é definido como constranger alguém com emprego de violência ou grave ameaça, causando-lhe sofrimento físico ou mental:",
+        "options": [
+          "Com o fim de obter informação, declaração ou confissão da vítima ou de terceira pessoa.",
+          "Apenas por preconceito racial.",
+          "Apenas para punir a vítima por ato que cometeu.",
+          "Apenas em ambiente prisional.",
+          "Apenas por agentes públicos."
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q88",
+      "subject": "ext",
+      "text": "O Estatuto da Criança e do Adolescente (Lei nº 8.069/1990) considera adolescente a pessoa entre:",
+      "options": [
+        "10 e 16 anos.",
+        "12 e 18 anos.",
+        "14 e 18 anos.",
+        "12 e 21 anos.",
+        "16 e 18 anos."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: O Estatuto da Criança e do Adolescente (Lei 8.069/1990) considera adolescente a pessoa entre 12 e 18 anos de idade (art. 2º).",
+      "revision": "",
+      "original": {
+        "text": "O Estatuto da Criança e do Adolescente (Lei nº 8.069/1990) considera adolescente a pessoa entre:",
+        "options": [
+          "10 e 16 anos.",
+          "12 e 18 anos.",
+          "14 e 18 anos.",
+          "12 e 21 anos.",
+          "16 e 18 anos."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q89",
+      "subject": "ext",
+      "text": "A Lei nº 9.099/1995 (Juizados Especiais Criminais) define como infrações de menor potencial ofensivo os crimes e contravenções penais cuja pena máxima não exceda a:",
+      "options": [
+        "1 ano.",
+        "2 anos.",
+        "3 anos.",
+        "4 anos.",
+        "6 meses."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: A Lei dos Juizados Especiais Criminais (Lei 9.099/1995) define como infrações de menor potencial ofensivo os crimes e contravenções penais cuja pena máxima não exceda a 2 anos (art. 61).",
+      "revision": "",
+      "original": {
+        "text": "A Lei nº 9.099/1995 (Juizados Especiais Criminais) define como infrações de menor potencial ofensivo os crimes e contravenções penais cuja pena máxima não exceda a:",
+        "options": [
+          "1 ano.",
+          "2 anos.",
+          "3 anos.",
+          "4 anos.",
+          "6 meses."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q90",
+      "subject": "ext",
+      "text": "A Lei nº 9.613/1998 (Lavagem de Dinheiro) tipifica o crime de ocultar ou dissimular a natureza, origem, localização, disposição, movimentação ou propriedade de bens, direitos ou valores provenientes, direta ou indiretamente, de infração penal. A pena é de:",
+      "options": [
+        "Detenção de 1 a 3 anos.",
+        "Reclusão de 3 a 10 anos.",
+        "Reclusão de 1 a 4 anos.",
+        "Detenção de 6 meses a 2 anos.",
+        "Reclusão de 5 a 15 anos."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: O crime de lavagem de dinheiro (Lei 9.613/1998) tem pena de reclusão de 3 a 10 anos (art. 1º).",
+      "revision": "",
+      "original": {
+        "text": "A Lei nº 9.613/1998 (Lavagem de Dinheiro) tipifica o crime de ocultar ou dissimular a natureza, origem, localização, disposição, movimentação ou propriedade de bens, direitos ou valores provenientes, direta ou indiretamente, de infração penal. A pena é de:",
+        "options": [
+          "Detenção de 1 a 3 anos.",
+          "Reclusão de 3 a 10 anos.",
+          "Reclusão de 1 a 4 anos.",
+          "Detenção de 6 meses a 2 anos.",
+          "Reclusão de 5 a 15 anos."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q91",
+      "subject": "est",
+      "text": "Em um conjunto de dados, a medida de tendência central que representa o valor que separa a metade inferior da metade superior, sendo menos sensível a valores extremos (outliers) que a média, é a:",
+      "options": [
+        "Média aritmética.",
+        "Moda.",
+        "Mediana.",
+        "Variância.",
+        "Amplitude."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: A mediana é a medida de tendência central que representa o valor que separa a metade inferior da metade superior de um conjunto de dados, sendo menos sensível a valores extremos.",
+      "revision": "",
+      "original": {
+        "text": "Em um conjunto de dados, a medida de tendência central que representa o valor que separa a metade inferior da metade superior, sendo menos sensível a valores extremos (outliers) que a média, é a:",
+        "options": [
+          "Média aritmética.",
+          "Moda.",
+          "Mediana.",
+          "Variância.",
+          "Amplitude."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q92",
+      "subject": "est",
+      "text": "A medida de dispersão que indica o grau de variação dos dados em relação à média, sendo calculada como a raiz quadrada da variância, é o:",
+      "options": [
+        "Coeficiente de variação.",
+        "Desvio padrão.",
+        "Erro padrão.",
+        "Quartil.",
+        "Percentil."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: O desvio padrão é a medida de dispersão que indica o grau de variação dos dados em relação à média, sendo calculado como a raiz quadrada da variância.",
+      "revision": "",
+      "original": {
+        "text": "A medida de dispersão que indica o grau de variação dos dados em relação à média, sendo calculada como a raiz quadrada da variância, é o:",
+        "options": [
+          "Coeficiente de variação.",
+          "Desvio padrão.",
+          "Erro padrão.",
+          "Quartil.",
+          "Percentil."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q93",
+      "subject": "est",
+      "text": "No lançamento de um dado honesto de 6 faces, a probabilidade de sair um número par é:",
+      "options": [
+        "1/6",
+        "1/3",
+        "1/2",
+        "2/3",
+        "5/6"
+      ],
+      "answer": "c",
+      "explanation": "Comentário: Em um dado honesto de 6 faces, os números pares são 2, 4 e 6 (3 casos favoráveis). A probabilidade é 3/6 = 1/2.",
+      "revision": "",
+      "original": {
+        "text": "No lançamento de um dado honesto de 6 faces, a probabilidade de sair um número par é:",
+        "options": [
+          "1/6",
+          "1/3",
+          "1/2",
+          "2/3",
+          "5/6"
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q94",
+      "subject": "est",
+      "text": "A técnica de amostragem em que a população é dividida em subgrupos (estratos) e amostras são retiradas de cada estrato de forma proporcional é denominada:",
+      "options": [
+        "Amostragem aleatória simples.",
+        "Amostragem sistemática.",
+        "Amostragem estratificada.",
+        "Amostragem por conglomerados.",
+        "Amostragem de conveniência."
+      ],
+      "answer": "c",
+      "explanation": "Comentário: A amostragem estratificada é a técnica em que a população é dividida em subgrupos (estratos) e amostras são retiradas de cada estrato de forma proporcional.",
+      "revision": "",
+      "original": {
+        "text": "A técnica de amostragem em que a população é dividida em subgrupos (estratos) e amostras são retiradas de cada estrato de forma proporcional é denominada:",
+        "options": [
+          "Amostragem aleatória simples.",
+          "Amostragem sistemática.",
+          "Amostragem estratificada.",
+          "Amostragem por conglomerados.",
+          "Amostragem de conveniência."
+        ],
+        "answer": "c"
+      }
+    },
+    {
+      "id": "q95",
+      "subject": "est",
+      "text": "O Teorema de Bayes relaciona a probabilidade condicional de um evento com as probabilidades marginais. É amplamente utilizado em:",
+      "options": [
+        "Cálculo de médias simples.",
+        "Atualização de crenças com base em novas evidências (inferência bayesiana).",
+        "Definição de desvio padrão.",
+        "Construção de gráficos de setores.",
+        "Cálculo de limites de controle."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: O Teorema de Bayes é amplamente utilizado na atualização de crenças com base em novas evidências (inferência bayesiana).",
+      "revision": "",
+      "original": {
+        "text": "O Teorema de Bayes relaciona a probabilidade condicional de um evento com as probabilidades marginais. É amplamente utilizado em:",
+        "options": [
+          "Cálculo de médias simples.",
+          "Atualização de crenças com base em novas evidências (inferência bayesiana).",
+          "Definição de desvio padrão.",
+          "Construção de gráficos de setores.",
+          "Cálculo de limites de controle."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q96",
+      "subject": "arq",
+      "text": "A Teoria das Três Idades classifica os documentos de arquivo de acordo com sua frequência de uso. A fase em que o documento deixa de ser usado frequentemente, mas ainda pode ser solicitado, aguardando sua destinação final, é a fase:",
+      "options": [
+        "Corrente.",
+        "Intermediária.",
+        "Permanente.",
+        "Histórica.",
+        "Eliminação."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: A Teoria das Três Idades classifica os documentos em corrente, intermediária e permanente. A fase intermediária é aquela em que o documento deixa de ser usado frequentemente, mas ainda pode ser solicitado, aguardando sua destinação final.",
+      "revision": "",
+      "original": {
+        "text": "A Teoria das Três Idades classifica os documentos de arquivo de acordo com sua frequência de uso. A fase em que o documento deixa de ser usado frequentemente, mas ainda pode ser solicitado, aguardando sua destinação final, é a fase:",
+        "options": [
+          "Corrente.",
+          "Intermediária.",
+          "Permanente.",
+          "Histórica.",
+          "Eliminação."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q97",
+      "subject": "arq",
+      "text": "No protocolo de uma delegacia, as atividades de receber, registrar, classificar, distribuir e tramitar documentos são fundamentais. A função de \"registrar\" tem como objetivo principal:",
+      "options": [
+        "Arquivar o documento permanentemente.",
+        "Identificar e controlar o documento, atribuindo-lhe um número de protocolo e registrando sua entrada.",
+        "Eliminar documentos repetidos.",
+        "Enviar o documento para a perícia.",
+        "Digitalizar o documento."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: A função de registrar no protocolo tem como objetivo principal identificar e controlar o documento, atribuindo-lhe um número de protocolo e registrando sua entrada.",
+      "revision": "",
+      "original": {
+        "text": "No protocolo de uma delegacia, as atividades de receber, registrar, classificar, distribuir e tramitar documentos são fundamentais. A função de \"registrar\" tem como objetivo principal:",
+        "options": [
+          "Arquivar o documento permanentemente.",
+          "Identificar e controlar o documento, atribuindo-lhe um número de protocolo e registrando sua entrada.",
+          "Eliminar documentos repetidos.",
+          "Enviar o documento para a perícia.",
+          "Digitalizar o documento."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q98",
+      "subject": "arq",
+      "text": "A Tabela de Temporalidade de Documentos (TTD) é um instrumento de gestão documental que tem como função:",
+      "options": [
+        "Definir o prazo de guarda e a destinação final dos documentos (eliminação ou guarda permanente).",
+        "Classificar os documentos por assunto.",
+        "Descrever os documentos para fins de pesquisa.",
+        "Acelerar a digitalização dos arquivos.",
+        "Substituir a tabela de classificação."
+      ],
+      "answer": "a",
+      "explanation": "Comentário: A Tabela de Temporalidade de Documentos (TTD) é o instrumento que define os prazos de guarda e a destinação final dos documentos (eliminação ou guarda permanente).",
+      "revision": "",
+      "original": {
+        "text": "A Tabela de Temporalidade de Documentos (TTD) é um instrumento de gestão documental que tem como função:",
+        "options": [
+          "Definir o prazo de guarda e a destinação final dos documentos (eliminação ou guarda permanente).",
+          "Classificar os documentos por assunto.",
+          "Descrever os documentos para fins de pesquisa.",
+          "Acelerar a digitalização dos arquivos.",
+          "Substituir a tabela de classificação."
+        ],
+        "answer": "a"
+      }
+    },
+    {
+      "id": "q99",
+      "subject": "arq",
+      "text": "A fase de \"classificação\" de documentos de arquivo na administração pública tem como base o:",
+      "options": [
+        "Código de Processo Penal.",
+        "Plano de Classificação de Documentos (código de assunto).",
+        "Nome do servidor que o produziu.",
+        "Tamanho do documento.",
+        "Tipo de papel utilizado."
+      ],
+      "answer": "b",
+      "explanation": "Comentário: A classificação de documentos de arquivo na administração pública tem como base o Plano de Classificação de Documentos (código de assunto).",
+      "revision": "",
+      "original": {
+        "text": "A fase de \"classificação\" de documentos de arquivo na administração pública tem como base o:",
+        "options": [
+          "Código de Processo Penal.",
+          "Plano de Classificação de Documentos (código de assunto).",
+          "Nome do servidor que o produziu.",
+          "Tamanho do documento.",
+          "Tipo de papel utilizado."
+        ],
+        "answer": "b"
+      }
+    },
+    {
+      "id": "q100",
+      "subject": "arq",
+      "text": "As ações de preservação e conservação de documentos de arquivo incluem a adoção de medidas para evitar a degradação do papel e da tinta. A principal condição ambiental que deve ser controlada nos arquivos é:",
+      "options": [
+        "A umidade e a temperatura.",
+        "A iluminação natural (exposição ao sol).",
+        "A poluição sonora.",
+        "A presença de insetos apenas.",
+        "A falta de ventilação."
+      ],
+      "answer": "a",
+      "explanation": "Comentário: A principal condição ambiental que deve ser controlada nos arquivos para evitar a degradação do papel e da tinta é a umidade e a temperatura.",
+      "revision": "",
+      "original": {
+        "text": "As ações de preservação e conservação de documentos de arquivo incluem a adoção de medidas para evitar a degradação do papel e da tinta. A principal condição ambiental que deve ser controlada nos arquivos é:",
+        "options": [
+          "A umidade e a temperatura.",
+          "A iluminação natural (exposição ao sol).",
+          "A poluição sonora.",
+          "A presença de insetos apenas.",
+          "A falta de ventilação."
+        ],
+        "answer": "a"
+      }
+    }
+  ],
+  "essays": [
+    {
+      "id": "discursiva-1",
+      "title": "Cadeia de custódia",
+      "text": "Discorra sobre a cadeia de custódia no processo penal brasileiro, abordando sua definição, os procedimentos a serem adotados desde o reconhecimento do vestígio no local do crime até sua apresentação em juízo, e as consequências da quebra da cadeia de custódia para a validade da prova. (Máximo 25 linhas).",
+      "criteria": [
+        "Definir e explicar identidade, integridade e rastreabilidade do vestígio.",
+        "Apresentar as dez etapas do art. 158-B, com documentação e lacres.",
+        "Distinguir irregularidade, confiabilidade e admissibilidade, sem nulidade automática."
+      ],
+      "model": "A cadeia de custódia corresponde aos procedimentos destinados a manter e documentar a história cronológica do vestígio, permitindo rastrear sua posse e seu manuseio desde o reconhecimento até o descarte. Sua finalidade é demonstrar que o material examinado corresponde ao coletado e permaneceu íntegro.\nO art. 158-B do CPP prevê reconhecimento, isolamento, fixação, coleta, acondicionamento, transporte, recebimento, processamento, armazenamento e descarte. Cada etapa exige documentação compatível, identificação dos responsáveis e controle de transferências, aberturas e lacres, preservando a possibilidade de contraperícia.\nA apresentação em juízo pressupõe acesso defensivo e exame da confiabilidade. Uma falha de registro não produz, em toda hipótese, nulidade automática. É necessário verificar sua gravidade, repercussão na autenticidade e integridade e prejuízo ao contraditório. Se não for possível demonstrar a confiabilidade do vestígio, a prova pode perder aptidão para sustentar a decisão.",
+      "source": "CPP, arts. 158-A a 158-F. O modelo não adota a ideia de nulidade automática por toda irregularidade."
+    },
+    {
+      "id": "discursiva-2",
+      "title": "Responsabilidade civil do Estado",
+      "text": "Aborde a responsabilidade civil objetiva do Estado prevista no art. 37, §6º da Constituição Federal. Explique as teorias da culpa administrativa e do risco administrativo, e discorra sobre as excludentes de responsabilidade (culpa exclusiva da vítima, caso fortuito, força maior). (Máximo 25 linhas).",
+      "criteria": [
+        "Explicar conduta, dano e nexo na responsabilidade objetiva.",
+        "Distinguir risco administrativo, culpa administrativa e ação regressiva.",
+        "Tratar excludentes e atenuantes por rompimento ou redução do nexo."
+      ],
+      "model": "A Constituição, no art. 37, §6º, estabelece responsabilidade das pessoas jurídicas de direito público e das pessoas jurídicas de direito privado prestadoras de serviços públicos pelos danos causados por seus agentes, nessa qualidade. Nos casos submetidos ao risco administrativo, a vítima deve demonstrar conduta, dano e nexo causal, sem necessidade de comprovar culpa do agente.\nA culpa administrativa corresponde a um fundamento subjetivo relacionado à falha do serviço, enquanto o risco administrativo dispensa essa demonstração nos casos abrangidos. Omissões exigem exame do dever de agir, do contexto e do regime aplicável. O direito de regresso contra o agente depende de dolo ou culpa.\nCulpa exclusiva da vítima ou fato de terceiro podem excluir a responsabilidade quando rompem o nexo. Culpa concorrente pode reduzir a indenização. Caso fortuito ou força maior não excluem automaticamente o dever de reparar: é necessário analisar se o evento é externo ao risco e se efetivamente rompe a relação causal.",
+      "source": "CF, art. 37, §6º. Excludentes não devem ser apresentadas como fórmulas automáticas."
+    },
+    {
+      "id": "discursiva-3",
+      "title": "Tráfico e consumo pessoal",
+      "text": "Analise a diferenciação entre o crime de tráfico de drogas (art. 33 da Lei 11.343/2006) e o porte para consumo pessoal (art. 28 da mesma Lei), destacando os critérios utilizados pela jurisprudência para diferenciar o usuário do traficante e as penas aplicáveis a cada caso. (Máximo 25 linhas).",
+      "criteria": [
+        "Comparar finalidade, verbos típicos e circunstâncias concretas.",
+        "Explicar pena-base do tráfico e medidas da literalidade do art. 28.",
+        "Incluir Tema 506, seu alcance restrito à cannabis e a presunção relativa."
+      ],
+      "model": "A distinção entre tráfico e porte para consumo pessoal exige examinar a finalidade da conduta e o conjunto de elementos concretos. A natureza e a quantidade da substância, o local, as circunstâncias da apreensão e os elementos de comercialização devem ser apreciados de forma fundamentada, sem critérios arbitrários ou estereótipos.\nO art. 33 da Lei 11.343/2006 prevê, no tipo básico, reclusão de 5 a 15 anos e multa, sem prejuízo das modalidades e causas modificadoras. O art. 28, em sua literalidade, prevê advertência, prestação de serviços e medida educativa, mas a cannabis para consumo pessoal tem tratamento específico após o Tema 506 do STF.\nNesse julgamento, foram afastados os efeitos penais do porte de cannabis para uso próprio, mantendo-se a ilicitude extrapenal e as medidas cabíveis. Fixou-se presunção relativa de uso até 40 gramas ou seis plantas fêmeas. Elementos concretos de mercancia podem afastá-la; quantidade superior também não impede reconhecer uso pessoal. A tese não legaliza o tráfico nem se aplica indistintamente a qualquer droga.",
+      "source": "Lei 11.343/2006, arts. 28 e 33; STF, Tema 506. Não confundir descriminalização do uso com legalização do comércio."
+    },
+    {
+      "id": "discursiva-4",
+      "title": "Atribuições do escrivão",
+      "text": "Discorra sobre as atribuições do Escrivão de Polícia Civil previstas na Lei Estadual nº 11.370/2009 (Lei Orgânica da PC-BA), destacando sua importância na formalização dos atos de inquérito policial e na gestão documental da carceragem e dos procedimentos legais. (Máximo 25 linhas).",
+      "criteria": [
+        "Relacionar formalização de procedimentos e cumprimento de determinações legítimas.",
+        "Explicar gestão, registro e guarda documental com sigilo e acesso autorizado.",
+        "Distinguir atribuições de escrivão, delegado e perito, sem inventar competências."
+      ],
+      "model": "O escrivão de Polícia Civil exerce atribuições essenciais à documentação e à regularidade dos procedimentos, conforme a Lei baiana 11.370/2009, suas alterações e as disposições aplicáveis à carreira. Sua atuação envolve a formalização de atos e termos, organização dos autos e cumprimento das determinações legítimas da autoridade competente no âmbito de suas atribuições.\nO registro fiel, a atualização dos controles e a adequada guarda e tramitação dos documentos permitem reconstruir a sequência dos atos, controlar prazos e assegurar a preservação das informações. Documentação relativa à custódia e às comunicações legais deve ser mantida com precisão, respeito aos direitos da pessoa e observância das regras institucionais.\nO tratamento de documentos e objetos sob responsabilidade funcional exige segurança, rastreabilidade, sigilo legal e acesso por pessoas autorizadas. O escrivão não substitui o delegado em decisões privativas, como o indiciamento, nem o perito na conclusão técnica. A qualidade de sua atuação sustenta a confiabilidade do inquérito e a proteção das garantias dos envolvidos.",
+      "source": "Lei baiana 11.370/2009 e Anexo II do edital. O modelo não atribui genericamente gestão operacional de carceragem ao escrivão."
+    }
+  ]
+}
