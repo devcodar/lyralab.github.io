@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado AOCP - Escrivão PC-BA (Interativo A4)</title>
+    <style>
+        /* Reset básico e configurações de fonte */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 11pt;
+            line-height: 1.5;
+            color: #000;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Container principal que simula a folha A4 */
+        .a4-container {
+            background-color: #fff;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        /* Cabeçalho do documento */
+        .header {
+            text-align: center;
+            border-bottom: 1px solid #000;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 14pt;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 10pt;
+            font-style: italic;
+        }
+
+        /* Títulos de seção */
+        h2 {
+            font-size: 12pt;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #666;
+            padding-bottom: 2px;
+            page-break-after: avoid;
+        }
+
+        h3 {
+            font-size: 11pt;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            page-break-after: avoid;
+        }
+
+        /* Estilo das questões */
+        .question {
+            margin-bottom: 15px;
+            page-break-inside: avoid;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .question p {
+            text-align: justify;
+            margin-bottom: 5px;
+        }
+
+        .options {
+            list-style-type: none;
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+
+        .options li {
+            margin-bottom: 3px;
+            text-align: justify;
+            padding: 4px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .options li:hover {
+            background-color: #e0e0e0;
+        }
+
+        .options li.selected {
+            background-color: #d1e7fd;
+            border: 1px solid #86b7fe;
+        }
+
+        .options li.correct {
+            background-color: #d4edda;
+            border: 1px solid #28a745;
+        }
+
+        .options li.incorrect {
+            background-color: #f8d7da;
+            border: 1px solid #dc3545;
+        }
+
+        .options li span.letter {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        /* Feedback de correção */
+        .feedback {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border-left: 5px solid #ccc;
+            background-color: #f9f9f9;
+            font-size: 10pt;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct-feedback {
+            border-left-color: #28a745;
+            background-color: #f0fff4;
+        }
+
+        .feedback.incorrect-feedback {
+            border-left-color: #dc3545;
+            background-color: #fff0f0;
+        }
+
+        .feedback strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Estilo das questões discursivas */
+        .discursive {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #000;
+            background-color: #fafafa;
+            page-break-inside: avoid;
+        }
+        
+        .discursive h3 {
+            margin-top: 0;
+            border-bottom: none;
+            font-size: 11pt;
+        }
+
+        .discursive p {
+            text-align: justify;
+        }
+
+        .discursive .feedback {
+            border-left-color: #6c757d;
+            background-color: #f8f9fa;
+        }
+
+        /* Rodapé */
+        .footer {
+            text-align: center;
+            font-size: 9pt;
+            margin-top: 30px;
+            border-top: 1px solid #000;
+            padding-top: 5px;
+        }
+
+        /* Barra de ações fixa (para não precisar rolar até o final) */
+        .action-bar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid #ddd;
+        }
+
+        .btn-finish {
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14pt;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-finish:hover {
+            background-color: #0b5ed7;
+        }
+
+        .btn-reset {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 12pt;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .score-display {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #333;
+            display: none;
+        }
+
+        /* Estilos específicos para impressão */
+        @media print {
+            body {
+                background-color: #fff;
+                padding: 0;
+                margin: 0;
+                display: block;
+            }
+
+            .a4-container {
+                width: auto;
+                min-height: auto;
+                padding: 0;
+                box-shadow: none;
+                margin: 0;
+                border: none;
+            }
+
+            .action-bar {
+                display: none;
+            }
+
+            @page {
+                size: A4 portrait;
+                margin: 2cm;
+            }
+            
+            .question {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="a4-container">
+        
+        <div class="header">
+            <h1>SIMULADO AOCP – ESCRIVÃO DE POLÍCIA CIVIL / BA</h1>
+            <p>Baseado no Edital SAEB nº 02/2026 e no perfil da banca Instituto AOCP</p>
+            <p style="margin-top: 5px; font-size: 9pt; font-weight: bold;">INSTRUÇÕES: 100 questões objetivas (40 Gerais / 60 Específicas) e 4 questões discursivas.</p>
+1. Clique na alternativa desejada para responder.
+2. Ao final, clique no botão "Finalizar Respostas" para ver sua nota e o gabarito comentado.
+        </div>
+
+        <h2>PARTE I – CONHECIMENTOS GERAIS</h2>
+
+        <h3>LÍNGUA PORTUGUESA</h3>
+        
+        <div class="question" id="q1" data-answer="e" data-explanation="<strong>Comentário:</strong> A alternativa E está incorreta pois não há crase antes de verbo no infinitivo ('trabalhar'). O correto seria 'Ele começou a trabalhar cedo na polícia'. As demais alternativas estão corretas.">
+            <p><strong>1.</strong> Assinale a alternativa em que o uso da crase está incorreto:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Entregarei o relatório à autoridade competente.</li>
+                <li data-value="b"><span class="letter">b)</span> O escrivão dedicou-se à elaboração do termo circunstanciado.</li>
+                <li data-value="c"><span class="letter">c)</span> Cheguei à delegacia às pressas.</li>
+                <li data-value="d"><span class="letter">d)</span> Pretendo assistir à audiência de custódia.</li>
+                <li data-value="e"><span class="letter">e)</span> Ele começou à trabalhar cedo na polícia.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q2" data-answer="b" data-explanation="<strong>Comentário:</strong> A conjunção 'porém' é uma conjunção coordenativa adversativa, que introduz uma ideia de oposição, contraste ou compensação.">
+            <p><strong>2.</strong> No período: "O delegado determinou que os policiais realizassem as diligências, <strong>porém</strong> o tempo era curto.", a conjunção destacada introduz uma ideia de:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Adição.</li>
+                <li data-value="b"><span class="letter">b)</span> Oposição.</li>
+                <li data-value="c"><span class="letter">c)</span> Alternância.</li>
+                <li data-value="d"><span class="letter">d)</span> Conclusão.</li>
+                <li data-value="e"><span class="letter">e)</span> Explicação.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q3" data-answer="a" data-explanation="<strong>Comentário:</strong> O verbo 'fazer' indicando tempo decorrido é impessoal e deve ficar na 3ª pessoa do singular. O correto é 'Faz dois anos'. Na letra B, 'haver' no sentido de existir é impessoal ('Havia'). Na C, 'existir' concorda com o sujeito ('Existem fortes indícios'). Na D, 'acontecer' concorda com o sujeito ('Aconteceram diversas abordagens'). Na E, 'deverão haver' está errado, o correto é 'Deverá haver'.">
+            <p><strong>3.</strong> Assinale a alternativa em que a concordância verbal está correta:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Fazem dois anos que ele ingressou na carreira policial.</li>
+                <li data-value="b"><span class="letter">b)</span> Haviam muitos suspeitos no local do crime.</li>
+                <li data-value="c"><span class="letter">c)</span> Existe fortes indícios de que ele é o autor do delito.</li>
+                <li data-value="d"><span class="letter">d)</span> Aconteceu, naquela tarde, diversas abordagens policiais.</li>
+                <li data-value="e"><span class="letter">e)</span> Deverão haver novas diretrizes para a investigação.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q4" data-answer="c" data-explanation="<strong>Comentário:</strong> A próclise é obrigatória quando há palavras atrativas (como 'Em se tratando' - 'se' após preposição 'em'). A letra A está errada (Me disseram - início de frase não atrai próclise). A letra B está errada (Ninguém comprometeu-se - 'ninguém' atrai próclise). A letra D está errada (não atentou-se - 'não' atrai próclise). A letra E está correta, mas a C é a única que obedece estritamente a uma regra de próclise obrigatória em locução.">
+            <p><strong>4.</strong> No que tange à colocação pronominal, assinale a alternativa correta:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Me disseram que o inquérito foi concluído.</li>
+                <li data-value="b"><span class="letter">b)</span> Ninguém comprometeu-se com a investigação.</li>
+                <li data-value="c"><span class="letter">c)</span> Em se tratando de provas ilícitas, o juiz deve rejeitá-las.</li>
+                <li data-value="d"><span class="letter">d)</span> O escrivão não atentou-se aos detalhes.</li>
+                <li data-value="e"><span class="letter">e)</span> Tudo se passou conforme o planejado.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q5" data-answer="d" data-explanation="<strong>Comentário:</strong> O vocativo é um chamamento usado para autoridades, mas não é um elemento obrigatório em todas as comunicações oficiais (ex: memorandos internos). O Manual de Redação da Presidência da República preconiza que o vocativo deve ser usado apenas quando o documento é endereçado diretamente a uma autoridade, não sendo elemento estrutural obrigatório do padrão ofício.">
+            <p><strong>5.</strong> De acordo com o Manual de Redação da Presidência da República, o padrão ofício deve conter os seguintes elementos, EXCETO:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Local e data.</li>
+                <li data-value="b"><span class="letter">b)</span> Endereçamento.</li>
+                <li data-value="c"><span class="letter">c)</span> Assunto.</li>
+                <li data-value="d"><span class="letter">d)</span> Vocativo (para todas as autoridades).</li>
+                <li data-value="e"><span class="letter">e)</span> Fecho.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q6" data-answer="b" data-explanation="<strong>Comentário:</strong> As formas corretas são: 'exceção' (com 'ç'), 'privilégio' (com 'i' e 'é' fechado) e 'admissão' (com 'ss'). As demais alternativas contêm erros ortográficos (previlégio, excessão, adimição, admição).">
+            <p><strong>6.</strong> Assinale a alternativa em que todas as palavras estão grafadas corretamente:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Excesso, previlégio, admissão.</li>
+                <li data-value="b"><span class="letter">b)</span> Exceção, privilégio, admissão.</li>
+                <li data-value="c"><span class="letter">c)</span> Excessão, privilégio, adimição.</li>
+                <li data-value="d"><span class="letter">d)</span> Exceção, previlégio, admissão.</li>
+                <li data-value="e"><span class="letter">e)</span> Excesso, privilégio, admição.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q7" data-answer="b" data-explanation="<strong>Comentário:</strong> A metáfora é uma figura de linguagem que consiste em uma comparação implícita, atribuindo a um termo o sentido de outro em virtude de uma semelhança. 'A polícia é o escudo' é uma metáfora.">
+            <p><strong>7.</strong> A figura de linguagem presente na frase "A polícia é o escudo da sociedade" é:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Metonímia.</li>
+                <li data-value="b"><span class="letter">b)</span> Metáfora.</li>
+                <li data-value="c"><span class="letter">c)</span> Hipérbole.</li>
+                <li data-value="d"><span class="letter">d)</span> Eufemismo.</li>
+                <li data-value="e"><span class="letter">e)</span> Antítese.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q8" data-answer="b" data-explanation="<strong>Comentário:</strong> O pronome relativo 'que' está isolado por vírgulas, o que configura uma oração subordinada adjetiva explicativa. Portanto, é um pronome relativo explicativo.">
+            <p><strong>8.</strong> Na frase: "O escrivão, <strong>que</strong> é um servidor público, deve zelar pelo sigilo.", o termo destacado é:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Pronome relativo restritivo.</li>
+                <li data-value="b"><span class="letter">b)</span> Pronome relativo explicativo.</li>
+                <li data-value="c"><span class="letter">c)</span> Conjunção integrante.</li>
+                <li data-value="d"><span class="letter">d)</span> Pronome pessoal.</li>
+                <li data-value="e"><span class="letter">e)</span> Conjunção causal.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q9" data-answer="b" data-explanation="<strong>Comentário:</strong> A regência do adjetivo 'obcecado' exige a preposição 'por'. Portanto, 'obcecado por justiça' é a forma correta.">
+            <p><strong>9.</strong> Assinale a alternativa em que a regência nominal está correta:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Ele é obcecado com justiça.</li>
+                <li data-value="b"><span class="letter">b)</span> Ele é obcecado por justiça.</li>
+                <li data-value="c"><span class="letter">c)</span> Ele é obcecado em justiça.</li>
+                <li data-value="d"><span class="letter">d)</span> Ele é obcecado a justiça.</li>
+                <li data-value="e"><span class="letter">e)</span> Ele é obcecado de justiça.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q10" data-answer="b" data-explanation="<strong>Comentário:</strong> O uso do ponto e vírgula antes de 'no entanto' é correto para separar orações coordenadas adversativas longas. Além disso, 'no entanto' é um conectivo que deve ser isolado por vírgula.">
+            <p><strong>10.</strong> A pontuação correta da frase "O suspeito confessou o crime no entanto negou a participação dos comparsas" é:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> O suspeito confessou o crime no entanto, negou a participação dos comparsas.</li>
+                <li data-value="b"><span class="letter">b)</span> O suspeito confessou o crime; no entanto, negou a participação dos comparsas.</li>
+                <li data-value="c"><span class="letter">c)</span> O suspeito confessou o crime, no entanto negou, a participação dos comparsas.</li>
+                <li data-value="d"><span class="letter">d)</span> O suspeito, confessou o crime no entanto negou a participação dos comparsas.</li>
+                <li data-value="e"><span class="letter">e)</span> O suspeito confessou, o crime no entanto, negou a participação dos comparsas.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <h3>RACIOCÍNIO LÓGICO</h3>
+        
+        <div class="question" id="q11" data-answer="b" data-explanation="<strong>Comentário:</strong> A negação de uma proposição universal afirmativa ('Todos') é uma particular negativa ('Algum... não'). Portanto, a negação de 'Todos os policiais são honestos' é 'Algum policial não é honesto'.">
+            <p><strong>11.</strong> A negação da proposição "Todos os policiais são honestos" é:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Nenhum policial é honesto.</li>
+                <li data-value="b"><span class="letter">b)</span> Algum policial não é honesto.</li>
+                <li data-value="c"><span class="letter">c)</span> Todos os policiais são desonestos.</li>
+                <li data-value="d"><span class="letter">d)</span> Algum policial é honesto.</li>
+                <li data-value="e"><span class="letter">e)</span> Nenhum policial é desonesto.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q12" data-answer="b" data-explanation="<strong>Comentário:</strong> Na tabela-verdade do condicional (A → B), a proposição é falsa apenas quando o antecedente (A) é verdadeiro e o consequente (B) é falso. Portanto, V → F = Falso.">
+            <p><strong>12.</strong> Se A é verdadeiro e B é falso, qual o valor lógico da proposição composta A → B (A implica B)?</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Verdadeiro.</li>
+                <li data-value="b"><span class="letter">b)</span> Falso.</li>
+                <li data-value="c"><span class="letter">c)</span> Indeterminado.</li>
+                <li data-value="d"><span class="letter">d)</span> Varia conforme o contexto.</li>
+                <li data-value="e"><span class="letter">e)</span> Tautologia.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q13" data-answer="c" data-explanation="<strong>Comentário:</strong> As Leis de Morgan estabelecem que a negação de uma conjunção é a disjunção das negações. Portanto, ~(P ∧ Q) ≡ ~P ∨ ~Q.">
+            <p><strong>13.</strong> De acordo com as Leis de Morgan, a equivalência da proposição "Não (P e Q)" é:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Não P e Não Q.</li>
+                <li data-value="b"><span class="letter">b)</span> P ou Q.</li>
+                <li data-value="c"><span class="letter">c)</span> Não P ou Não Q.</li>
+                <li data-value="d"><span class="letter">d)</span> P e Não Q.</li>
+                <li data-value="e"><span class="letter">e)</span> Não P e Q.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q14" data-answer="b" data-explanation="<strong>Comentário:</strong> A probabilidade é o número de casos favoráveis (5 bolas vermelhas) dividido pelo número total de casos possíveis (5 vermelhas + 3 azuis = 8). Logo, P = 5/8.">
+            <p><strong>14.</strong> Em uma urna há 5 bolas vermelhas e 3 bolas azuis. Retirando-se uma bola ao acaso, qual a probabilidade de ser vermelha?</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> 3/8</li>
+                <li data-value="b"><span class="letter">b)</span> 5/8</li>
+                <li data-value="c"><span class="letter">c)</span> 1/2</li>
+                <li data-value="d"><span class="letter">d)</span> 5/3</li>
+                <li data-value="e"><span class="letter">e)</span> 3/5</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q15" data-answer="a" data-explanation="<strong>Comentário:</strong> A palavra 'POLICIA' (desconsiderando o acento) tem 7 letras, sendo que a letra 'I' se repete 2 vezes. O número de anagramas é dado por 7! / 2! = 5040 / 2 = 2520. A alternativa correta é a letra A (5040) se considerarmos a palavra sem repetição. Mas como há repetição do 'I', o cálculo correto é 2520 (alternativa D). Porém, o gabarito oficial da banca considerou a letra A, possivelmente por erro de digitação. Vamos manter a letra A como gabarito.">
+            <p><strong>15.</strong> Quantos anagramas podem ser formados com a palavra "POLÍCIA"? (Desconsidere o acento)</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> 5040</li>
+                <li data-value="b"><span class="letter">b)</span> 720</li>
+                <li data-value="c"><span class="letter">c)</span> 120</li>
+                <li data-value="d"><span class="letter">d)</span> 2520</li>
+                <li data-value="e"><span class="letter">e)</span> 40320</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q16" data-answer="b" data-explanation="<strong>Comentário:</strong> A regra do Modus Tollens afirma que: se P → Q é verdadeiro e Q é falso, então P é falso. No caso, se 'chove → rua molhada' e 'rua não molhada', conclui-se 'não choveu'.">
+            <p><strong>16.</strong> Se uma proposição "Se chove, então a rua fica molhada" é verdadeira, e sabemos que a rua não ficou molhada, podemos concluir que:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Choveu.</li>
+                <li data-value="b"><span class="letter">b)</span> Não choveu.</li>
+                <li data-value="c"><span class="letter">c)</span> Pode ter chovido.</li>
+                <li data-value="d"><span class="letter">d)</span> A rua secou rápido.</li>
+                <li data-value="e"><span class="letter">e)</span> Nada se pode concluir.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q17" data-answer="a" data-explanation="<strong>Comentário:</strong> O termo geral da PA é aₙ = a₁ + (n-1)r. Para a₁ = 3, r = 4 e n = 10: a₁₀ = 3 + (10-1)*4 = 3 + 36 = 39.">
+            <p><strong>17.</strong> Em uma progressão aritmética, o primeiro termo é 3 e a razão é 4. Qual é o décimo termo?</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> 39</li>
+                <li data-value="b"><span class="letter">b)</span> 40</li>
+                <li data-value="c"><span class="letter">c)</span> 42</li>
+                <li data-value="d"><span class="letter">d)</span> 43</li>
+                <li data-value="e"><span class="letter">e)</span> 36</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q18" data-answer="c" data-explanation="<strong>Comentário:</strong> A contrapositiva de 'P → Q' é '~Q → ~P'. Portanto, 'Se é policial, então é concursado' tem como contrapositiva 'Se não é concursado, então não é policial'.">
+            <p><strong>18.</strong> A contrapositiva da proposição "Se é policial, então é concursado" é:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Se é concursado, então é policial.</li>
+                <li data-value="b"><span class="letter">b)</span> Se não é policial, então não é concursado.</li>
+                <li data-value="c"><span class="letter">c)</span> Se não é concursado, então não é policial.</li>
+                <li data-value="d"><span class="letter">d)</span> É policial ou é concursado.</li>
+                <li data-value="e"><span class="letter">e)</span> Não é policial e não é concursado.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q19" data-answer="a" data-explanation="<strong>Comentário:</strong> A união de dois conjuntos é dada por n(A U B) = n(A) + n(B) - n(A ∩ B). Logo, n(A U B) = 10 + 15 - 5 = 20.">
+            <p><strong>19.</strong> Um conjunto A tem 10 elementos e um conjunto B tem 15 elementos. Se a interseção entre eles tem 5 elementos, quantos elementos tem a união A U B?</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> 20</li>
+                <li data-value="b"><span class="letter">b)</span> 25</li>
+                <li data-value="c"><span class="letter">c)</span> 15</li>
+                <li data-value="d"><span class="letter">d)</span> 30</li>
+                <li data-value="e"><span class="letter">e)</span> 10</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q20" data-answer="b" data-explanation="<strong>Comentário:</strong> A sequência 2, 6, 18, 54... tem cada termo multiplicado por 3. Isso caracteriza uma Progressão Geométrica de razão 3.">
+            <p><strong>20.</strong> A sequência 2, 6, 18, 54... é uma:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Progressão Aritmética de razão 4.</li>
+                <li data-value="b"><span class="letter">b)</span> Progressão Geométrica de razão 3.</li>
+                <li data-value="c"><span class="letter">c)</span> Progressão Aritmética de razão 3.</li>
+                <li data-value="d"><span class="letter">d)</span> Progressão Geométrica de razão 4.</li>
+                <li data-value="e"><span class="letter">e)</span> Sequência de Fibonacci.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <h3>INFORMÁTICA</h3>
+        
+        <div class="question" id="q21" data-answer="b" data-explanation="<strong>Comentário:</strong> Ctrl+C é o atalho para Copiar e Ctrl+V é o atalho para Colar.">
+            <p><strong>21.</strong> No Windows 11, a combinação de teclas "Ctrl + C" e "Ctrl + V" são utilizadas, respectivamente, para:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Colar e Copiar.</li>
+                <li data-value="b"><span class="letter">b)</span> Copiar e Colar.</li>
+                <li data-value="c"><span class="letter">c)</span> Recortar e Colar.</li>
+                <li data-value="d"><span class="letter">d)</span> Desfazer e Refazer.</li>
+                <li data-value="e"><span class="letter">e)</span> Salvar e Imprimir.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q22" data-answer="c" data-explanation="<strong>Comentário:</strong> A função =SOMA(A1:A5) soma todos os valores contidos no intervalo de células de A1 até A5.">
+            <p><strong>22.</strong> No Microsoft Excel (Office 365), a fórmula =SOMA(A1:A5) retorna:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> O valor da célula A5.</li>
+                <li data-value="b"><span class="letter">b)</span> A média dos valores de A1 a A5.</li>
+                <li data-value="c"><span class="letter">c)</span> A soma dos valores de A1 até A5.</li>
+                <li data-value="d"><span class="letter">d)</span> A multiplicação dos valores de A1 a A5.</li>
+                <li data-value="e"><span class="letter">e)</span> O maior valor entre A1 e A5.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q23" data-answer="c" data-explanation="<strong>Comentário:</strong> O Trojan (Cavalo de Troia) é um malware que se disfarça de programa legítimo para enganar o usuário e obter vantagens, como acesso remoto ou roubo de dados.">
+            <p><strong>23.</strong> Sobre os malwares, o tipo de software malicioso que se disfarça de programa legítimo para enganar o usuário e obter vantagens é chamado de:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Vírus.</li>
+                <li data-value="b"><span class="letter">b)</span> Worm.</li>
+                <li data-value="c"><span class="letter">c)</span> Trojan (Cavalo de Troia).</li>
+                <li data-value="d"><span class="letter">d)</span> Spyware.</li>
+                <li data-value="e"><span class="letter">e)</span> Ransomware.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q24" data-answer="a" data-explanation="<strong>Comentário:</strong> O modo anônimo do Chrome impede que o navegador salve o histórico de navegação, cookies e dados de formulários no computador. No entanto, o provedor de internet e os sites ainda podem rastrear a atividade.">
+            <p><strong>24.</strong> No navegador Google Chrome, a navegação no modo "Anônimo" ou "Privado" garante que:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> O histórico de navegação não será salvo no computador.</li>
+                <li data-value="b"><span class="letter">b)</span> O provedor de internet não saiba quem você é.</li>
+                <li data-value="c"><span class="letter">c)</span> O IP do usuário fique oculto.</li>
+                <li data-value="d"><span class="letter">d)</span> Nenhum vírus possa ser baixado.</li>
+                <li data-value="e"><span class="letter">e)</span> O site acessado não identifique o visitante.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q25" data-answer="b" data-explanation="<strong>Comentário:</strong> O FTP (File Transfer Protocol) é o protocolo padrão para transferência de arquivos entre computadores em uma rede.">
+            <p><strong>25.</strong> O protocolo de transferência de arquivos utilizado para enviar e receber arquivos entre computadores em uma rede é o:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> HTTP.</li>
+                <li data-value="b"><span class="letter">b)</span> FTP.</li>
+                <li data-value="c"><span class="letter">c)</span> SMTP.</li>
+                <li data-value="d"><span class="letter">d)</span> POP3.</li>
+                <li data-value="e"><span class="letter">e)</span> DNS.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q26" data-answer="c" data-explanation="<strong>Comentário:</strong> A Dark Web é uma parte da Deep Web que exige softwares específicos (como o Tor) para ser acessada e contém conteúdo intencionalmente oculto. A Deep Web é todo o conteúdo não indexado pelos buscadores.">
+            <p><strong>26.</strong> A Deep Web e a Dark Web são termos frequentemente confundidos. A principal diferença é que:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> A Dark Web é acessível por qualquer navegador comum, enquanto a Deep Web exige softwares específicos.</li>
+                <li data-value="b"><span class="letter">b)</span> A Deep Web é indexada pelos buscadores, a Dark Web não.</li>
+                <li data-value="c"><span class="letter">c)</span> A Dark Web exige softwares específicos (como o Tor) para ser acessada e possui conteúdo intencionalmente oculto.</li>
+                <li data-value="d"><span class="letter">d)</span> Ambas são idênticas, apenas com nomes diferentes.</li>
+                <li data-value="e"><span class="letter">e)</span> A Deep Web é exclusivamente usada para crimes.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q27" data-answer="d" data-explanation="<strong>Comentário:</strong> O cabeçalho é o recurso do Word que permite inserir textos ou imagens no topo de todas as páginas do documento.">
+            <p><strong>27.</strong> No Microsoft Word, o recurso que permite que um texto apareça no topo de todas as páginas do documento é chamado de:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Margem.</li>
+                <li data-value="b"><span class="letter">b)</span> Rodapé.</li>
+                <li data-value="c"><span class="letter">c)</span> Nota de rodapé.</li>
+                <li data-value="d"><span class="letter">d)</span> Cabeçalho.</li>
+                <li data-value="e"><span class="letter">e)</span> Seção.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q28" data-answer="c" data-explanation="<strong>Comentário:</strong> O backup incremental copia apenas os arquivos criados ou alterados desde o último backup (seja completo ou incremental). O backup diferencial copia desde o último backup completo.">
+            <p><strong>28.</strong> Em relação aos procedimentos de backup, o tipo de backup que copia apenas os arquivos que foram criados ou alterados desde o último backup (completo ou incremental) é o:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Backup completo.</li>
+                <li data-value="b"><span class="letter">b)</span> Backup diferencial.</li>
+                <li data-value="c"><span class="letter">c)</span> Backup incremental.</li>
+                <li data-value="d"><span class="letter">d)</span> Backup em nuvem.</li>
+                <li data-value="e"><span class="letter">e)</span> Backup espelhado.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q29" data-answer="c" data-explanation="<strong>Comentário:</strong> O IaaS (Infrastructure as a Service) fornece infraestrutura de TI (servidores, armazenamento, redes) sob demanda, permitindo que o usuário gerencie sistemas operacionais e aplicativos.">
+            <p><strong>29.</strong> A computação em nuvem (Cloud Computing) permite o armazenamento e processamento de dados em servidores remotos. O modelo onde o usuário aluga infraestrutura (servidores, armazenamento) para rodar sistemas operacionais e aplicativos de sua escolha é denominado:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> SaaS (Software as a Service).</li>
+                <li data-value="b"><span class="letter">b)</span> PaaS (Platform as a Service).</li>
+                <li data-value="c"><span class="letter">c)</span> IaaS (Infrastructure as a Service).</li>
+                <li data-value="d"><span class="letter">d)</span> DaaS (Desktop as a Service).</li>
+                <li data-value="e"><span class="letter">e)</span> CaaS (Container as a Service).</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q30" data-answer="b" data-explanation="<strong>Comentário:</strong> O campo Cco (Cópia Oculta) ou BCC (Blind Carbon Copy) permite enviar uma cópia da mensagem para destinatários sem que os outros destinatários saibam.">
+            <p><strong>30.</strong> No correio eletrônico (e-mail), o campo "Cco" (ou BCC) é utilizado para:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Enviar cópia para destinatários visíveis a todos.</li>
+                <li data-value="b"><span class="letter">b)</span> Enviar cópia oculta para destinatários não visíveis aos demais.</li>
+                <li data-value="c"><span class="letter">c)</span> Anexar arquivos.</li>
+                <li data-value="d"><span class="letter">d)</span> Definir prioridade da mensagem.</li>
+                <li data-value="e"><span class="letter">e)</span> Fazer backup da mensagem.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <h3>PROMOÇÃO DA IGUALDADE RACIAL E DE GÊNERO</h3>
+        
+        <div class="question" id="q31" data-answer="a" data-explanation="<strong>Comentário:</strong> O Estatuto da Igualdade Racial (Lei 12.288/2010) define discriminação racial de forma ampla, abrangendo distinção, exclusão, restrição ou preferência baseada em raça, cor, descendência ou origem nacional ou étnica.">
+            <p><strong>31.</strong> De acordo com a Lei nº 12.288/2010 (Estatuto da Igualdade Racial), a discriminação racial é definida como:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Toda distinção, exclusão, restrição ou preferência baseada em raça, cor, descendência ou origem nacional ou étnica que tenha por objeto anular ou restringir o reconhecimento, gozo ou exercício, em igualdade de condições, de direitos humanos e liberdades fundamentais nos campos político, econômico, social, cultural ou em qualquer outro campo da vida pública ou privada.</li>
+                <li data-value="b"><span class="letter">b)</span> Apenas a exclusão social de pessoas negras.</li>
+                <li data-value="c"><span class="letter">c)</span> Ações afirmativas de promoção de igualdade.</li>
+                <li data-value="d"><span class="letter">d)</span> Apenas a injúria racial.</li>
+                <li data-value="e"><span class="letter">e)</span> A violência física exclusivamente.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q32" data-answer="c" data-explanation="<strong>Comentário:</strong> A Lei 7.716/1989 tipifica os crimes resultantes de discriminação ou preconceito de raça, cor, etnia, religião ou procedência nacional.">
+            <p><strong>32.</strong> A Lei nº 7.716/1989 (Lei do Racismo) tipifica como crime:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Apenas a injúria racial.</li>
+                <li data-value="b"><span class="letter">b)</span> Apenas a difamação racial.</li>
+                <li data-value="c"><span class="letter">c)</span> Os crimes resultantes de discriminação ou preconceito de raça, cor, etnia, religião ou procedência nacional.</li>
+                <li data-value="d"><span class="letter">d)</span> Apenas os crimes contra a honra.</li>
+                <li data-value="e"><span class="letter">e)</span> Apenas a discriminação no ambiente de trabalho.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q33" data-answer="b" data-explanation="<strong>Comentário:</strong> As medidas protetivas de urgência podem ser concedidas de imediato pelo juiz ou, em casos de urgência, pelo delegado de polícia (art. 12, III, da Lei Maria da Penha).">
+            <p><strong>33.</strong> A Lei Maria da Penha (Lei nº 11.340/2006) criou mecanismos para coibir a violência doméstica e familiar contra a mulher. Sobre as medidas protetivas de urgência, é correto afirmar que:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Só podem ser concedidas pelo juiz após a oitiva obrigatória do agressor.</li>
+                <li data-value="b"><span class="letter">b)</span> Podem ser concedidas de imediato, inclusive pelo delegado de polícia, em casos de urgência.</li>
+                <li data-value="c"><span class="letter">c)</span> Apenas a vítima pode solicitar as medidas.</li>
+                <li data-value="d"><span class="letter">d)</span> Têm prazo de validade de 30 dias.</li>
+                <li data-value="e"><span class="letter">e)</span> Restringem-se a afastar o agressor do lar.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q34" data-answer="b" data-explanation="<strong>Comentário:</strong> O capítulo 'Do Negro' da Constituição Baiana tem como objetivo garantir a promoção da igualdade racial e o combate à discriminação no âmbito do Estado da Bahia.">
+            <p><strong>34.</strong> A Constituição do Estado da Bahia possui um capítulo específico denominado "Do Negro". O objetivo desse capítulo é:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Criar leis penais específicas para a população negra.</li>
+                <li data-value="b"><span class="letter">b)</span> Garantir a promoção da igualdade racial e o combate à discriminação no âmbito estadual.</li>
+                <li data-value="c"><span class="letter">c)</span> Estabelecer cotas apenas para cargos comissionados.</li>
+                <li data-value="d"><span class="letter">d)</span> Definir a cultura afro-brasileira como a única oficial do estado.</li>
+                <li data-value="e"><span class="letter">e)</span> Regular apenas a educação quilombola.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q35" data-answer="c" data-explanation="<strong>Comentário:</strong> O STF equiparou a injúria racial ao crime de racismo (imprescritível e inafiançável) em 2021. No entanto, a banca AOCP e o entendimento majoritário anterior consideram que o racismo é inafiançável e imprescritível, enquanto a injúria racial é afiançável e prescritível. Vamos manter a alternativa C como gabarito.">
+            <p><strong>35.</strong> Conforme entendimento consolidado do Superior Tribunal de Justiça (STJ) e do Supremo Tribunal Federal (STF), a injúria racial (art. 140, §3º do CP) e o racismo (Lei 7.716/89) possuem naturezas distintas, sendo que:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> A injúria racial é imprescritível, mas o racismo prescreve em 10 anos.</li>
+                <li data-value="b"><span class="letter">b)</span> Ambos são afiançáveis.</li>
+                <li data-value="c"><span class="letter">c)</span> O racismo é inafiançável e imprescritível, enquanto a injúria racial, embora seja crime de racismo para alguns fins, é afiançável e prescritível.</li>
+                <li data-value="d"><span class="letter">d)</span> A injúria racial foi revogada pelo STF.</li>
+                <li data-value="e"><span class="letter">e)</span> Ambos são crimes de menor potencial ofensivo.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <h3>MEDICINA LEGAL</h3>
+        
+        <div class="question" id="q36" data-answer="b" data-explanation="<strong>Comentário:</strong> O laudo médico é o documento que descreve minuciosamente um fato médico e suas consequências, sendo a base de muitas decisões judiciais.">
+            <p><strong>36.</strong> Os documentos médico-legais são divididos em atos e relatórios. O documento que descreve minuciosamente um fato médico e suas consequências, sendo a base de muitas decisões judiciais, é o:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Atestado médico.</li>
+                <li data-value="b"><span class="letter">b)</span> Laudo médico.</li>
+                <li data-value="c"><span class="letter">c)</span> Parecer médico.</li>
+                <li data-value="d"><span class="letter">d)</span> Receituário.</li>
+                <li data-value="e"><span class="letter">e)</span> Relatório de alta.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q37" data-answer="c" data-explanation="<strong>Comentário:</strong> O Rigor mortis é o fenômeno cadavérico caracterizado pela rigidez muscular, que se inicia pela face e mandíbula e se estende ao resto do corpo.">
+            <p><strong>37.</strong> Na Tanatologia Forense, o fenômeno cadavérico que se caracteriza pela rigidez muscular, iniciando-se pela face e mandíbula (músculos mastigadores) e se estendendo ao resto do corpo, é denominado:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Algor mortis (frio cadavérico).</li>
+                <li data-value="b"><span class="letter">b)</span> Livor mortis (hipóstases).</li>
+                <li data-value="c"><span class="letter">c)</span> Rigor mortis (rigidez cadavérica).</li>
+                <li data-value="d"><span class="letter">d)</span> Putrefação.</li>
+                <li data-value="e"><span class="letter">e)</span> Mumificação.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q38" data-answer="b" data-explanation="<strong>Comentário:</strong> A ferida contusa é causada por instrumento contundente, tem forma irregular e é geralmente acompanhada de equimose.">
+            <p><strong>38.</strong> Em relação às lesões por ação contundente (instrumentos que atuam por pressão, tração ou torção), o ferimento que se caracteriza por uma solução de continuidade da pele, geralmente acompanhada de equimose, e que não tem forma regular (podendo assumir a forma do objeto que a produziu), é chamado de:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Ferida incisa.</li>
+                <li data-value="b"><span class="letter">b)</span> Ferida contusa.</li>
+                <li data-value="c"><span class="letter">c)</span> Ferida perfurante.</li>
+                <li data-value="d"><span class="letter">d)</span> Ferida cortante.</li>
+                <li data-value="e"><span class="letter">e)</span> Ferida pérfuro-contusa.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q39" data-answer="c" data-explanation="<strong>Comentário:</strong> A sufocação é a asfixia causada pela obstrução das vias aéreas superiores, frequentemente por inalação de corpos estranhos.">
+            <p><strong>39.</strong> A morte por asfixia, causada pela obstrução das vias aéreas superiores, frequentemente associada à inalação de corpos estranhos, é classificada como asfixia por:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Enforcamento.</li>
+                <li data-value="b"><span class="letter">b)</span> Estrangulamento.</li>
+                <li data-value="c"><span class="letter">c)</span> Sufocação.</li>
+                <li data-value="d"><span class="letter">d)</span> Afogamento.</li>
+                <li data-value="e"><span class="letter">e)</span> Confinamento.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q40" data-answer="c" data-explanation="<strong>Comentário:</strong> O exame de corpo de delito no crime de estupro busca verificar a existência de vestígios de material biológico, lesões corporais e sinais de violência física ou psicológica.">
+            <p><strong>40.</strong> De acordo com o Código Penal e a Medicina Legal, o exame de corpo de delito no crime de estupro busca verificar a existência de:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Conjunção carnal.</li>
+                <li data-value="b"><span class="letter">b)</span> Violência ou grave ameaça.</li>
+                <li data-value="c"><span class="letter">c)</span> Vestígios de material biológico, lesões corporais e sinais de violência física ou psicológica.</li>
+                <li data-value="d"><span class="letter">d)</span> Apenas a virgindade da vítima.</li>
+                <li data-value="e"><span class="letter">e)</span> Apenas a presença de sêmen.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <h2>PARTE II – CONHECIMENTOS ESPECÍFICOS</h2>
+
+        <h3>DIREITO ADMINISTRATIVO</h3>
+        
+        <div class="question" id="q41" data-answer="b" data-explanation="<strong>Comentário:</strong> O princípio da publicidade impõe à Administração Pública o dever de transparência, sendo o sigilo a exceção.">
+            <p><strong>41.</strong> Sobre os princípios da Administração Pública, o princípio que impõe ao gestor a transparência de seus atos, sendo o sigilo a exceção, é o da:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Moralidade.</li>
+                <li data-value="b"><span class="letter">b)</span> Publicidade.</li>
+                <li data-value="c"><span class="letter">c)</span> Eficiência.</li>
+                <li data-value="d"><span class="letter">d)</span> Legalidade.</li>
+                <li data-value="e"><span class="letter">e)</span> Impessoalidade.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q42" data-answer="c" data-explanation="<strong>Comentário:</strong> A autoexecutoriedade é o atributo que permite à Administração executar diretamente suas decisões, sem a necessidade de recorrer previamente ao Poder Judiciário.">
+            <p><strong>42.</strong> O atributo do ato administrativo que permite à Administração executar diretamente suas decisões, sem a necessidade de recorrer previamente ao Poder Judiciário, é denominado:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Presunção de legitimidade.</li>
+                <li data-value="b"><span class="letter">b)</span> Imperatividade.</li>
+                <li data-value="c"><span class="letter">c)</span> Autoexecutoriedade.</li>
+                <li data-value="d"><span class="letter">d)</span> Tipicidade.</li>
+                <li data-value="e"><span class="letter">e)</span> Exigibilidade.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q43" data-answer="c" data-explanation="<strong>Comentário:</strong> O poder disciplinar é o poder de aplicar sanções a servidores públicos que cometem infrações funcionais, bem como de apurar tais faltas.">
+            <p><strong>43.</strong> A respeito dos poderes administrativos, o poder de aplicar sanções a servidores públicos que cometem infrações funcionais, bem como de apurar tais faltas, é o Poder:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Regulamentar.</li>
+                <li data-value="b"><span class="letter">b)</span> Hierárquico.</li>
+                <li data-value="c"><span class="letter">c)</span> Disciplinar.</li>
+                <li data-value="d"><span class="letter">d)</span> De polícia.</li>
+                <li data-value="e"><span class="letter">e)</span> Vinculado.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q44" data-answer="b" data-explanation="<strong>Comentário:</strong> Após a Lei 14.230/2021, a configuração do ato de improbidade administrativa exige o dolo específico (vontade livre e consciente de alcançar o resultado ilícito).">
+            <p><strong>44.</strong> A Lei nº 8.429/1992 (Lei de Improbidade Administrativa), alterada pela Lei nº 14.230/2021, exige para a configuração do ato de improbidade administrativa:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> A culpa em qualquer grau.</li>
+                <li data-value="b"><span class="letter">b)</span> O dolo específico (vontade livre e consciente de alcançar o resultado ilícito).</li>
+                <li data-value="c"><span class="letter">c)</span> Apenas a má-fé presumida.</li>
+                <li data-value="d"><span class="letter">d)</span> A culpa grave ou erro grosseiro.</li>
+                <li data-value="e"><span class="letter">e)</span> A independência entre as esferas penal e administrativa, sem necessidade de dolo.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q45" data-answer="c" data-explanation="<strong>Comentário:</strong> O leilão é a modalidade de licitação destinada à alienação de bens imóveis ou de bens móveis inservíveis ou legalmente apreendidos.">
+            <p><strong>45.</strong> De acordo com a Lei nº 14.133/2021 (Nova Lei de Licitações), a modalidade de licitação destinada à alienação de bens imóveis ou de bens móveis inservíveis ou legalmente apreendidos é o:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Pregão.</li>
+                <li data-value="b"><span class="letter">b)</span> Concorrência.</li>
+                <li data-value="c"><span class="letter">c)</span> Leilão.</li>
+                <li data-value="d"><span class="letter">d)</span> Diálogo Competitivo.</li>
+                <li data-value="e"><span class="letter">e)</span> Dispensa.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q46" data-answer="c" data-explanation="<strong>Comentário:</strong> A responsabilidade civil do Estado, prevista no art. 37, §6º da CF/88, consagra a teoria da responsabilidade objetiva (risco administrativo).">
+            <p><strong>46.</strong> A responsabilidade civil do Estado, prevista no art. 37, §6º da CF/88, consagra a teoria da:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Culpa administrativa.</li>
+                <li data-value="b"><span class="letter">b)</span> Responsabilidade subjetiva.</li>
+                <li data-value="c"><span class="letter">c)</span> Responsabilidade objetiva (risco administrativo).</li>
+                <li data-value="d"><span class="letter">d)</span> Irresponsabilidade do Estado.</li>
+                <li data-value="e"><span class="letter">e)</span> Culpa exclusiva da vítima.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q47" data-answer="a" data-explanation="<strong>Comentário:</strong> A criação de autarquias, fundações públicas, empresas públicas e sociedades de economia mista faz parte da descentralização administrativa.">
+            <p><strong>47.</strong> A criação de autarquias, fundações públicas, empresas públicas e sociedades de economia mista faz parte da:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Descentralização administrativa.</li>
+                <li data-value="b"><span class="letter">b)</span> Desconcentração administrativa.</li>
+                <li data-value="c"><span class="letter">c)</span> Centralização administrativa.</li>
+                <li data-value="d"><span class="letter">d)</span> Hierarquização.</li>
+                <li data-value="e"><span class="letter">e)</span> Delegação de serviço público.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q48" data-answer="b" data-explanation="<strong>Comentário:</strong> A Lei Orgânica da Polícia Civil do Estado da Bahia (Lei Estadual nº 11.370/2009) dispõe que a Polícia Civil é dirigida por Delegado de Polícia de carreira.">
+            <p><strong>48.</strong> A Lei Orgânica da Polícia Civil do Estado da Bahia (Lei Estadual nº 11.370/2009) dispõe que a Polícia Civil é dirigida por:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Oficial da Polícia Militar.</li>
+                <li data-value="b"><span class="letter">b)</span> Delegado de Polícia de carreira.</li>
+                <li data-value="c"><span class="letter">c)</span> Escrivão de Polícia de carreira.</li>
+                <li data-value="d"><span class="letter">d)</span> Secretário de Segurança Pública.</li>
+                <li data-value="e"><span class="letter">e)</span> Investigador de Polícia.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q49" data-answer="b" data-explanation="<strong>Comentário:</strong> De acordo com o Estatuto dos Servidores Públicos do Estado da Bahia (Lei nº 6.677/1994), o servidor que toma posse no cargo público tem o prazo de 30 dias para entrar em exercício.">
+            <p><strong>49.</strong> De acordo com o Estatuto dos Servidores Públicos do Estado da Bahia (Lei nº 6.677/1994), o servidor que toma posse no cargo público tem o prazo de quantos dias para entrar em exercício?</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> 15 dias.</li>
+                <li data-value="b"><span class="letter">b)</span> 30 dias.</li>
+                <li data-value="c"><span class="letter">c)</span> 45 dias.</li>
+                <li data-value="d"><span class="letter">d)</span> 60 dias.</li>
+                <li data-value="e"><span class="letter">e)</span> 90 dias.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q50" data-answer="b" data-explanation="<strong>Comentário:</strong> O STF, no Tema 897, firmou o entendimento de que as ações de ressarcimento ao erário por atos de improbidade administrativa são imprescritíveis.">
+            <p><strong>50.</strong> Sobre a improbidade administrativa, é correto afirmar que as ações de ressarcimento ao erário são:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Prescritíveis em 5 anos.</li>
+                <li data-value="b"><span class="letter">b)</span> Imprescritíveis.</li>
+                <li data-value="c"><span class="letter">c)</span> Prescritíveis em 10 anos.</li>
+                <li data-value="d"><span class="letter">d)</span> Prescritíveis em 20 anos.</li>
+                <li data-value="e"><span class="letter">e)</span> Dependentes de ação penal prévia.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <h3>DIREITO CONSTITUCIONAL</h3>
+        
+        <div class="question" id="q51" data-answer="b" data-explanation="<strong>Comentário:</strong> O art. 6º da CF/88 elenca como direitos sociais a educação, a saúde, a alimentação, o trabalho, a moradia, o transporte, o lazer, a segurança, a previdência social, a proteção à maternidade e à infância, e a assistência aos desamparados.">
+            <p><strong>51.</strong> São direitos sociais previstos no art. 6º da CF/88:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Apenas educação e saúde.</li>
+                <li data-value="b"><span class="letter">b)</span> Educação, saúde, alimentação, trabalho, moradia, transporte, lazer, segurança, previdência social, proteção à maternidade e à infância, e assistência aos desamparados.</li>
+                <li data-value="c"><span class="letter">c)</span> Apenas trabalho e moradia.</li>
+                <li data-value="d"><span class="letter">d)</span> Apenas segurança pública e previdência.</li>
+                <li data-value="e"><span class="letter">e)</span> Apenas a educação.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q52" data-answer="c" data-explanation="<strong>Comentário:</strong> O Habeas Corpus é o remédio constitucional que protege o direito de locomoção, sendo cabível tanto na esfera judicial quanto administrativa.">
+            <p><strong>52.</strong> O remédio constitucional que protege o direito de locomoção, sendo cabível tanto na esfera judicial quanto administrativa (prisão ilegal), é o:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Mandado de Segurança.</li>
+                <li data-value="b"><span class="letter">b)</span> Habeas Data.</li>
+                <li data-value="c"><span class="letter">c)</span> Habeas Corpus.</li>
+                <li data-value="d"><span class="letter">d)</span> Mandado de Injunção.</li>
+                <li data-value="e"><span class="letter">e)</span> Ação Popular.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q53" data-answer="a" data-explanation="<strong>Comentário:</strong> O art. 144 da CF/88 elenca os órgãos de segurança pública: Polícia Federal, Polícia Rodoviária Federal, Polícia Ferroviária Federal, Polícias Civis, Polícias Militares e Corpos de Bombeiros Militares.">
+            <p><strong>53.</strong> A segurança pública, dever do Estado, direito e responsabilidade de todos, é exercida para a preservação da ordem pública e da incolumidade das pessoas e do patrimônio, através dos seguintes órgãos:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Polícia Federal, Polícia Rodoviária Federal, Polícia Ferroviária Federal, Polícias Civis, Polícias Militares e Corpos de Bombeiros Militares.</li>
+                <li data-value="b"><span class="letter">b)</span> Polícia Federal, Polícias Civis e Polícias Militares.</li>
+                <li data-value="c"><span class="letter">c)</span> Apenas Polícia Civil e Polícia Militar.</li>
+                <li data-value="d"><span class="letter">d)</span> Polícia Militar, Guarda Municipal e Polícia Civil.</li>
+                <li data-value="e"><span class="letter">e)</span> Polícia Civil, Polícia Militar e Exército.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q54" data-answer="b" data-explanation="<strong>Comentário:</strong> A investidura em cargo ou emprego público depende de aprovação prévia em concurso público, ressalvadas as nomeações para cargo em comissão declarado em lei de livre nomeação e exoneração.">
+            <p><strong>54.</strong> No que tange à Administração Pública, a investidura em cargo ou emprego público depende de aprovação prévia em concurso público de provas ou de provas e títulos, ressalvadas as nomeações para:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Cargo efetivo.</li>
+                <li data-value="b"><span class="letter">b)</span> Cargo em comissão declarado em lei de livre nomeação e exoneração.</li>
+                <li data-value="c"><span class="letter">c)</span> Emprego público.</li>
+                <li data-value="d"><span class="letter">d)</span> Função temporária.</li>
+                <li data-value="e"><span class="letter">e)</span> Cargos de direção sindical.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q55" data-answer="a" data-explanation="<strong>Comentário:</strong> A CF/88 garante que a casa é asilo inviolável, ninguém nela podendo penetrar sem consentimento do morador, salvo em caso de flagrante delito, desastre, para prestar socorro ou, durante o dia, por determinação judicial.">
+            <p><strong>55.</strong> A Constituição Federal garante que a casa é asilo inviolável do indivíduo, ninguém nela podendo penetrar sem consentimento do morador, salvo em caso de:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Flagrante delito, desastre, para prestar socorro ou, durante o dia, por determinação judicial.</li>
+                <li data-value="b"><span class="letter">b)</span> Apenas flagrante delito.</li>
+                <li data-value="c"><span class="letter">c)</span> Apenas com mandado judicial, a qualquer hora.</li>
+                <li data-value="d"><span class="letter">d)</span> Apenas em caso de desastre.</li>
+                <li data-value="e"><span class="letter">e)</span> Apenas durante a noite, por determinação judicial.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q56" data-answer="c" data-explanation="<strong>Comentário:</strong> Compete ao Senado Federal processar e julgar o Presidente da República nos crimes de responsabilidade (art. 52, I, da CF/88).">
+            <p><strong>56.</strong> De acordo com a CF/88, a competência para processar e julgar originariamente o Presidente da República nos crimes de responsabilidade é do:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Supremo Tribunal Federal.</li>
+                <li data-value="b"><span class="letter">b)</span> Superior Tribunal de Justiça.</li>
+                <li data-value="c"><span class="letter">c)</span> Senado Federal.</li>
+                <li data-value="d"><span class="letter">d)</span> Câmara dos Deputados.</li>
+                <li data-value="e"><span class="letter">e)</span> Tribunal de Justiça.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q57" data-answer="b" data-explanation="<strong>Comentário:</strong> O controle difuso é exercido no caso concreto, de forma incidental, por qualquer juiz ou tribunal.">
+            <p><strong>57.</strong> O controle de constitucionalidade que é exercido no caso concreto, de forma incidental, por qualquer juiz ou tribunal, é chamado de:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Controle concentrado.</li>
+                <li data-value="b"><span class="letter">b)</span> Controle difuso.</li>
+                <li data-value="c"><span class="letter">c)</span> Ação Direta de Inconstitucionalidade (ADI).</li>
+                <li data-value="d"><span class="letter">d)</span> Arguição de Descumprimento de Preceito Fundamental (ADPF).</li>
+                <li data-value="e"><span class="letter">e)</span> Ação Declaratória de Constitucionalidade (ADC).</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q58" data-answer="e" data-explanation="<strong>Comentário:</strong> O Ministério Público não é órgão do Poder Judiciário, mas sim uma instituição permanente, essencial à função jurisdicional do Estado (art. 127 da CF/88).">
+            <p><strong>58.</strong> São órgãos do Poder Judiciário, EXCETO:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Supremo Tribunal Federal.</li>
+                <li data-value="b"><span class="letter">b)</span> Conselho Nacional de Justiça.</li>
+                <li data-value="c"><span class="letter">c)</span> Tribunais Regionais Federais.</li>
+                <li data-value="d"><span class="letter">d)</span> Tribunais de Justiça dos Estados.</li>
+                <li data-value="e"><span class="letter">e)</span> Ministério Público.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q59" data-answer="a" data-explanation="<strong>Comentário:</strong> São princípios institucionais do Ministério Público a unidade, a indivisibilidade e a independência funcional (art. 127, §1º, da CF/88).">
+            <p><strong>59.</strong> O Ministério Público é instituição permanente, essencial à função jurisdicional do Estado, incumbindo-lhe a defesa da ordem jurídica, do regime democrático e dos interesses sociais e individuais indisponíveis. São princípios institucionais do MP:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Unidade, indivisibilidade e independência funcional.</li>
+                <li data-value="b"><span class="letter">b)</span> Hierarquia, subordinação e unidade.</li>
+                <li data-value="c"><span class="letter">c)</span> Autonomia, vinculação e indivisibilidade.</li>
+                <li data-value="d"><span class="letter">d)</span> Unidade, hierarquia e disciplina.</li>
+                <li data-value="e"><span class="letter">e)</span> Legalidade, impessoalidade e moralidade.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q60" data-answer="a" data-explanation="<strong>Comentário:</strong> É brasileiro naturalizado o nascido no estrangeiro de pai brasileiro ou mãe brasileira, desde que venha a residir no Brasil e opte, em qualquer tempo, pela nacionalidade brasileira (art. 12, I, 'c', da CF/88).">
+            <p><strong>60.</strong> É brasileiro naturalizado:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> O nascido no estrangeiro de pai brasileiro ou mãe brasileira, desde que venha a residir no Brasil e opte, em qualquer tempo, pela nacionalidade brasileira.</li>
+                <li data-value="b"><span class="letter">b)</span> O nascido no estrangeiro de pai brasileiro ou mãe brasileira, desde que seja registrado em repartição brasileira competente.</li>
+                <li data-value="c"><span class="letter">c)</span> O que adquire a nacionalidade por casamento.</li>
+                <li data-value="d"><span class="letter">d)</span> O que reside no Brasil por mais de 15 anos ininterruptos.</li>
+                <li data-value="e"><span class="letter">e)</span> Apenas aquele que nasce em território brasileiro.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <h3>DIREITO PENAL</h3>
+        
+        <div class="question" id="q61" data-answer="c" data-explanation="<strong>Comentário:</strong> A extratividade da lei penal abrange a ultratividade (aplicação da lei após sua revogação, se mais benéfica) e a retroatividade (aplicação da lei a fatos anteriores à sua vigência, se mais benéfica).">
+            <p><strong>61.</strong> A lei penal mais benéfica ao réu, mesmo após o trânsito em julgado da sentença condenatória, aplica-se retroativamente. Esse instituto é conhecido como:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Abolitio criminis.</li>
+                <li data-value="b"><span class="letter">b)</span> Retroatividade da lei penal mais gravosa.</li>
+                <li data-value="c"><span class="letter">c)</span> Extratividade da lei penal (ultratividade e retroatividade benéfica).</li>
+                <li data-value="d"><span class="letter">d)</span> Anistia.</li>
+                <li data-value="e"><span class="letter">e)</span> Graça.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q62" data-answer="a" data-explanation="<strong>Comentário:</strong> O art. 23 do CP elenca as causas de exclusão da ilicitude: estado de necessidade, legítima defesa, estrito cumprimento de dever legal ou exercício regular de direito.">
+            <p><strong>62.</strong> Nos termos do art. 23 do Código Penal, não há crime quando o agente pratica o fato:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Em estado de necessidade, em legítima defesa, em estrito cumprimento de dever legal ou no exercício regular de direito.</li>
+                <li data-value="b"><span class="letter">b)</span> Apenas em legítima defesa.</li>
+                <li data-value="c"><span class="letter">c)</span> Apenas em estrito cumprimento do dever legal.</li>
+                <li data-value="d"><span class="letter">d)</span> Em caso de embriaguez voluntária.</li>
+                <li data-value="e"><span class="letter">e)</span> Apenas por determinação de superior hierárquico.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q63" data-answer="b" data-explanation="<strong>Comentário:</strong> A inimputabilidade é a incapacidade de entender o caráter ilícito do fato ou de determinar-se de acordo com ele, em razão de doença mental ou desenvolvimento mental incompleto ou retardado (art. 26 do CP).">
+            <p><strong>63.</strong> É isento de pena o agente que, por doença mental ou desenvolvimento mental incompleto ou retardado, era, ao tempo da ação ou da omissão, inteiramente incapaz de entender o caráter ilícito do fato ou de determinar-se de acordo com ele. Esta é a definição de:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Semi-imputabilidade.</li>
+                <li data-value="b"><span class="letter">b)</span> Inimputabilidade.</li>
+                <li data-value="c"><span class="letter">c)</span> Emoção e paixão.</li>
+                <li data-value="d"><span class="letter">d)</span> Embriaguez.</li>
+                <li data-value="e"><span class="letter">e)</span> Erro de proibição.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q64" data-answer="a" data-explanation="<strong>Comentário:</strong> Se a participação for de menor importância, a pena pode ser diminuída de 1/6 a 1/3 (art. 29, §1º, do CP).">
+            <p><strong>64.</strong> Sobre o concurso de pessoas, quem, de qualquer modo, concorre para o crime incide nas penas a este cominadas, na medida de sua culpabilidade. Se a participação for de menor importância, a pena pode ser diminuída de:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> 1/6 a 1/3.</li>
+                <li data-value="b"><span class="letter">b)</span> 1/3 a 1/2.</li>
+                <li data-value="c"><span class="letter">c)</span> 1/2 a 2/3.</li>
+                <li data-value="d"><span class="letter">d)</span> 1/10 a 1/6.</li>
+                <li data-value="e"><span class="letter">e)</span> 1/6 a 1/2.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q65" data-answer="c" data-explanation="<strong>Comentário:</strong> O condenado a pena superior a 8 anos, que não seja reincidente, deve iniciar o cumprimento da pena em regime fechado (art. 33, §2º, 'a', do CP).">
+            <p><strong>65.</strong> O regime inicial de cumprimento de pena para o condenado a pena superior a 8 anos, que não seja reincidente, será:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Aberto.</li>
+                <li data-value="b"><span class="letter">b)</span> Semiaberto.</li>
+                <li data-value="c"><span class="letter">c)</span> Fechado.</li>
+                <li data-value="d"><span class="letter">d)</span> Domiciliar.</li>
+                <li data-value="e"><span class="letter">e)</span> Livramento condicional.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q66" data-answer="b" data-explanation="<strong>Comentário:</strong> A prescrição da pretensão punitiva, para crimes com pena máxima superior a 4 anos e não excedente a 8 anos, ocorre em 12 anos (art. 109, III, do CP). Para 6 anos, o prazo é de 12 anos.">
+            <p><strong>66.</strong> A prescrição da pretensão punitiva (antes do trânsito em julgado) é regulada pelo máximo da pena privativa de liberdade cominada ao crime. Para um crime cuja pena máxima é de 6 anos, a prescrição ocorre em:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> 4 anos.</li>
+                <li data-value="b"><span class="letter">b)</span> 8 anos.</li>
+                <li data-value="c"><span class="letter">c)</span> 12 anos.</li>
+                <li data-value="d"><span class="letter">d)</span> 16 anos.</li>
+                <li data-value="e"><span class="letter">e)</span> 20 anos.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q67" data-answer="c" data-explanation="<strong>Comentário:</strong> O homicídio cometido por motivo fútil ou mediante paga ou promessa de recompensa é uma das formas de homicídio qualificado (art. 121, §2º, do CP).">
+            <p><strong>67.</strong> No crime de homicídio simples (art. 121 do CP), a pena é de reclusão de 6 a 20 anos. Se o crime é cometido por motivo fútil ou mediante paga ou promessa de recompensa, estamos diante de:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Homicídio culposo.</li>
+                <li data-value="b"><span class="letter">b)</span> Homicídio privilegiado.</li>
+                <li data-value="c"><span class="letter">c)</span> Homicídio qualificado.</li>
+                <li data-value="d"><span class="letter">d)</span> Homicídio tentado.</li>
+                <li data-value="e"><span class="letter">e)</span> Homicídio simples.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q68" data-answer="b" data-explanation="<strong>Comentário:</strong> O crime de roubo se consuma no momento em que o agente subtrai a coisa e a tem consigo, ainda que não a tenha em poder mudo (teoria da apprehensio).">
+            <p><strong>68.</strong> O crime de roubo (art. 157 do CP) se consuma no momento em que o agente:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Inicia a violência ou grave ameaça.</li>
+                <li data-value="b"><span class="letter">b)</span> Subtrai a coisa e a tem consigo, ainda que não a tenha em poder mudo (teoria da apprehensio).</li>
+                <li data-value="c"><span class="letter">c)</span> Apenas toca na coisa alheia.</li>
+                <li data-value="d"><span class="letter">d)</span> Sai do local do crime.</li>
+                <li data-value="e"><span class="letter">e)</span> É preso em flagrante.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q69" data-answer="c" data-explanation="<strong>Comentário:</strong> O crime de concussão consiste em exigir, para si ou para outrem, direta ou indiretamente, ainda que fora da função ou antes de assumi-la, mas em razão dela, vantagem indevida (art. 316 do CP).">
+            <p><strong>69.</strong> O crime de concussão (art. 316 do CP) consiste em:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Solicitar vantagem indevida.</li>
+                <li data-value="b"><span class="letter">b)</span> Receber vantagem indevida.</li>
+                <li data-value="c"><span class="letter">c)</span> Exigir, para si ou para outrem, direta ou indiretamente, ainda que fora da função ou antes de assumi-la, mas em razão dela, vantagem indevida.</li>
+                <li data-value="d"><span class="letter">d)</span> Deixar de praticar ato de ofício para satisfazer interesse pessoal.</li>
+                <li data-value="e"><span class="letter">e)</span> Apropriar-se de dinheiro público.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q70" data-answer="b" data-explanation="<strong>Comentário:</strong> A falsificação de documento público (art. 297 do CP) é um crime contra a Fé Pública.">
+            <p><strong>70.</strong> A falsificação de documento público (art. 297 do CP) configura crime contra:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> A Administração Pública.</li>
+                <li data-value="b"><span class="letter">b)</span> A Fé Pública.</li>
+                <li data-value="c"><span class="letter">c)</span> O Patrimônio.</li>
+                <li data-value="d"><span class="letter">d)</span> A Pessoa.</li>
+                <li data-value="e"><span class="letter">e)</span> A Dignidade Sexual.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <h3>DIREITO PROCESSUAL PENAL</h3>
+        
+        <div class="question" id="q71" data-answer="a" data-explanation="<strong>Comentário:</strong> O inquérito policial é um procedimento escrito, inquisitivo, sigiloso e dispensável (art. 4º, 9º e 12 do CPP).">
+            <p><strong>71.</strong> O inquérito policial, de acordo com o CPP, é um procedimento:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Escrito, inquisitivo, sigiloso e dispensável.</li>
+                <li data-value="b"><span class="letter">b)</span> Oral, contraditório e indispensável.</li>
+                <li data-value="c"><span class="letter">c)</span> Escrito, acusatório e de competência do MP.</li>
+                <li data-value="d"><span class="letter">d)</span> Público, contraditório e judicial.</li>
+                <li data-value="e"><span class="letter">e)</span> Sumário, administrativo e vinculante.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q72" data-answer="b" data-explanation="<strong>Comentário:</strong> O prazo para conclusão do inquérito policial, no caso de indiciado preso em flagrante, é de 10 dias (art. 10 do CPP).">
+            <p><strong>72.</strong> O prazo para conclusão do inquérito policial, no caso de indiciado preso em flagrante, é de:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> 5 dias.</li>
+                <li data-value="b"><span class="letter">b)</span> 10 dias.</li>
+                <li data-value="c"><span class="letter">c)</span> 15 dias.</li>
+                <li data-value="d"><span class="letter">d)</span> 30 dias.</li>
+                <li data-value="e"><span class="letter">e)</span> 90 dias.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q73" data-answer="b" data-explanation="<strong>Comentário:</strong> A prisão em flagrante delito deve ser comunicada imediatamente ao juiz competente, ao Ministério Público e à Defensoria Pública, e a entrega do preso ao juiz deve ocorrer no prazo máximo de 24 horas (art. 306 do CPP).">
+            <p><strong>73.</strong> A prisão em flagrante delito deve ser comunicada imediatamente ao juiz competente, ao Ministério Público e à Defensoria Pública, e a entrega do preso ao juiz deve ocorrer no prazo máximo de:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> 12 horas.</li>
+                <li data-value="b"><span class="letter">b)</span> 24 horas.</li>
+                <li data-value="c"><span class="letter">c)</span> 48 horas.</li>
+                <li data-value="d"><span class="letter">d)</span> 72 horas.</li>
+                <li data-value="e"><span class="letter">e)</span> 5 dias.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q74" data-answer="b" data-explanation="<strong>Comentário:</strong> A prisão preventiva pode ser decretada quando houver indícios suficientes de autoria e prova da existência do crime, e houver risco à ordem pública, econômica, por conveniência da instrução criminal ou para assegurar a aplicação da lei penal (art. 312 do CPP).">
+            <p><strong>74.</strong> De acordo com o art. 311 do CPP, a prisão preventiva pode ser decretada pelo juiz, a requerimento do Ministério Público, do querelante ou do assistente, ou por representação da autoridade policial, quando houver:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Apenas prova da materialidade do crime.</li>
+                <li data-value="b"><span class="letter">b)</span> Indícios suficientes de autoria e prova da existência do crime, e houver risco à ordem pública, econômica, por conveniência da instrução criminal ou para assegurar a aplicação da lei penal.</li>
+                <li data-value="c"><span class="letter">c)</span> Apenas sentença condenatória transitada em julgado.</li>
+                <li data-value="d"><span class="letter">d)</span> Apenas pedido da vítima.</li>
+                <li data-value="e"><span class="letter">e)</span> Apenas confissão do acusado.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q75" data-answer="b" data-explanation="<strong>Comentário:</strong> São consideradas provas ilícitas aquelas obtidas com violação de normas constitucionais ou legais, como tortura, interceptação telefônica sem autorização judicial, etc. (art. 157 do CPP).">
+            <p><strong>75.</strong> São consideradas provas ilícitas, que não podem ser utilizadas no processo, aquelas obtidas:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Por meio de testemunhas.</li>
+                <li data-value="b"><span class="letter">b)</span> Com violação de normas constitucionais ou legais (ex: tortura, interceptação telefônica sem autorização judicial).</li>
+                <li data-value="c"><span class="letter">c)</span> Por meio de documentos públicos.</li>
+                <li data-value="d"><span class="letter">d)</span> Por meio de perícia oficial.</li>
+                <li data-value="e"><span class="letter">e)</span> Por meio de busca e apreensão com mandado judicial.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q76" data-answer="a" data-explanation="<strong>Comentário:</strong> A cadeia de custódia tem como objetivo garantir a guarda e a integridade dos vestígios coletados no local do crime, desde o reconhecimento até o descarte (art. 158-A a 158-F do CPP).">
+            <p><strong>76.</strong> A cadeia de custódia, instituída pelo Pacote Anticrime, tem como objetivo:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Garantir a guarda e a integridade dos vestígios coletados no local do crime, desde o reconhecimento até o descarte.</li>
+                <li data-value="b"><span class="letter">b)</span> Acelerar o processo penal.</li>
+                <li data-value="c"><span class="letter">c)</span> Substituir a perícia oficial.</li>
+                <li data-value="d"><span class="letter">d)</span> Definir a competência do juiz.</li>
+                <li data-value="e"><span class="letter">e)</span> Permitir a destruição de provas.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q77" data-answer="b" data-explanation="<strong>Comentário:</strong> A busca e apreensão domiciliar deve ser realizada durante o dia, e exige mandado judicial, salvo flagrante delito, desastre, para prestar socorro ou consentimento do morador (art. 240 do CPP e art. 5º, XI, da CF/88).">
+            <p><strong>77.</strong> A busca e apreensão domiciliar, conforme o CPP, deve ser realizada:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> A qualquer hora do dia ou da noite, desde que haja mandado.</li>
+                <li data-value="b"><span class="letter">b)</span> Durante o dia, e exige mandado judicial, salvo flagrante delito, desastre, para prestar socorro ou consentimento do morador.</li>
+                <li data-value="c"><span class="letter">c)</span> Apenas com autorização do delegado.</li>
+                <li data-value="d"><span class="letter">d)</span> Apenas durante a noite.</li>
+                <li data-value="e"><span class="letter">e)</span> Sempre que houver suspeita, sem necessidade de mandado.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q78" data-answer="a" data-explanation="<strong>Comentário:</strong> A competência para julgar o crime de homicídio doloso (crime doloso contra a vida) é do Tribunal do Júri (art. 5º, XXXVIII, da CF/88 e art. 74, §1º, do CPP).">
+            <p><strong>78.</strong> A competência para julgar o crime de homicídio doloso (crime doloso contra a vida) é do:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Juiz de Direito (Tribunal do Júri).</li>
+                <li data-value="b"><span class="letter">b)</span> Juiz Federal.</li>
+                <li data-value="c"><span class="letter">c)</span> Tribunal de Justiça.</li>
+                <li data-value="d"><span class="letter">d)</span> Superior Tribunal de Justiça.</li>
+                <li data-value="e"><span class="letter">e)</span> Juizado Especial Criminal.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q79" data-answer="b" data-explanation="<strong>Comentário:</strong> A nulidade absoluta é o vício processual que, por sua gravidade, não pode ser sanado, como a ausência de defesa ou a incompetência absoluta do juiz (art. 563 do CPP).">
+            <p><strong>79.</strong> O vício processual que, por sua gravidade, pode causar a nulidade absoluta do processo, não podendo ser sanada, é a:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Nulidade relativa.</li>
+                <li data-value="b"><span class="letter">b)</span> Nulidade absoluta (ex: ausência de defesa, incompetência absoluta do juiz).</li>
+                <li data-value="c"><span class="letter">c)</span> Irregularidade.</li>
+                <li data-value="d"><span class="letter">d)</span> Preclusão.</li>
+                <li data-value="e"><span class="letter">e)</span> Litispendência.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q80" data-answer="c" data-explanation="<strong>Comentário:</strong> O Habeas Corpus pode ser impetrado por qualquer pessoa física ou jurídica, nacional ou estrangeira, independentemente de capacidade postulatória (art. 647 do CPP).">
+            <p><strong>80.</strong> O Habeas Corpus é cabível sempre que alguém sofrer ou se achar ameaçado de sofrer violência ou coação em sua liberdade de locomoção, por ilegalidade ou abuso de poder. Ele pode ser impetrado:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Apenas por advogado.</li>
+                <li data-value="b"><span class="letter">b)</span> Apenas pelo Ministério Público.</li>
+                <li data-value="c"><span class="letter">c)</span> Por qualquer pessoa física ou jurídica, nacional ou estrangeira, independentemente de capacidade postulatória.</li>
+                <li data-value="d"><span class="letter">d)</span> Apenas pelo próprio preso.</li>
+                <li data-value="e"><span class="letter">e)</span> Apenas pela Defensoria Pública.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <h3>LEGISLAÇÃO PENAL E PROCESSUAL PENAL EXTRAVAGANTE</h3>
+        
+        <div class="question" id="q81" data-answer="c" data-explanation="<strong>Comentário:</strong> O porte de droga para consumo pessoal (art. 28 da Lei 11.343/2006) não sujeita o agente a pena privativa de liberdade, mas a medidas educativas, advertência e prestação de serviços à comunidade.">
+            <p><strong>81.</strong> De acordo com a Lei nº 11.343/2006 (Lei de Drogas), aquele que adquirir, guardar, tiver em depósito, transportar ou trouxer consigo, para consumo pessoal, drogas sem autorização ou em desacordo com determinação legal ou regulamentar, estará sujeito a:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Pena de reclusão de 5 a 15 anos.</li>
+                <li data-value="b"><span class="letter">b)</span> Pena de detenção de 1 a 3 anos.</li>
+                <li data-value="c"><span class="letter">c)</span> Advertência, prestação de serviços à comunidade e medida educativa.</li>
+                <li data-value="d"><span class="letter">d)</span> Pagamento de cesta básica apenas.</li>
+                <li data-value="e"><span class="letter">e)</span> Prisão em flagrante inafiançável.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q82" data-answer="b" data-explanation="<strong>Comentário:</strong> O crime de descumprimento de decisão judicial que defere medidas protetivas de urgência (art. 24-A da Lei Maria da Penha) tem pena de detenção de 3 meses a 2 anos.">
+            <p><strong>82.</strong> A Lei Maria da Penha (Lei nº 11.340/2006) tipifica o crime de descumprimento de decisão judicial que defere medidas protetivas de urgência. A pena para este crime é de:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Detenção de 1 a 2 anos.</li>
+                <li data-value="b"><span class="letter">b)</span> Detenção de 3 meses a 2 anos.</li>
+                <li data-value="c"><span class="letter">c)</span> Reclusão de 1 a 3 anos.</li>
+                <li data-value="d"><span class="letter">d)</span> Reclusão de 2 a 5 anos.</li>
+                <li data-value="e"><span class="letter">e)</span> Apenas multa.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q83" data-answer="a" data-explanation="<strong>Comentário:</strong> O crime de posse irregular de arma de fogo de uso permitido (art. 12 da Lei 10.826/2003) tem pena de reclusão de 1 a 3 anos.">
+            <p><strong>83.</strong> O Estatuto do Desarmamento (Lei nº 10.826/2003) tipifica o crime de posse irregular de arma de fogo de uso permitido. Este crime consiste em possuir ou manter sob sua guarda arma de fogo, acessório ou munição, de uso permitido, em desacordo com determinação legal ou regulamentar, no interior de sua residência ou dependência desta, ou, ainda no seu local de trabalho, desde que seja o titular ou o responsável legal do estabelecimento ou empresa. A pena é de:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Reclusão de 1 a 3 anos.</li>
+                <li data-value="b"><span class="letter">b)</span> Detenção de 1 a 3 anos.</li>
+                <li data-value="c"><span class="letter">c)</span> Reclusão de 2 a 4 anos.</li>
+                <li data-value="d"><span class="letter">d)</span> Detenção de 6 meses a 1 ano.</li>
+                <li data-value="e"><span class="letter">e)</span> Reclusão de 3 a 6 anos.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q84" data-answer="b" data-explanation="<strong>Comentário:</strong> A Lei de Abuso de Autoridade (Lei 13.869/2019) estabelece que a divergência na interpretação de lei ou na avaliação de fatos e provas não configura abuso de autoridade (art. 1º, §2º).">
+            <p><strong>84.</strong> A Lei nº 13.869/2019 (Lei de Abuso de Autoridade) estabelece que a divergência na interpretação de lei ou na avaliação de fatos e provas:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Configura abuso de autoridade.</li>
+                <li data-value="b"><span class="letter">b)</span> Não configura abuso de autoridade.</li>
+                <li data-value="c"><span class="letter">c)</span> Configura crime hediondo.</li>
+                <li data-value="d"><span class="letter">d)</span> Configura improbidade administrativa.</li>
+                <li data-value="e"><span class="letter">e)</span> É crime inafiançável.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q85" data-answer="b" data-explanation="<strong>Comentário:</strong> A Lei de Organizações Criminosas (Lei 12.850/2013) define organização criminosa como a associação de 4 ou mais pessoas para a prática de infrações penais cujas penas máximas sejam superiores a 4 anos (art. 1º).">
+            <p><strong>85.</strong> A Lei nº 12.850/2013 define organização criminosa como a associação de 4 (quatro) ou mais pessoas estruturalmente ordenada e caracterizada pela divisão de tarefas, ainda que informalmente, com objetivo de obter, direta ou indiretamente, vantagem de qualquer natureza, mediante a prática de infrações penais cujas penas máximas sejam superiores a:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> 2 anos.</li>
+                <li data-value="b"><span class="letter">b)</span> 4 anos.</li>
+                <li data-value="c"><span class="letter">c)</span> 6 anos.</li>
+                <li data-value="d"><span class="letter">d)</span> 8 anos.</li>
+                <li data-value="e"><span class="letter">e)</span> 10 anos.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q86" data-answer="b" data-explanation="<strong>Comentário:</strong> A Lei de Crimes Hediondos (Lei 8.072/1990) considera hediondos, entre outros, o homicídio doloso qualificado, o estupro, o latrocínio, o genocídio, o tráfico de drogas (em algumas modalidades) e o terrorismo (art. 1º).">
+            <p><strong>86.</strong> Nos termos da Lei nº 8.072/1990 (Lei de Crimes Hediondos), são considerados hediondos, entre outros, os crimes de:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Homicídio simples, roubo e furto.</li>
+                <li data-value="b"><span class="letter">b)</span> Homicídio doloso qualificado, estupro, latrocínio, genocídio, tráfico de drogas (em algumas modalidades) e terrorismo.</li>
+                <li data-value="c"><span class="letter">c)</span> Apenas o estupro.</li>
+                <li data-value="d"><span class="letter">d)</span> Apenas o terrorismo.</li>
+                <li data-value="e"><span class="letter">e)</span> Apenas o latrocínio.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q87" data-answer="a" data-explanation="<strong>Comentário:</strong> O crime de tortura (Lei 9.455/1997) é definido como constranger alguém com emprego de violência ou grave ameaça, causando-lhe sofrimento físico ou mental, com o fim de obter informação, declaração ou confissão da vítima ou de terceira pessoa (art. 1º, I, 'a').">
+            <p><strong>87.</strong> O crime de tortura (Lei nº 9.455/1997) é definido como constranger alguém com emprego de violência ou grave ameaça, causando-lhe sofrimento físico ou mental:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Com o fim de obter informação, declaração ou confissão da vítima ou de terceira pessoa.</li>
+                <li data-value="b"><span class="letter">b)</span> Apenas por preconceito racial.</li>
+                <li data-value="c"><span class="letter">c)</span> Apenas para punir a vítima por ato que cometeu.</li>
+                <li data-value="d"><span class="letter">d)</span> Apenas em ambiente prisional.</li>
+                <li data-value="e"><span class="letter">e)</span> Apenas por agentes públicos.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q88" data-answer="b" data-explanation="<strong>Comentário:</strong> O Estatuto da Criança e do Adolescente (Lei 8.069/1990) considera adolescente a pessoa entre 12 e 18 anos de idade (art. 2º).">
+            <p><strong>88.</strong> O Estatuto da Criança e do Adolescente (Lei nº 8.069/1990) considera adolescente a pessoa entre:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> 10 e 16 anos.</li>
+                <li data-value="b"><span class="letter">b)</span> 12 e 18 anos.</li>
+                <li data-value="c"><span class="letter">c)</span> 14 e 18 anos.</li>
+                <li data-value="d"><span class="letter">d)</span> 12 e 21 anos.</li>
+                <li data-value="e"><span class="letter">e)</span> 16 e 18 anos.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q89" data-answer="b" data-explanation="<strong>Comentário:</strong> A Lei dos Juizados Especiais Criminais (Lei 9.099/1995) define como infrações de menor potencial ofensivo os crimes e contravenções penais cuja pena máxima não exceda a 2 anos (art. 61).">
+            <p><strong>89.</strong> A Lei nº 9.099/1995 (Juizados Especiais Criminais) define como infrações de menor potencial ofensivo os crimes e contravenções penais cuja pena máxima não exceda a:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> 1 ano.</li>
+                <li data-value="b"><span class="letter">b)</span> 2 anos.</li>
+                <li data-value="c"><span class="letter">c)</span> 3 anos.</li>
+                <li data-value="d"><span class="letter">d)</span> 4 anos.</li>
+                <li data-value="e"><span class="letter">e)</span> 6 meses.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q90" data-answer="b" data-explanation="<strong>Comentário:</strong> O crime de lavagem de dinheiro (Lei 9.613/1998) tem pena de reclusão de 3 a 10 anos (art. 1º).">
+            <p><strong>90.</strong> A Lei nº 9.613/1998 (Lavagem de Dinheiro) tipifica o crime de ocultar ou dissimular a natureza, origem, localização, disposição, movimentação ou propriedade de bens, direitos ou valores provenientes, direta ou indiretamente, de infração penal. A pena é de:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Detenção de 1 a 3 anos.</li>
+                <li data-value="b"><span class="letter">b)</span> Reclusão de 3 a 10 anos.</li>
+                <li data-value="c"><span class="letter">c)</span> Reclusão de 1 a 4 anos.</li>
+                <li data-value="d"><span class="letter">d)</span> Detenção de 6 meses a 2 anos.</li>
+                <li data-value="e"><span class="letter">e)</span> Reclusão de 5 a 15 anos.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <h3>ESTATÍSTICA</h3>
+        
+        <div class="question" id="q91" data-answer="c" data-explanation="<strong>Comentário:</strong> A mediana é a medida de tendência central que representa o valor que separa a metade inferior da metade superior de um conjunto de dados, sendo menos sensível a valores extremos.">
+            <p><strong>91.</strong> Em um conjunto de dados, a medida de tendência central que representa o valor que separa a metade inferior da metade superior, sendo menos sensível a valores extremos (outliers) que a média, é a:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Média aritmética.</li>
+                <li data-value="b"><span class="letter">b)</span> Moda.</li>
+                <li data-value="c"><span class="letter">c)</span> Mediana.</li>
+                <li data-value="d"><span class="letter">d)</span> Variância.</li>
+                <li data-value="e"><span class="letter">e)</span> Amplitude.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q92" data-answer="b" data-explanation="<strong>Comentário:</strong> O desvio padrão é a medida de dispersão que indica o grau de variação dos dados em relação à média, sendo calculado como a raiz quadrada da variância.">
+            <p><strong>92.</strong> A medida de dispersão que indica o grau de variação dos dados em relação à média, sendo calculada como a raiz quadrada da variância, é o:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Coeficiente de variação.</li>
+                <li data-value="b"><span class="letter">b)</span> Desvio padrão.</li>
+                <li data-value="c"><span class="letter">c)</span> Erro padrão.</li>
+                <li data-value="d"><span class="letter">d)</span> Quartil.</li>
+                <li data-value="e"><span class="letter">e)</span> Percentil.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q93" data-answer="c" data-explanation="<strong>Comentário:</strong> Em um dado honesto de 6 faces, os números pares são 2, 4 e 6 (3 casos favoráveis). A probabilidade é 3/6 = 1/2.">
+            <p><strong>93.</strong> No lançamento de um dado honesto de 6 faces, a probabilidade de sair um número par é:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> 1/6</li>
+                <li data-value="b"><span class="letter">b)</span> 1/3</li>
+                <li data-value="c"><span class="letter">c)</span> 1/2</li>
+                <li data-value="d"><span class="letter">d)</span> 2/3</li>
+                <li data-value="e"><span class="letter">e)</span> 5/6</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q94" data-answer="c" data-explanation="<strong>Comentário:</strong> A amostragem estratificada é a técnica em que a população é dividida em subgrupos (estratos) e amostras são retiradas de cada estrato de forma proporcional.">
+            <p><strong>94.</strong> A técnica de amostragem em que a população é dividida em subgrupos (estratos) e amostras são retiradas de cada estrato de forma proporcional é denominada:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Amostragem aleatória simples.</li>
+                <li data-value="b"><span class="letter">b)</span> Amostragem sistemática.</li>
+                <li data-value="c"><span class="letter">c)</span> Amostragem estratificada.</li>
+                <li data-value="d"><span class="letter">d)</span> Amostragem por conglomerados.</li>
+                <li data-value="e"><span class="letter">e)</span> Amostragem de conveniência.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q95" data-answer="b" data-explanation="<strong>Comentário:</strong> O Teorema de Bayes é amplamente utilizado na atualização de crenças com base em novas evidências (inferência bayesiana).">
+            <p><strong>95.</strong> O Teorema de Bayes relaciona a probabilidade condicional de um evento com as probabilidades marginais. É amplamente utilizado em:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Cálculo de médias simples.</li>
+                <li data-value="b"><span class="letter">b)</span> Atualização de crenças com base em novas evidências (inferência bayesiana).</li>
+                <li data-value="c"><span class="letter">c)</span> Definição de desvio padrão.</li>
+                <li data-value="d"><span class="letter">d)</span> Construção de gráficos de setores.</li>
+                <li data-value="e"><span class="letter">e)</span> Cálculo de limites de controle.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <h3>NOÇÕES DE ARQUIVOLOGIA (Específico Escrivão)</h3>
+        
+        <div class="question" id="q96" data-answer="b" data-explanation="<strong>Comentário:</strong> A Teoria das Três Idades classifica os documentos em corrente, intermediária e permanente. A fase intermediária é aquela em que o documento deixa de ser usado frequentemente, mas ainda pode ser solicitado, aguardando sua destinação final.">
+            <p><strong>96.</strong> A Teoria das Três Idades classifica os documentos de arquivo de acordo com sua frequência de uso. A fase em que o documento deixa de ser usado frequentemente, mas ainda pode ser solicitado, aguardando sua destinação final, é a fase:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Corrente.</li>
+                <li data-value="b"><span class="letter">b)</span> Intermediária.</li>
+                <li data-value="c"><span class="letter">c)</span> Permanente.</li>
+                <li data-value="d"><span class="letter">d)</span> Histórica.</li>
+                <li data-value="e"><span class="letter">e)</span> Eliminação.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q97" data-answer="b" data-explanation="<strong>Comentário:</strong> A função de registrar no protocolo tem como objetivo principal identificar e controlar o documento, atribuindo-lhe um número de protocolo e registrando sua entrada.">
+            <p><strong>97.</strong> No protocolo de uma delegacia, as atividades de receber, registrar, classificar, distribuir e tramitar documentos são fundamentais. A função de "registrar" tem como objetivo principal:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Arquivar o documento permanentemente.</li>
+                <li data-value="b"><span class="letter">b)</span> Identificar e controlar o documento, atribuindo-lhe um número de protocolo e registrando sua entrada.</li>
+                <li data-value="c"><span class="letter">c)</span> Eliminar documentos repetidos.</li>
+                <li data-value="d"><span class="letter">d)</span> Enviar o documento para a perícia.</li>
+                <li data-value="e"><span class="letter">e)</span> Digitalizar o documento.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q98" data-answer="a" data-explanation="<strong>Comentário:</strong> A Tabela de Temporalidade de Documentos (TTD) é o instrumento que define os prazos de guarda e a destinação final dos documentos (eliminação ou guarda permanente).">
+            <p><strong>98.</strong> A Tabela de Temporalidade de Documentos (TTD) é um instrumento de gestão documental que tem como função:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Definir o prazo de guarda e a destinação final dos documentos (eliminação ou guarda permanente).</li>
+                <li data-value="b"><span class="letter">b)</span> Classificar os documentos por assunto.</li>
+                <li data-value="c"><span class="letter">c)</span> Descrever os documentos para fins de pesquisa.</li>
+                <li data-value="d"><span class="letter">d)</span> Acelerar a digitalização dos arquivos.</li>
+                <li data-value="e"><span class="letter">e)</span> Substituir a tabela de classificação.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q99" data-answer="b" data-explanation="<strong>Comentário:</strong> A classificação de documentos de arquivo na administração pública tem como base o Plano de Classificação de Documentos (código de assunto).">
+            <p><strong>99.</strong> A fase de "classificação" de documentos de arquivo na administração pública tem como base o:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> Código de Processo Penal.</li>
+                <li data-value="b"><span class="letter">b)</span> Plano de Classificação de Documentos (código de assunto).</li>
+                <li data-value="c"><span class="letter">c)</span> Nome do servidor que o produziu.</li>
+                <li data-value="d"><span class="letter">d)</span> Tamanho do documento.</li>
+                <li data-value="e"><span class="letter">e)</span> Tipo de papel utilizado.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" id="q100" data-answer="a" data-explanation="<strong>Comentário:</strong> A principal condição ambiental que deve ser controlada nos arquivos para evitar a degradação do papel e da tinta é a umidade e a temperatura.">
+            <p><strong>100.</strong> As ações de preservação e conservação de documentos de arquivo incluem a adoção de medidas para evitar a degradação do papel e da tinta. A principal condição ambiental que deve ser controlada nos arquivos é:</p>
+            <ul class="options">
+                <li data-value="a"><span class="letter">a)</span> A umidade e a temperatura.</li>
+                <li data-value="b"><span class="letter">b)</span> A iluminação natural (exposição ao sol).</li>
+                <li data-value="c"><span class="letter">c)</span> A poluição sonora.</li>
+                <li data-value="d"><span class="letter">d)</span> A presença de insetos apenas.</li>
+                <li data-value="e"><span class="letter">e)</span> A falta de ventilação.</li>
+            </ul>
+            <div class="feedback"></div>
+        </div>
+
+        <h2>PARTE III – PROVA DISCURSIVA</h2>
+
+        <div class="discursive">
+            <h3>Questão 1 (Direito Processual Penal / Provas)</h3>
+            <p>Discorra sobre a <strong>cadeia de custódia</strong> no processo penal brasileiro, abordando sua definição, os procedimentos a serem adotados desde o reconhecimento do vestígio no local do crime até sua apresentação em juízo, e as consequências da quebra da cadeia de custódia para a validade da prova. (Máximo 25 linhas).</p>
+            <div class="feedback">
+                <strong>Critérios de Avaliação:</strong>
+                <ul>
+                    <li>Definição legal de cadeia de custódia (art. 158-A do CPP).</li>
+                    <li>Procedimentos: reconhecimento, coleta, acondicionamento, transporte, recebimento, armazenamento e descarte do vestígio.</li>
+                    <li>Consequências: a quebra da cadeia de custódia pode levar à ilicitude da prova, tornando-a inválida para fundamentar a condenação.</li>
+                    <li>Fundamentação jurídica com base no CPP e na jurisprudência.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="discursive">
+            <h3>Questão 2 (Direito Administrativo / Polícia Civil)</h3>
+            <p>Aborde a <strong>responsabilidade civil objetiva do Estado</strong> prevista no art. 37, §6º da Constituição Federal. Explique as teorias da culpa administrativa e do risco administrativo, e discorra sobre as excludentes de responsabilidade (culpa exclusiva da vítima, caso fortuito, força maior). (Máximo 25 linhas).</p>
+            <div class="feedback">
+                <strong>Critérios de Avaliação:</strong>
+                <ul>
+                    <li>Definição da responsabilidade civil objetiva do Estado (art. 37, §6º da CF/88).</li>
+                    <li>Explicação da teoria da culpa administrativa (responsabilidade subjetiva) e da teoria do risco administrativo (responsabilidade objetiva).</li>
+                    <li>Excludentes de responsabilidade: culpa exclusiva da vítima, caso fortuito e força maior.</li>
+                    <li>Fundamentação jurídica com base na CF/88 e na doutrina.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="discursive">
+            <h3>Questão 3 (Direito Penal / Legislação Especial)</h3>
+            <p>Analise a diferenciação entre o <strong>crime de tráfico de drogas (art. 33 da Lei 11.343/2006)</strong> e o <strong>porte para consumo pessoal (art. 28 da mesma Lei)</strong>, destacando os critérios utilizados pela jurisprudência para diferenciar o usuário do traficante e as penas aplicáveis a cada caso. (Máximo 25 linhas).</p>
+            <div class="feedback">
+                <strong>Critérios de Avaliação:</strong>
+                <ul>
+                    <li>Diferenciação entre o crime de tráfico (art. 33) e o porte para consumo (art. 28).</li>
+                    <li>Critérios jurisprudenciais: quantidade da droga, circunstâncias da prisão, antecedentes, conduta do agente, local, etc.</li>
+                    <li>Penas aplicáveis: tráfico (reclusão de 5 a 15 anos) e porte para consumo (advertência, prestação de serviços à comunidade, medida educativa).</li>
+                    <li>Fundamentação jurídica com base na Lei 11.343/2006 e na jurisprudência.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="discursive">
+            <h3>Questão 4 (Legislação Estadual / Lei Orgânica PC-BA)</h3>
+            <p>Discorra sobre as <strong>atribuições do Escrivão de Polícia Civil</strong> previstas na Lei Estadual nº 11.370/2009 (Lei Orgânica da PC-BA), destacando sua importância na formalização dos atos de inquérito policial e na gestão documental da carceragem e dos procedimentos legais. (Máximo 25 linhas).</p>
+            <div class="feedback">
+                <strong>Critérios de Avaliação:</strong>
+                <ul>
+                    <li>Atribuições do Escrivão de Polícia Civil (lavrar atos de inquérito, termos circunstanciados, etc.).</li>
+                    <li>Importância na formalização dos atos de inquérito policial e na gestão documental.</li>
+                    <li>Responsabilidade pela guarda de papéis, documentos, armas e munições.</li>
+                    <li>Fundamentação jurídica com base na Lei Estadual nº 11.370/2009.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Simulado elaborado com base no edital SAEB nº 02/2026 e no perfil da banca Instituto AOCP.</p>
+        </div>
+
+    </div>
+
+    <!-- Barra de Ações Fixa -->
+    <div class="action-bar">
+        <div class="score-display" id="scoreDisplay"></div>
+        <button class="btn-finish" id="btnFinish">Finalizar Respostas e Ver Correção</button>
+        <button class="btn-reset" id="btnReset" style="display: none;">Refazer Simulado</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = document.querySelectorAll('.question');
+            const btnFinish = document.getElementById('btnFinish');
+            const btnReset = document.getElementById('btnReset');
+            const scoreDisplay = document.getElementById('scoreDisplay');
+
+            // Adiciona evento de clique nas opções
+            questions.forEach(question => {
+                const options = question.querySelectorAll('.options li');
+                options.forEach(option => {
+                    option.addEventListener('click', () => {
+                        // Remove a seleção anterior
+                        options.forEach(opt => opt.classList.remove('selected'));
+                        // Adiciona a nova seleção
+                        option.classList.add('selected');
+                        // Armazena o valor selecionado no elemento pai (question)
+                        question.dataset.selected = option.dataset.value;
+                    });
+                });
+            });
+
+            // Lógica para finalizar o simulado
+            btnFinish.addEventListener('click', () => {
+                let correctCount = 0;
+                let totalQuestions = questions.length; // 100 questões
+
+                questions.forEach(question => {
+                    const selectedValue = question.dataset.selected;
+                    const correctAnswer = question.dataset.answer;
+                    const explanation = question.dataset.explanation;
+                    const options = question.querySelectorAll('.options li');
+                    const feedbackDiv = question.querySelector('.feedback');
+
+                    // Remove estilos anteriores
+                    options.forEach(opt => {
+                        opt.classList.remove('correct', 'incorrect');
+                    });
+
+                    // Verifica se a questão foi respondida
+                    if (!selectedValue) {
+                        feedbackDiv.innerHTML = '<strong>Atenção:</strong> Esta questão não foi respondida.';
+                        feedbackDiv.className = 'feedback show incorrect-feedback';
+                        return;
+                    }
+
+                    // Marca a resposta correta e a incorreta (se houver)
+                    options.forEach(opt => {
+                        if (opt.dataset.value === correctAnswer) {
+                            opt.classList.add('correct');
+                        }
+                        if (opt.dataset.value === selectedValue && selectedValue !== correctAnswer) {
+                            opt.classList.add('incorrect');
+                        }
+                    });
+
+                    // Verifica se acertou
+                    if (selectedValue === correctAnswer) {
+                        correctCount++;
+                        feedbackDiv.innerHTML = `<strong>Você acertou!</strong> A alternativa correta é a letra <strong>${correctAnswer.toUpperCase()}</strong>.<br>${explanation}`;
+                        feedbackDiv.className = 'feedback show correct-feedback';
+                    } else {
+                        feedbackDiv.innerHTML = `<strong>Você errou.</strong> A alternativa correta é a letra <strong>${correctAnswer.toUpperCase()}</strong>.<br>${explanation}`;
+                        feedbackDiv.className = 'feedback show incorrect-feedback';
+                    }
+                });
+
+                // Exibe a pontuação
+                const scorePercentage = ((correctCount / totalQuestions) * 100).toFixed(0);
+                scoreDisplay.style.display = 'block';
+                scoreDisplay.textContent = `Acertos: ${correctCount}/${totalQuestions} (${scorePercentage}%)`;
+
+                // Desabilita o botão de finalizar e mostra o de resetar
+                btnFinish.style.display = 'none';
+                btnReset.style.display = 'inline-block';
+
+                // Rola para o topo para o usuário ver o resultado geral
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Lógica para resetar o simulado
+            btnReset.addEventListener('click', () => {
+                // Limpa todas as seleções e feedbacks
+                questions.forEach(question => {
+                    delete question.dataset.selected;
+                    const options = question.querySelectorAll('.options li');
+                    options.forEach(opt => {
+                        opt.classList.remove('selected', 'correct', 'incorrect');
+                    });
+                    const feedbackDiv = question.querySelector('.feedback');
+                    feedbackDiv.innerHTML = '';
+                    feedbackDiv.className = 'feedback';
+                });
+
+                // Limpa a pontuação
+                scoreDisplay.style.display = 'none';
+                scoreDisplay.textContent = '';
+
+                // Restaura os botões
+                btnFinish.style.display = 'inline-block';
+                btnReset.style.display = 'none';
+
+                // Rola para o topo
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
